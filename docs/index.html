@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Ciencia de Redes</title>
+  <meta name="description" content="Curso de la Licenciatura en Matemáticas para el Desarrollo de la ENES Campus Juriquilla, Semestre 2026-2" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Ciencia de Redes" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Curso de la Licenciatura en Matemáticas para el Desarrollo de la ENES Campus Juriquilla, Semestre 2026-2" />
+  <meta name="github-repo" content="github.com/CursosENESJuriquilla/Ciencia_de_Redes" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Ciencia de Redes" />
+  
+  <meta name="twitter:description" content="Curso de la Licenciatura en Matemáticas para el Desarrollo de la ENES Campus Juriquilla, Semestre 2026-2" />
+  
+
+<meta name="author" content="Haydeé Peruyero" />
+
+
+<meta name="date" content="2026-01-30" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="fundamentos-de-teoría-de-redes.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Ciencia_de_Redes</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Ciencia de Redes</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#temario"><i class="fa fa-check"></i><b>1.1</b> Temario</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#referencias"><i class="fa fa-check"></i><b>1.2</b> Referencias</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#material-interesante"><i class="fa fa-check"></i><b>1.3</b> Material interesante</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#datacamp"><i class="fa fa-check"></i><b>1.4</b> DataCamp</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="index.html"><a href="#fundamentos-de-teor%C3%ADa-de-redes"><i class="fa fa-check"></i><b>2</b> Fundamentos de Teoría de Redes</a></li>
+<li class="chapter" data-level="3" data-path="index.html"><a href="#ap%C3%A9ndice-introducci%C3%B3n-a-python"><i class="fa fa-check"></i><b>3</b> Apéndice: Introducción a Python</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="index.html"><a href="#breve-introducci%C3%B3n-a-los-lenguajes-de-programaci%C3%B3n."><i class="fa fa-check"></i><b>3.1</b> Breve introducción a los lenguajes de programación.</a></li>
+<li class="chapter" data-level="3.2" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html"><i class="fa fa-check"></i><b>3.2</b> Entornos interactivos</a></li>
+<li class="chapter" data-level="3.3" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#palabras-reservadas-de-python."><i class="fa fa-check"></i><b>3.3</b> Palabras reservadas de Python.</a></li>
+<li class="chapter" data-level="3.4" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#sintaxis-de-nombres-en-python"><i class="fa fa-check"></i><b>3.4</b> Sintaxis de nombres en Python</a></li>
+<li class="chapter" data-level="3.5" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#tipos-de-datos"><i class="fa fa-check"></i><b>3.5</b> Tipos de datos</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="index.html"><a href="#n%C3%BAmeros"><i class="fa fa-check"></i><b>3.5.1</b> Números</a></li>
+<li class="chapter" data-level="3.5.2" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#cadenas-de-caracteres"><i class="fa fa-check"></i><b>3.5.2</b> Cadenas de Caracteres</a></li>
+<li class="chapter" data-level="3.5.3" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#listas"><i class="fa fa-check"></i><b>3.5.3</b> Listas</a></li>
+<li class="chapter" data-level="3.5.4" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#tuplas"><i class="fa fa-check"></i><b>3.5.4</b> Tuplas</a></li>
+<li class="chapter" data-level="3.5.5" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#conjuntos"><i class="fa fa-check"></i><b>3.5.5</b> Conjuntos</a></li>
+<li class="chapter" data-level="3.5.6" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#diccionarios"><i class="fa fa-check"></i><b>3.5.6</b> Diccionarios</a></li>
+<li class="chapter" data-level="3.5.7" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#ejercicios"><i class="fa fa-check"></i><b>3.5.7</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#flujo-de-control"><i class="fa fa-check"></i><b>3.6</b> Flujo de control</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#estructuras-de-control-condicionales"><i class="fa fa-check"></i><b>3.6.1</b> Estructuras de Control Condicionales</a></li>
+<li class="chapter" data-level="3.6.2" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#estructuras-de-control-de-bucles"><i class="fa fa-check"></i><b>3.6.2</b> Estructuras de Control de Bucles</a></li>
+<li class="chapter" data-level="3.6.3" data-path="index.html"><a href="#estructuras-de-control-de-interrupci%C3%B3n"><i class="fa fa-check"></i><b>3.6.3</b> Estructuras de Control de Interrupción</a></li>
+<li class="chapter" data-level="3.6.4" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#expresiones-condicionales"><i class="fa fa-check"></i><b>3.6.4</b> Expresiones condicionales</a></li>
+<li class="chapter" data-level="3.6.5" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#iteraciones-sobre-secuencias"><i class="fa fa-check"></i><b>3.6.5</b> Iteraciones sobre secuencias</a></li>
+<li class="chapter" data-level="3.6.6" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#iteraciones-sobre-diccionarios"><i class="fa fa-check"></i><b>3.6.6</b> Iteraciones sobre diccionarios</a></li>
+<li class="chapter" data-level="3.6.7" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#compresiones-de-listas"><i class="fa fa-check"></i><b>3.6.7</b> Compresiones de listas</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#numpy"><i class="fa fa-check"></i><b>3.7</b> Numpy</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="index.html"><a href="#operaciones-b%C3%A1sicas-con-numpy"><i class="fa fa-check"></i><b>3.7.1</b> Operaciones Básicas con NumPy</a></li>
+<li class="chapter" data-level="3.7.2" data-path="index.html"><a href="#indexaci%C3%B3n-y-rebanado"><i class="fa fa-check"></i><b>3.7.2</b> Indexación y Rebanado</a></li>
+<li class="chapter" data-level="3.7.3" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#vistas-y-copias"><i class="fa fa-check"></i><b>3.7.3</b> Vistas y copias</a></li>
+<li class="chapter" data-level="3.7.4" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#ordenamiento"><i class="fa fa-check"></i><b>3.7.4</b> Ordenamiento</a></li>
+<li class="chapter" data-level="3.7.5" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#broadcasting"><i class="fa fa-check"></i><b>3.7.5</b> Broadcasting</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="index.html"><a href="#visualizaci%C3%B3n-de-datos"><i class="fa fa-check"></i><b>3.8</b> Visualización de datos</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#bases-de-un-plot"><i class="fa fa-check"></i><b>3.8.1</b> Bases de un plot</a></li>
+<li class="chapter" data-level="3.8.2" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#tipos-de-plots"><i class="fa fa-check"></i><b>3.8.2</b> Tipos de plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#data-frames-con-pandas"><i class="fa fa-check"></i><b>3.9</b> Data frames con pandas</a>
+<ul>
+<li class="chapter" data-level="3.9.1" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#funciones-para-manipular-dataframes"><i class="fa fa-check"></i><b>3.9.1</b> Funciones para manipular dataframes</a></li>
+<li class="chapter" data-level="3.9.2" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#pivot-y-pivot_table"><i class="fa fa-check"></i><b>3.9.2</b> <code>pivot</code> y <code>pivot_table</code></a></li>
+<li class="chapter" data-level="3.9.3" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#plots-en-pandas"><i class="fa fa-check"></i><b>3.9.3</b> Plots en pandas</a></li>
+</ul></li>
+<li class="chapter" data-level="3.10" data-path="index.html"><a href="#an%C3%A1lisis-exploratorio-de-bases-de-datos"><i class="fa fa-check"></i><b>3.10</b> Análisis exploratorio de bases de datos</a></li>
+<li class="chapter" data-level="3.11" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#funciones-y-scripts"><i class="fa fa-check"></i><b>3.11</b> Funciones y scripts</a>
+<ul>
+<li class="chapter" data-level="3.11.1" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#funciones"><i class="fa fa-check"></i><b>3.11.1</b> Funciones</a></li>
+<li class="chapter" data-level="3.11.2" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#scripts"><i class="fa fa-check"></i><b>3.11.2</b> Scripts</a></li>
+<li class="chapter" data-level="3.11.3" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#test"><i class="fa fa-check"></i><b>3.11.3</b> Test</a></li>
+</ul></li>
+<li class="chapter" data-level="3.12" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#buenas-practicas"><i class="fa fa-check"></i><b>3.12</b> Buenas practicas</a></li>
+<li class="chapter" data-level="3.13" data-path="apéndice-introducción-a-python.html"><a href="apéndice-introducción-a-python.html#procesamiento-de-alto-rendimiento"><i class="fa fa-check"></i><b>3.13</b> Procesamiento de alto rendimiento</a></li>
+<li class="chapter" data-level="3.14" data-path="index.html"><a href="#programaci%C3%B3n-en-paralelo"><i class="fa fa-check"></i><b>3.14</b> Programación en paralelo</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/CursosENESJuriquilla/Ciencia_de_Redes/" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Ciencia de Redes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Ciencia de Redes</h1>
+<p class="author"><em>Haydeé Peruyero</em></p>
+<p class="date"><em>2026-01-30</em></p>
+</div>
+<div id="ciencia-de-redes" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Sección 1</span> Ciencia de Redes<a href="index.html#ciencia-de-redes" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Curso de la Licenciatura en Matemáticas para el Desarrollo de la ENES Campus Juriquilla, Semestre 2026-2</p>
+<div id="temario" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Temario<a href="index.html#temario" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li><p>Introducción al estudio de Redes Complejas</p></li>
+<li><p>Fundamentos de Teoría de Redes</p></li>
+<li><p>Redes Aleatorias</p></li>
+<li><p>Aplicaciones</p></li>
+</ol>
+<p>A1. Introducción a Python</p>
+</div>
+<div id="referencias" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Referencias<a href="index.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>[1] Newman, Mark. Networks. 2nd edition. Oxford university press, 2018.</p>
+<p>[2] Barabási, Albert László. Network science. 1st edition. Cambridge university press, 2016.</p>
+<p>[3] Porter, Mason A., and James P. Gleeson. Dynamical systems on networks. 1st edition. Frontiers
+in Applied Dynamical Systems: Reviews and Tutorials, 2016.</p>
+<p>[4] Caldarelli Guido, and Michele Catanzaro. Networks: A very short introduction. 1st edition. Oxford
+University Press.</p>
+</div>
+<div id="material-interesante" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Material interesante<a href="index.html#material-interesante" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><a href="https://swcarpentry.github.io/git-novice/14-supplemental-rstudio/">Git</a></li>
+</ul>
+</div>
+<div id="datacamp" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> DataCamp<a href="index.html#datacamp" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="float">
+<img src="img/regular.png" alt="DataCamp" />
+<div class="figcaption">DataCamp</div>
+</div>
+<hr />
+<p>Profesora: <a href="https://haydeeperuyero.github.io/">Haydeé Peruyero</a></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="fundamentos-de-teoría-de-redes.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/CursosENESJuriquilla/Ciencia_de_Redes/edit/main/index.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["Ciencia_de_Redes.pdf", "Ciencia_de_Redes.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+bookdown::gitbook:
+  css: style.css
+  config:
+    toc:
+      before: |
+        <li><a href="./">Ciencia_de_Redes</a></li>
+      after: |
+        <li><a href="https://github.com/CursosENESJuriquilla/Ciencia_de_Redes/" target="blank">Published with bookdown</a></li>
+    edit: https://github.com/CursosENESJuriquilla/Ciencia_de_Redes/edit/main/%s
+    download: ["pdf", "epub"]
+bookdown::pdf_book:
+  includes:
+    in_header: preamble.tex
+  latex_engine: xelatex
+  citation_package: natbib
+  keep_tex: yes
+bookdown::epub_book: default
+bookdown::bs4_book: default

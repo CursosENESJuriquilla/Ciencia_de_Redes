@@ -1,0 +1,8 @@
+book_filename: "Ciencia_de_Redes"
+language:
+  ui:
+    chapter_name: "Sección "
+delete_merged_file: true
+edit: https://github.com/CursosENESJuriquilla/Ciencia_de_Redes/edit/main/%s
+output_dir: "docs"
+always_allow_html: true

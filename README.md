@@ -1,0 +1,34 @@
+# Ciencia de Redes
+
+Curso de la Licenciatura en Matemáticas para el Desarrollo de la ENES Campus Juriquilla, Semestre 2026-2
+
+
+
+## Temario
+
+1. Introducción al estudio de Redes Complejas
+
+2. Fundamentos de Teoría de Redes
+
+3. Redes Aleatorias
+
+4. Aplicaciones
+
+A1. Introducción a Python
+
+## Referencias
+
+[1] Newman, Mark. Networks. 2nd edition. Oxford university press, 2018.
+
+[2] Barabási, Albert László. Network science. 1st edition. Cambridge university press, 2016.
+
+[3] Porter, Mason A., and James P. Gleeson. Dynamical systems on networks. 1st edition. Frontiers
+in Applied Dynamical Systems: Reviews and Tutorials, 2016.
+
+[4] Caldarelli Guido, and Michele Catanzaro. Networks: A very short introduction. 1st edition. Oxford
+University Press.
+
+
+-------------------
+
+Profesora: [Haydeé Peruyero](https://haydeeperuyero.github.io/)
