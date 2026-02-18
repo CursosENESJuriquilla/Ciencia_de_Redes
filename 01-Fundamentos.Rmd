@@ -9,3 +9,147 @@ workingDir <-  "."
 setwd(workingDir)
 ```
 
+Primero, tenemos que importar algunas de las librerías básicas. 
+
+- `networkx` es la librería básica de redes en Python.
+- `pandas` y `numpy` son básicas para manipulación de bases de datos y arreglos.
+- `matplotlib.pyplot` es la básica para hacer plots.
+
+```{python}
+import pandas as pd
+import numpy as np
+import networkx as nx
+import matplotlib.pyplot as plt
+```
+
+Una de las formas de definir una gráfica en `Python` es crear primero un `objeto` gráfica y después ir agregando los vértices y aristas. Al crear el objeto, se generará una gráfica vacía.
+
+```{python}
+G = nx.Graph()
+```
+
+Podemos agregar nodos de uno en uno, por medio de una lista y las aristas es similar, podemos especificar entre que nodos están.
+
+```{python}
+# Un solo nodo
+G.add_node(1)
+
+# Dos nodos como lista
+G.add_nodes_from([2,3])
+
+# Arista entre nodo 1 y 2
+G.add_edge(1, 2)
+
+# Arista entre nodo 2 y 3
+e = (2,3)
+G.add_edge(*e)
+```
+
+
+Algo que queremos hacer, es poder visualizar estas gráficas.
+
+```{python}
+nx.draw(G, pos=nx.circular_layout(G), node_color='r', edge_color='b', with_labels=True)
+```
+
+
+Vamos a crear otras gráficas.
+
+```{python}
+MyGraph = nx.Graph()
+MyGraph.add_edge('Antonio', 'Valentina')
+MyGraph.add_edge('Antonio', 'Claudia')
+MyGraph.add_edge('Claudia','Valentina')
+print(MyGraph) # Imprimir información de la gráfica
+print('Número de vértices', len(MyGraph.nodes))
+print('Número de aristas', len(MyGraph.edges))
+nx.draw_networkx(MyGraph, font_size=7)
+```
+
+Existen varios atributos que podemos usar para dibujar la red. Por ejemplo:`nx.draw_circular, nx.draw_planar, nx.draw_random, nx.draw_spectral, nx.draw_spring, nx.draw_shell`.
+
+```{python}
+nx.draw_planar(MyGraph, with_labels = True, font_size=10, node_color='red', edge_color='blue')
+```
+
+Vamos a construir una red simétrica. Los pesos pueden añadir intensidad de la relación en los nodos, cada arista tendrá un peso. Para gráficas dirigidas se usa `nx.DiGraph()`.
+
+```{python}
+DG = nx.DiGraph()
+
+# Agregamos nodos y aristas
+DG.add_nodes_from(["A", "B", "C"])
+DG.add_edges_from([("A", "B"), ("B", "C")])
+
+# Dibujamos la gráfica
+nx.draw_networkx(DG, font_size=7)
+```
+
+
+Y podemos crear una gráfica con pesos como sigue.
+
+```{python}
+WG = nx.Graph()
+
+# Agregamos nodos y aristas
+WG.add_edge("A", "B", weight=3)
+WG.add_edge("B", "C", weight=2)
+WG.add_edge("C", "A", weight=1)
+
+# Dibujamos la gráfica
+nx.draw_networkx(WG, font_size=7)
+```
+
+Sin embargo, si queremos que salga el peso, hay que modificar la forma de dibujarla.
+
+```{python}
+WG2 = nx.Graph()
+WG2.add_node("A", pos=(1,1))
+WG2.add_node("B", pos=(2,2))
+WG2.add_node("C", pos=(1,0))
+
+WG2.add_edge("A","B",weight=0.5)
+WG2.add_edge("A","C",weight=9.8)
+pos=nx.get_node_attributes(WG2,'pos')
+nx.draw(WG2,pos)
+labels = nx.get_edge_attributes(WG2,'weight')
+nx.draw_networkx_edge_labels(WG2,pos,edge_labels=labels)
+```
+
+
+Si tenemos ya una base de datos, vista como un data frame, podemos construir su gráfica también tomando la información de esta.
+
+```{python}
+df = pd.DataFrame({ 'from':['A', 'B', 'C','A'], 'to':['D', 'A', 'E','C']})
+G=nx.from_pandas_edgelist(df, 'from', 'to')
+nx.draw(G, with_labels=True)
+```
+
+
+### Matriz de Adyacencia
+
+Las gráficas en `networkx`, las podemos crear también a partir de su matriz de adyacencia.
+
+Supongamos que tenemos la siguiente matriz de adyacencia de una gráfica.
+
+```{python}
+adjacency_matrix = np.array([[0, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 0], [1, 1, 0, 0]])
+print(adjacency_matrix)
+```
+
+Vamos a usar esta matriz para crear la gráfica.
+
+```{python}
+G = nx.Graph(adjacency_matrix, nodetype=int)
+print(G.edges())
+nx.draw(G, with_labels=True)
+```
+
+Y esta misma matriz, la podríamos usar para generar la red dirigida.
+
+```{python}
+G = nx.DiGraph(adjacency_matrix, nodetype=int)
+print(G.edges())
+nx.draw(G, with_labels=True)
+```
+

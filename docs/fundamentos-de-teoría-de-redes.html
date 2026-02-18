@@ -23,7 +23,7 @@
 <meta name="author" content="Haydeé Peruyero" />
 
 
-<meta name="date" content="2026-01-30" />
+<meta name="date" content="2026-02-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -148,7 +148,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#material-interesante"><i class="fa fa-check"></i><b>1.3</b> Material interesante</a></li>
 <li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#datacamp"><i class="fa fa-check"></i><b>1.4</b> DataCamp</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="01-Fundamentos.html"><a href="#fundamentos-de-teor%C3%ADa-de-redes"><i class="fa fa-check"></i><b>2</b> Fundamentos de Teoría de Redes</a></li>
+<li class="chapter" data-level="2" data-path="01-Fundamentos.html"><a href="#fundamentos-de-teor%C3%ADa-de-redes"><i class="fa fa-check"></i><b>2</b> Fundamentos de Teoría de Redes</a>
+<ul>
+<li class="chapter" data-level="2.0.1" data-path="fundamentos-de-teoría-de-redes.html"><a href="fundamentos-de-teoría-de-redes.html"><i class="fa fa-check"></i><b>2.0.1</b> Matriz de Adyacencia</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="01-Fundamentos.html"><a href="#ap%C3%A9ndice-introducci%C3%B3n-a-python"><i class="fa fa-check"></i><b>3</b> Apéndice: Introducción a Python</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="01-Fundamentos.html"><a href="#breve-introducci%C3%B3n-a-los-lenguajes-de-programaci%C3%B3n."><i class="fa fa-check"></i><b>3.1</b> Breve introducción a los lenguajes de programación.</a></li>
@@ -227,7 +230,114 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="fundamentos-de-teoría-de-redes" class="section level1 hasAnchor" number="2">
 <h1><span class="header-section-number">Sección 2</span> Fundamentos de Teoría de Redes<a href="#fundamentos-de-teor%C3%ADa-de-redes" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Primero, tenemos que importar algunas de las librerías básicas.</p>
+<ul>
+<li><code>networkx</code> es la librería básica de redes en Python.</li>
+<li><code>pandas</code> y <code>numpy</code> son básicas para manipulación de bases de datos y arreglos.</li>
+<li><code>matplotlib.pyplot</code> es la básica para hacer plots.</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="fundamentos-de-teoría-de-redes.html#cb1-1" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="fundamentos-de-teoría-de-redes.html#cb1-2" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="fundamentos-de-teoría-de-redes.html#cb1-3" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb1-4"><a href="fundamentos-de-teoría-de-redes.html#cb1-4" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div>
+<p>Una de las formas de definir una gráfica en <code>Python</code> es crear primero un <code>objeto</code> gráfica y después ir agregando los vértices y aristas. Al crear el objeto, se generará una gráfica vacía.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="fundamentos-de-teoría-de-redes.html#cb2-1" tabindex="-1"></a>G <span class="op">=</span> nx.Graph()</span></code></pre></div>
+<p>Podemos agregar nodos de uno en uno, por medio de una lista y las aristas es similar, podemos especificar entre que nodos están.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="fundamentos-de-teoría-de-redes.html#cb3-1" tabindex="-1"></a><span class="co"># Un solo nodo</span></span>
+<span id="cb3-2"><a href="fundamentos-de-teoría-de-redes.html#cb3-2" tabindex="-1"></a>G.add_node(<span class="dv">1</span>)</span>
+<span id="cb3-3"><a href="fundamentos-de-teoría-de-redes.html#cb3-3" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="fundamentos-de-teoría-de-redes.html#cb3-4" tabindex="-1"></a><span class="co"># Dos nodos como lista</span></span>
+<span id="cb3-5"><a href="fundamentos-de-teoría-de-redes.html#cb3-5" tabindex="-1"></a>G.add_nodes_from([<span class="dv">2</span>,<span class="dv">3</span>])</span>
+<span id="cb3-6"><a href="fundamentos-de-teoría-de-redes.html#cb3-6" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="fundamentos-de-teoría-de-redes.html#cb3-7" tabindex="-1"></a><span class="co"># Arista entre nodo 1 y 2</span></span>
+<span id="cb3-8"><a href="fundamentos-de-teoría-de-redes.html#cb3-8" tabindex="-1"></a>G.add_edge(<span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb3-9"><a href="fundamentos-de-teoría-de-redes.html#cb3-9" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="fundamentos-de-teoría-de-redes.html#cb3-10" tabindex="-1"></a><span class="co"># Arista entre nodo 2 y 3</span></span>
+<span id="cb3-11"><a href="fundamentos-de-teoría-de-redes.html#cb3-11" tabindex="-1"></a>e <span class="op">=</span> (<span class="dv">2</span>,<span class="dv">3</span>)</span>
+<span id="cb3-12"><a href="fundamentos-de-teoría-de-redes.html#cb3-12" tabindex="-1"></a>G.add_edge(<span class="op">*</span>e)</span></code></pre></div>
+<p>Algo que queremos hacer, es poder visualizar estas gráficas.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="fundamentos-de-teoría-de-redes.html#cb4-1" tabindex="-1"></a>nx.draw(G, pos<span class="op">=</span>nx.circular_layout(G), node_color<span class="op">=</span><span class="st">&#39;r&#39;</span>, edge_color<span class="op">=</span><span class="st">&#39;b&#39;</span>, with_labels<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>Vamos a crear otras gráficas.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="fundamentos-de-teoría-de-redes.html#cb5-1" tabindex="-1"></a>MyGraph <span class="op">=</span> nx.Graph()</span>
+<span id="cb5-2"><a href="fundamentos-de-teoría-de-redes.html#cb5-2" tabindex="-1"></a>MyGraph.add_edge(<span class="st">&#39;Antonio&#39;</span>, <span class="st">&#39;Valentina&#39;</span>)</span>
+<span id="cb5-3"><a href="fundamentos-de-teoría-de-redes.html#cb5-3" tabindex="-1"></a>MyGraph.add_edge(<span class="st">&#39;Antonio&#39;</span>, <span class="st">&#39;Claudia&#39;</span>)</span>
+<span id="cb5-4"><a href="fundamentos-de-teoría-de-redes.html#cb5-4" tabindex="-1"></a>MyGraph.add_edge(<span class="st">&#39;Claudia&#39;</span>,<span class="st">&#39;Valentina&#39;</span>)</span>
+<span id="cb5-5"><a href="fundamentos-de-teoría-de-redes.html#cb5-5" tabindex="-1"></a><span class="bu">print</span>(MyGraph) <span class="co"># Imprimir información de la gráfica</span></span></code></pre></div>
+<pre><code>## Graph with 3 nodes and 3 edges</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="fundamentos-de-teoría-de-redes.html#cb7-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;Número de vértices&#39;</span>, <span class="bu">len</span>(MyGraph.nodes))</span></code></pre></div>
+<pre><code>## Número de vértices 3</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="fundamentos-de-teoría-de-redes.html#cb9-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;Número de aristas&#39;</span>, <span class="bu">len</span>(MyGraph.edges))</span></code></pre></div>
+<pre><code>## Número de aristas 3</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="fundamentos-de-teoría-de-redes.html#cb11-1" tabindex="-1"></a>nx.draw_networkx(MyGraph, font_size<span class="op">=</span><span class="dv">7</span>)</span></code></pre></div>
+<p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-6-3.png" width="672" /></p>
+<p>Existen varios atributos que podemos usar para dibujar la red. Por ejemplo:<code>nx.draw_circular, nx.draw_planar, nx.draw_random, nx.draw_spectral, nx.draw_spring, nx.draw_shell</code>.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="fundamentos-de-teoría-de-redes.html#cb12-1" tabindex="-1"></a>nx.draw_planar(MyGraph, with_labels <span class="op">=</span> <span class="va">True</span>, font_size<span class="op">=</span><span class="dv">10</span>, node_color<span class="op">=</span><span class="st">&#39;red&#39;</span>, edge_color<span class="op">=</span><span class="st">&#39;blue&#39;</span>)</span></code></pre></div>
+<p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-7-5.png" width="672" /></p>
+<p>Vamos a construir una red simétrica. Los pesos pueden añadir intensidad de la relación en los nodos, cada arista tendrá un peso. Para gráficas dirigidas se usa <code>nx.DiGraph()</code>.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="fundamentos-de-teoría-de-redes.html#cb13-1" tabindex="-1"></a>DG <span class="op">=</span> nx.DiGraph()</span>
+<span id="cb13-2"><a href="fundamentos-de-teoría-de-redes.html#cb13-2" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="fundamentos-de-teoría-de-redes.html#cb13-3" tabindex="-1"></a><span class="co"># Agregamos nodos y aristas</span></span>
+<span id="cb13-4"><a href="fundamentos-de-teoría-de-redes.html#cb13-4" tabindex="-1"></a>DG.add_nodes_from([<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>])</span>
+<span id="cb13-5"><a href="fundamentos-de-teoría-de-redes.html#cb13-5" tabindex="-1"></a>DG.add_edges_from([(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), (<span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>)])</span>
+<span id="cb13-6"><a href="fundamentos-de-teoría-de-redes.html#cb13-6" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="fundamentos-de-teoría-de-redes.html#cb13-7" tabindex="-1"></a><span class="co"># Dibujamos la gráfica</span></span>
+<span id="cb13-8"><a href="fundamentos-de-teoría-de-redes.html#cb13-8" tabindex="-1"></a>nx.draw_networkx(DG, font_size<span class="op">=</span><span class="dv">7</span>)</span></code></pre></div>
+<p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-8-7.png" width="672" /></p>
+<p>Y podemos crear una gráfica con pesos como sigue.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="fundamentos-de-teoría-de-redes.html#cb14-1" tabindex="-1"></a>WG <span class="op">=</span> nx.Graph()</span>
+<span id="cb14-2"><a href="fundamentos-de-teoría-de-redes.html#cb14-2" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="fundamentos-de-teoría-de-redes.html#cb14-3" tabindex="-1"></a><span class="co"># Agregamos nodos y aristas</span></span>
+<span id="cb14-4"><a href="fundamentos-de-teoría-de-redes.html#cb14-4" tabindex="-1"></a>WG.add_edge(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, weight<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb14-5"><a href="fundamentos-de-teoría-de-redes.html#cb14-5" tabindex="-1"></a>WG.add_edge(<span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>, weight<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb14-6"><a href="fundamentos-de-teoría-de-redes.html#cb14-6" tabindex="-1"></a>WG.add_edge(<span class="st">&quot;C&quot;</span>, <span class="st">&quot;A&quot;</span>, weight<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb14-7"><a href="fundamentos-de-teoría-de-redes.html#cb14-7" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="fundamentos-de-teoría-de-redes.html#cb14-8" tabindex="-1"></a><span class="co"># Dibujamos la gráfica</span></span>
+<span id="cb14-9"><a href="fundamentos-de-teoría-de-redes.html#cb14-9" tabindex="-1"></a>nx.draw_networkx(WG, font_size<span class="op">=</span><span class="dv">7</span>)</span></code></pre></div>
+<p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-9-9.png" width="672" /></p>
+<p>Sin embargo, si queremos que salga el peso, hay que modificar la forma de dibujarla.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="fundamentos-de-teoría-de-redes.html#cb15-1" tabindex="-1"></a>WG2 <span class="op">=</span> nx.Graph()</span>
+<span id="cb15-2"><a href="fundamentos-de-teoría-de-redes.html#cb15-2" tabindex="-1"></a>WG2.add_node(<span class="st">&quot;A&quot;</span>, pos<span class="op">=</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb15-3"><a href="fundamentos-de-teoría-de-redes.html#cb15-3" tabindex="-1"></a>WG2.add_node(<span class="st">&quot;B&quot;</span>, pos<span class="op">=</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb15-4"><a href="fundamentos-de-teoría-de-redes.html#cb15-4" tabindex="-1"></a>WG2.add_node(<span class="st">&quot;C&quot;</span>, pos<span class="op">=</span>(<span class="dv">1</span>,<span class="dv">0</span>))</span>
+<span id="cb15-5"><a href="fundamentos-de-teoría-de-redes.html#cb15-5" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="fundamentos-de-teoría-de-redes.html#cb15-6" tabindex="-1"></a>WG2.add_edge(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,weight<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb15-7"><a href="fundamentos-de-teoría-de-redes.html#cb15-7" tabindex="-1"></a>WG2.add_edge(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;C&quot;</span>,weight<span class="op">=</span><span class="fl">9.8</span>)</span>
+<span id="cb15-8"><a href="fundamentos-de-teoría-de-redes.html#cb15-8" tabindex="-1"></a>pos<span class="op">=</span>nx.get_node_attributes(WG2,<span class="st">&#39;pos&#39;</span>)</span>
+<span id="cb15-9"><a href="fundamentos-de-teoría-de-redes.html#cb15-9" tabindex="-1"></a>nx.draw(WG2,pos)</span>
+<span id="cb15-10"><a href="fundamentos-de-teoría-de-redes.html#cb15-10" tabindex="-1"></a>labels <span class="op">=</span> nx.get_edge_attributes(WG2,<span class="st">&#39;weight&#39;</span>)</span>
+<span id="cb15-11"><a href="fundamentos-de-teoría-de-redes.html#cb15-11" tabindex="-1"></a>nx.draw_networkx_edge_labels(WG2,pos,edge_labels<span class="op">=</span>labels)</span></code></pre></div>
+<pre><code>## {(&#39;A&#39;, &#39;B&#39;): Text(1.499993978679413, 1.499993978679413, &#39;0.5&#39;), (&#39;A&#39;, &#39;C&#39;): Text(1.0, 0.49999868113081897, &#39;9.8&#39;)}</code></pre>
+<p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-10-11.png" width="672" /></p>
+<p>Si tenemos ya una base de datos, vista como un data frame, podemos construir su gráfica también tomando la información de esta.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="fundamentos-de-teoría-de-redes.html#cb17-1" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({ <span class="st">&#39;from&#39;</span>:[<span class="st">&#39;A&#39;</span>, <span class="st">&#39;B&#39;</span>, <span class="st">&#39;C&#39;</span>,<span class="st">&#39;A&#39;</span>], <span class="st">&#39;to&#39;</span>:[<span class="st">&#39;D&#39;</span>, <span class="st">&#39;A&#39;</span>, <span class="st">&#39;E&#39;</span>,<span class="st">&#39;C&#39;</span>]})</span>
+<span id="cb17-2"><a href="fundamentos-de-teoría-de-redes.html#cb17-2" tabindex="-1"></a>G<span class="op">=</span>nx.from_pandas_edgelist(df, <span class="st">&#39;from&#39;</span>, <span class="st">&#39;to&#39;</span>)</span>
+<span id="cb17-3"><a href="fundamentos-de-teoría-de-redes.html#cb17-3" tabindex="-1"></a>nx.draw(G, with_labels<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-11-13.png" width="672" /></p>
+<div id="matriz-de-adyacencia" class="section level3 hasAnchor" number="2.0.1">
+<h3><span class="header-section-number">2.0.1</span> Matriz de Adyacencia<a href="fundamentos-de-teoría-de-redes.html#matriz-de-adyacencia" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Las gráficas en <code>networkx</code>, las podemos crear también a partir de su matriz de adyacencia.</p>
+<p>Supongamos que tenemos la siguiente matriz de adyacencia de una gráfica.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="fundamentos-de-teoría-de-redes.html#cb18-1" tabindex="-1"></a>adjacency_matrix <span class="op">=</span> np.array([[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>], [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>], [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>]])</span>
+<span id="cb18-2"><a href="fundamentos-de-teoría-de-redes.html#cb18-2" tabindex="-1"></a><span class="bu">print</span>(adjacency_matrix)</span></code></pre></div>
+<pre><code>## [[0 1 1 0]
+##  [1 0 0 1]
+##  [1 0 0 0]
+##  [1 1 0 0]]</code></pre>
+<p>Vamos a usar esta matriz para crear la gráfica.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="fundamentos-de-teoría-de-redes.html#cb20-1" tabindex="-1"></a>G <span class="op">=</span> nx.Graph(adjacency_matrix, nodetype<span class="op">=</span><span class="bu">int</span>)</span>
+<span id="cb20-2"><a href="fundamentos-de-teoría-de-redes.html#cb20-2" tabindex="-1"></a><span class="bu">print</span>(G.edges())</span></code></pre></div>
+<pre><code>## [(0, 1), (0, 2), (0, 3), (1, 3)]</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="fundamentos-de-teoría-de-redes.html#cb22-1" tabindex="-1"></a>nx.draw(G, with_labels<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-13-15.png" width="672" /></p>
+<p>Y esta misma matriz, la podríamos usar para generar la red dirigida.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="fundamentos-de-teoría-de-redes.html#cb23-1" tabindex="-1"></a>G <span class="op">=</span> nx.DiGraph(adjacency_matrix, nodetype<span class="op">=</span><span class="bu">int</span>)</span>
+<span id="cb23-2"><a href="fundamentos-de-teoría-de-redes.html#cb23-2" tabindex="-1"></a><span class="bu">print</span>(G.edges())</span></code></pre></div>
+<pre><code>## [(0, 1), (0, 2), (1, 0), (1, 3), (2, 0), (3, 0), (3, 1)]</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="fundamentos-de-teoría-de-redes.html#cb25-1" tabindex="-1"></a>nx.draw(G, with_labels<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-14-17.png" width="672" /></p>
 
+</div>
 </div>
             </section>
 
@@ -289,20 +399,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

@@ -72,3 +72,4 @@ test
 buenas-practicas
 procesamiento-de-alto-rendimiento
 programación-en-paralelo
+matriz-de-adyacencia
