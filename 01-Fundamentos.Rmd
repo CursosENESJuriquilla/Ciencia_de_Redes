@@ -153,3 +153,458 @@ print(G.edges())
 nx.draw(G, with_labels=True)
 ```
 
+### Redes con pesos
+
+En muchas aplicaciones, no basta saber si dos nodos están conectados: queremos medir intensidad.
+
+Ejemplo: ciudades conectadas por tiempo de traslado.
+
+```{python}
+G = nx.Graph()
+
+edges = [
+    ("CDMX", "Querétaro", 2.5),
+    ("CDMX", "Puebla", 1.8),
+    ("Querétaro", "San Luis", 3.0),
+    ("Puebla", "Veracruz", 2.2)
+]
+
+G.add_weighted_edges_from(edges)
+
+pos = nx.spring_layout(G, seed=42)
+
+nx.draw(G, pos, with_labels=True, node_size=2000, node_color="lightblue")
+labels = nx.get_edge_attributes(G, "weight")
+nx.draw_networkx_edge_labels(G, pos, edge_labels=labels)
+
+plt.title("Red con pesos (horas de traslado)")
+plt.show()
+```
+
+`nx.spring_layout`: Cuando dibujas una red, necesitas decidir dónde se coloca cada nodo en el plano (coordenadas (x,y)). `nx.spring_layout(G)` calcula esas posiciones automáticamente usando un modelo tipo resortes: 
+
+- cada arista actúa como un resorte que “jala” a sus extremos para acercarlos,
+
+- los nodos se repelen entre sí para que no queden amontonados,
+
+- el algoritmo busca una configuración “bonita” (pocas intersecciones, distancias razonables).
+
+No cambia el grafo, solo produce un diccionario de posiciones.
+
+```{python}
+pos = nx.spring_layout(G, seed=42)
+print(pos)
+```
+
+**Ejercicio:** Comparar con `nx.circular_layout(G)` para ver que “layout” = regla de colocación.
+
+### Redes dirigidas
+
+En una red dirigida las aristas tienen orientación.
+
+Ejemplo: prerequisitos de materias.
+
+```{python}
+DG = nx.DiGraph()
+
+DG.add_edge("Álgebra I", "Álgebra II")
+DG.add_edge("Álgebra II", "Geometría")
+DG.add_edge("Cálculo I", "Cálculo II")
+
+pos = nx.spring_layout(DG, seed=10)
+
+nx.draw(DG, pos,
+        with_labels=True,
+        node_size=2500,
+        node_color="lightcoral",
+        arrows=True,
+        arrowsize=20)
+
+plt.title("Red dirigida (prerrequisitos)")
+plt.show()
+```
+
+**Grado en redes dirigidas**
+
+- *In-degree*: número de aristas que llegan.
+
+- *Out-degree*: número de aristas que salen.
+
+```{python}
+print("In-degree:", dict(DG.in_degree()))
+print("Out-degree:", dict(DG.out_degree()))
+```
+
+### Graficas acíclicas
+
+Un grafo dirigido es acíclico si no contiene ciclos.
+
+```{python}
+DAG = nx.DiGraph()
+DAG.add_edges_from([
+    (1,2),
+    (1,3),
+    (2,4),
+    (3,4)
+])
+
+print("¿Es DAG?", nx.is_directed_acyclic_graph(DAG))
+```
+
+Ordenamiento topológico:
+
+```{python}
+list(nx.topological_sort(DAG))
+```
+
+Si numeramos los vértices según ese orden, la matriz de adyacencia queda triangular superior.
+
+En un grafo dirigido sin ciclos, existe un orden de los vértices tal que todas las aristas van “hacia adelante” en ese orden. `nx.topological_sort` devuelve ese orden.
+
+```{python}
+order = list(nx.topological_sort(DAG))
+print(order)
+```
+
+Si reetiquetas/ordenas los vértices según ese orden y construyes la matriz de adyacencia en ese orden, la matriz queda triangular superior. Por ejemplo:
+
+```{python}
+DAG = nx.DiGraph()
+DAG.add_edges_from([(1,2),(1,3),(2,4),(3,4)])
+
+order = list(nx.topological_sort(DAG))
+print("Orden topológico:", order)
+
+A = nx.to_numpy_array(DAG, nodelist=order, dtype=int)
+print("Matriz en ese orden:\n", A)
+
+A_weird = A.T
+print(A_weird)
+```
+
+
+### Redes k-regulares
+
+Un grafo es $k$-regular si todos los vértices tienen grado $k$.
+
+```{python}
+R = nx.random_regular_graph(d=3, n=8)
+
+nx.draw(R, with_labels=True, node_size=1500)
+plt.title("Grafo 3-regular")
+plt.show()
+```
+
+#### Multigrafos (multiaristas)
+
+En algunos sistemas pueden existir varias relaciones entre dos nodos.
+
+Ejemplo: dos actores que colaboran en varias películas.
+
+```{python}
+MG = nx.MultiGraph()
+
+MG.add_edge("A","B")
+MG.add_edge("A","B")
+MG.add_edge("A","B")
+
+print("Número de aristas entre A y B:",
+      MG.number_of_edges("A","B"))
+```
+
+Y para visualziarla:
+
+```{python}
+pos = nx.spring_layout(MG, seed=3)
+nx.draw(MG, pos, with_labels=True, node_size=2000)
+plt.title("MultiGraph")
+plt.show()
+```
+
+
+Para que se vea que hay varias aristas entre los mismos nodos, usamos connectionstyle con distintos radios.
+
+```{python}
+MG = nx.MultiGraph()
+MG.add_edge("A","B")
+MG.add_edge("A","B")
+MG.add_edge("A","B")
+MG.add_edge("B","C")
+
+pos = nx.spring_layout(MG, seed=2)
+
+# Dibujo de nodos
+nx.draw_networkx_nodes(MG, pos, node_size=2000, node_color="lightgreen")
+nx.draw_networkx_labels(MG, pos)
+
+# Dibujo de aristas: si son paralelas, usamos curvaturas distintas
+edges = list(MG.edges(keys=True))
+for i, (u, v, k) in enumerate(edges):
+    rad = 0.15 * (i % 3)  # radios 0, 0.15, 0.30 (repite)
+    nx.draw_networkx_edges(
+        MG, pos,
+        edgelist=[(u, v)],
+        width=2,
+        connectionstyle=f"arc3,rad={rad}",
+        edge_color="gray"
+    )
+
+plt.title("MultiGraph con multiaristas (arcos curvos)")
+plt.axis("off")
+plt.show()
+
+print("Número de aristas A-B:", MG.number_of_edges("A","B"))
+```
+
+### Loops (lazos)
+
+Un loop es una arista de un nodo a sí mismo.
+
+```{python}
+G = nx.Graph()
+G.add_edge("A","A")  # loop
+G.add_edge("A","B")
+
+print("Grados:", dict(G.degree()))
+```
+
+Importante:
+
+En grafos no dirigidos, un loop contribuye 2 al grado.
+
+NetworkX dibuja loops como “arcos” pequeños, pero a veces quedan discretos.
+
+```{python}
+G = nx.Graph()
+G.add_edges_from([("A","A"), ("A","B"), ("B","C"), ("C","C")])  # loops en A y C
+
+pos = nx.spring_layout(G, seed=4)
+
+nx.draw(G, pos, with_labels=True, node_size=2000, node_color="lightblue",
+        width=2, edge_color="gray")
+
+plt.title("Grafo con loops en A y C")
+plt.show()
+```
+
+También podemos listarlos:
+
+```{python}
+print("Loops:", list(nx.selfloop_edges(G)))
+```
+
+### Redes bipartitas
+
+Ejemplo: películas y actores.
+
+```{python}
+data = {
+    "Movie": ["Matrix","Matrix","Titanic","Titanic","Inception"],
+    "Actor": ["Keanu","Carrie","Leonardo","Kate","Leonardo"]
+}
+
+df = pd.DataFrame(data)
+```
+
+Vamos a construirla:
+
+```{python}
+B = nx.Graph()
+
+movies = df["Movie"].unique()
+actors = df["Actor"].unique()
+
+B.add_nodes_from(movies, bipartite=0)
+B.add_nodes_from(actors, bipartite=1)
+
+B.add_edges_from([(row.Movie,row.Actor)
+                  for _,row in df.iterrows()])
+
+nx.draw(B, with_labels=True, node_size=2000)
+plt.title("Red bipartita")
+plt.show()
+```
+
+Otra forma de hacer el plot:
+
+```{python}
+pos = nx.bipartite_layout(B, movies)  # movies será la capa superior
+
+nx.draw(B, pos,
+        with_labels=True,
+        node_size=2000,
+        node_color="lightblue")
+
+plt.title("Red bipartita (películas arriba, actores abajo)")
+plt.show()
+```
+
+Y se puede "forzar" también esto:
+
+```{python}
+movies = list(df["Movie"].unique())
+actors = list(df["Actor"].unique())
+
+pos = {}
+
+# Películas arriba (y=1)
+for i, movie in enumerate(movies):
+    pos[movie] = (i, 1)
+
+# Actores abajo (y=0)
+for i, actor in enumerate(actors):
+    pos[actor] = (i, 0)
+
+nx.draw(B, pos,
+        with_labels=True,
+        node_size=2000,
+        node_color="lightyellow",
+        edge_color="gray")
+
+plt.title("Red bipartita forzada (arriba películas, abajo actores)")
+plt.ylim(-0.5, 1.5)
+plt.show()
+```
+
+Otra forma más, coloreando cada capa:
+
+```{python}
+color_map = []
+
+for node in B.nodes():
+    if node in movies:
+        color_map.append("lightcoral")
+    else:
+        color_map.append("lightblue")
+
+nx.draw(B, pos,
+        with_labels=True,
+        node_color=color_map,
+        node_size=2000)
+
+plt.title("Red bipartita con capas diferenciadas")
+plt.show()
+```
+
+#### Matriz de incidencia
+
+```{python}
+B_matrix = np.zeros((len(movies), len(actors)))
+
+for _,row in df.iterrows():
+    i = list(movies).index(row.Movie)
+    j = list(actors).index(row.Actor)
+    B_matrix[i,j] = 1
+
+print(B_matrix)
+```
+
+#### Proyección one-mode
+
+```{python}
+W = B_matrix.T @ B_matrix
+print(W)
+```
+
+```{python}
+from networkx.algorithms import bipartite
+
+df = pd.DataFrame({
+    "Movie": ["Matrix","Matrix","Titanic","Titanic","Inception"],
+    "Actor": ["Keanu","Carrie","Leonardo","Kate","Leonardo"]
+})
+
+movies = list(df["Movie"].unique())
+actors = list(df["Actor"].unique())
+
+# Grafo bipartito
+B = nx.Graph()
+B.add_nodes_from(movies, bipartite=0)
+B.add_nodes_from(actors, bipartite=1)
+B.add_edges_from([(row.Movie, row.Actor) for _, row in df.iterrows()])
+
+# Posiciones forzadas (películas arriba, actores abajo)
+pos = {}
+for i, m in enumerate(movies):
+    pos[m] = (i, 1)
+for i, a in enumerate(actors):
+    pos[a] = (i, 0)
+
+# Colores por capa
+node_colors = ["lightcoral" if n in movies else "lightblue" for n in B.nodes()]
+
+nx.draw(B, pos, with_labels=True, node_color=node_colors, node_size=2000, edge_color="gray")
+plt.title("Bipartita: películas (arriba) – actores (abajo)")
+plt.ylim(-0.6, 1.6)
+plt.axis("off")
+plt.show()
+```
+
+Vamos a crear las dos proyecciones.
+
+### Proyección one-mode a Actores
+
+```{python}
+
+
+# Proyección a actores (one-mode)
+P_actors = bipartite.weighted_projected_graph(B, actors)
+
+print("Aristas (actor-actor) con pesos:", list(P_actors.edges(data=True)))
+
+posA = nx.spring_layout(P_actors, seed=12)
+nx.draw(P_actors, posA, with_labels=True, node_size=2000, node_color="lightblue", edge_color="gray")
+
+# Etiquetas de peso
+labelsA = nx.get_edge_attributes(P_actors, "weight")
+nx.draw_networkx_edge_labels(P_actors, posA, edge_labels=labelsA)
+
+plt.title("Proyección one-mode: red de actores (peso = películas compartidas)")
+plt.axis("off")
+plt.show()
+```
+
+### Proyección one-mode a PELÍCULAS
+
+```{python}
+# Proyección a películas (one-mode)
+P_movies = bipartite.weighted_projected_graph(B, movies)
+
+print("Aristas (movie-movie) con pesos:", list(P_movies.edges(data=True)))
+
+posM = nx.spring_layout(P_movies, seed=12)
+nx.draw(P_movies, posM, with_labels=True, node_size=2300, node_color="lightcoral", edge_color="gray")
+
+labelsM = nx.get_edge_attributes(P_movies, "weight")
+nx.draw_networkx_edge_labels(P_movies, posM, edge_labels=labelsM)
+
+plt.title("Proyección one-mode: red de películas (peso = actores compartidos)")
+plt.axis("off")
+plt.show()
+```
+
+Si $B$ es la matriz de incidencia (películas × actores), entonces:
+
+- $B^TB$: co-ocurrencia actor–actor
+
+- $BB^T$: co-ocurrencia película–película
+
+
+```{python}
+# Matriz de incidencia: filas=películas, columnas=actores
+Bmat = np.zeros((len(movies), len(actors)), dtype=int)
+
+movie_idx = {m:i for i,m in enumerate(movies)}
+actor_idx = {a:j for j,a in enumerate(actors)}
+
+for _, row in df.iterrows():
+    Bmat[movie_idx[row.Movie], actor_idx[row.Actor]] = 1
+
+print("B (películas x actores):\n", Bmat)
+
+W_actors = Bmat.T @ Bmat   # actores x actores
+W_movies = Bmat @ Bmat.T   # películas x películas
+
+print("\nB^T B (actores x actores):\n", W_actors)
+print("\nB B^T (películas x películas):\n", W_movies)
+```

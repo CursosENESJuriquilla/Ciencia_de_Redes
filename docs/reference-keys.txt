@@ -73,3 +73,14 @@ buenas-practicas
 procesamiento-de-alto-rendimiento
 programación-en-paralelo
 matriz-de-adyacencia
+redes-con-pesos
+redes-dirigidas
+graficas-acíclicas
+redes-k-regulares
+multigrafos-multiaristas
+loops-lazos
+redes-bipartitas
+matriz-de-incidencia
+proyección-one-mode
+proyección-one-mode-a-actores
+proyección-one-mode-a-películas

@@ -151,6 +151,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2" data-path="01-Fundamentos.html"><a href="#fundamentos-de-teor%C3%ADa-de-redes"><i class="fa fa-check"></i><b>2</b> Fundamentos de Teoría de Redes</a>
 <ul>
 <li class="chapter" data-level="2.0.1" data-path="fundamentos-de-teoría-de-redes.html"><a href="fundamentos-de-teoría-de-redes.html"><i class="fa fa-check"></i><b>2.0.1</b> Matriz de Adyacencia</a></li>
+<li class="chapter" data-level="2.0.2" data-path="fundamentos-de-teoría-de-redes.html"><a href="fundamentos-de-teoría-de-redes.html#redes-con-pesos"><i class="fa fa-check"></i><b>2.0.2</b> Redes con pesos</a></li>
+<li class="chapter" data-level="2.0.3" data-path="fundamentos-de-teoría-de-redes.html"><a href="fundamentos-de-teoría-de-redes.html#redes-dirigidas"><i class="fa fa-check"></i><b>2.0.3</b> Redes dirigidas</a></li>
+<li class="chapter" data-level="2.0.4" data-path="01-Fundamentos.html"><a href="#graficas-ac%C3%ADclicas"><i class="fa fa-check"></i><b>2.0.4</b> Graficas acíclicas</a></li>
+<li class="chapter" data-level="2.0.5" data-path="fundamentos-de-teoría-de-redes.html"><a href="fundamentos-de-teoría-de-redes.html#redes-k-regulares"><i class="fa fa-check"></i><b>2.0.5</b> Redes k-regulares</a></li>
+<li class="chapter" data-level="2.0.6" data-path="fundamentos-de-teoría-de-redes.html"><a href="fundamentos-de-teoría-de-redes.html#loops-lazos"><i class="fa fa-check"></i><b>2.0.6</b> Loops (lazos)</a></li>
+<li class="chapter" data-level="2.0.7" data-path="fundamentos-de-teoría-de-redes.html"><a href="fundamentos-de-teoría-de-redes.html#redes-bipartitas"><i class="fa fa-check"></i><b>2.0.7</b> Redes bipartitas</a></li>
+<li class="chapter" data-level="2.0.8" data-path="01-Fundamentos.html"><a href="#proyecci%C3%B3n-one-mode-a-actores"><i class="fa fa-check"></i><b>2.0.8</b> Proyección one-mode a Actores</a></li>
+<li class="chapter" data-level="2.0.9" data-path="01-Fundamentos.html"><a href="#proyecci%C3%B3n-one-mode-a-pel%C3%ADculas"><i class="fa fa-check"></i><b>2.0.9</b> Proyección one-mode a PELÍCULAS</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="01-Fundamentos.html"><a href="#ap%C3%A9ndice-introducci%C3%B3n-a-python"><i class="fa fa-check"></i><b>3</b> Apéndice: Introducción a Python</a>
 <ul>
@@ -336,6 +344,424 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [(0, 1), (0, 2), (1, 0), (1, 3), (2, 0), (3, 0), (3, 1)]</code></pre>
 <div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="fundamentos-de-teoría-de-redes.html#cb25-1" tabindex="-1"></a>nx.draw(G, with_labels<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
 <p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-14-17.png" width="672" /></p>
+</div>
+<div id="redes-con-pesos" class="section level3 hasAnchor" number="2.0.2">
+<h3><span class="header-section-number">2.0.2</span> Redes con pesos<a href="fundamentos-de-teoría-de-redes.html#redes-con-pesos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En muchas aplicaciones, no basta saber si dos nodos están conectados: queremos medir intensidad.</p>
+<p>Ejemplo: ciudades conectadas por tiempo de traslado.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="fundamentos-de-teoría-de-redes.html#cb26-1" tabindex="-1"></a>G <span class="op">=</span> nx.Graph()</span>
+<span id="cb26-2"><a href="fundamentos-de-teoría-de-redes.html#cb26-2" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="fundamentos-de-teoría-de-redes.html#cb26-3" tabindex="-1"></a>edges <span class="op">=</span> [</span>
+<span id="cb26-4"><a href="fundamentos-de-teoría-de-redes.html#cb26-4" tabindex="-1"></a>    (<span class="st">&quot;CDMX&quot;</span>, <span class="st">&quot;Querétaro&quot;</span>, <span class="fl">2.5</span>),</span>
+<span id="cb26-5"><a href="fundamentos-de-teoría-de-redes.html#cb26-5" tabindex="-1"></a>    (<span class="st">&quot;CDMX&quot;</span>, <span class="st">&quot;Puebla&quot;</span>, <span class="fl">1.8</span>),</span>
+<span id="cb26-6"><a href="fundamentos-de-teoría-de-redes.html#cb26-6" tabindex="-1"></a>    (<span class="st">&quot;Querétaro&quot;</span>, <span class="st">&quot;San Luis&quot;</span>, <span class="fl">3.0</span>),</span>
+<span id="cb26-7"><a href="fundamentos-de-teoría-de-redes.html#cb26-7" tabindex="-1"></a>    (<span class="st">&quot;Puebla&quot;</span>, <span class="st">&quot;Veracruz&quot;</span>, <span class="fl">2.2</span>)</span>
+<span id="cb26-8"><a href="fundamentos-de-teoría-de-redes.html#cb26-8" tabindex="-1"></a>]</span>
+<span id="cb26-9"><a href="fundamentos-de-teoría-de-redes.html#cb26-9" tabindex="-1"></a></span>
+<span id="cb26-10"><a href="fundamentos-de-teoría-de-redes.html#cb26-10" tabindex="-1"></a>G.add_weighted_edges_from(edges)</span>
+<span id="cb26-11"><a href="fundamentos-de-teoría-de-redes.html#cb26-11" tabindex="-1"></a></span>
+<span id="cb26-12"><a href="fundamentos-de-teoría-de-redes.html#cb26-12" tabindex="-1"></a>pos <span class="op">=</span> nx.spring_layout(G, seed<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb26-13"><a href="fundamentos-de-teoría-de-redes.html#cb26-13" tabindex="-1"></a></span>
+<span id="cb26-14"><a href="fundamentos-de-teoría-de-redes.html#cb26-14" tabindex="-1"></a>nx.draw(G, pos, with_labels<span class="op">=</span><span class="va">True</span>, node_size<span class="op">=</span><span class="dv">2000</span>, node_color<span class="op">=</span><span class="st">&quot;lightblue&quot;</span>)</span>
+<span id="cb26-15"><a href="fundamentos-de-teoría-de-redes.html#cb26-15" tabindex="-1"></a>labels <span class="op">=</span> nx.get_edge_attributes(G, <span class="st">&quot;weight&quot;</span>)</span>
+<span id="cb26-16"><a href="fundamentos-de-teoría-de-redes.html#cb26-16" tabindex="-1"></a>nx.draw_networkx_edge_labels(G, pos, edge_labels<span class="op">=</span>labels)</span></code></pre></div>
+<pre><code>## {(&#39;CDMX&#39;, &#39;Querétaro&#39;): Text(-0.03804987394440071, 0.29044345796704585, &#39;2.5&#39;), (&#39;CDMX&#39;, &#39;Puebla&#39;): Text(0.03310940855012143, -0.2517211871628955, &#39;1.8&#39;), (&#39;Querétaro&#39;, &#39;San Luis&#39;): Text(-0.09868076835080415, 0.7517180744260015, &#39;3.0&#39;), (&#39;Puebla&#39;, &#39;Veracruz&#39;): Text(0.10107661635624102, -0.7703266027551717, &#39;2.2&#39;)}</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="fundamentos-de-teoría-de-redes.html#cb28-1" tabindex="-1"></a>plt.title(<span class="st">&quot;Red con pesos (horas de traslado)&quot;</span>)</span>
+<span id="cb28-2"><a href="fundamentos-de-teoría-de-redes.html#cb28-2" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-15-19.png" width="672" /></p>
+<p><code>nx.spring_layout</code>: Cuando dibujas una red, necesitas decidir dónde se coloca cada nodo en el plano (coordenadas (x,y)). <code>nx.spring_layout(G)</code> calcula esas posiciones automáticamente usando un modelo tipo resortes:</p>
+<ul>
+<li><p>cada arista actúa como un resorte que “jala” a sus extremos para acercarlos,</p></li>
+<li><p>los nodos se repelen entre sí para que no queden amontonados,</p></li>
+<li><p>el algoritmo busca una configuración “bonita” (pocas intersecciones, distancias razonables).</p></li>
+</ul>
+<p>No cambia el grafo, solo produce un diccionario de posiciones.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="fundamentos-de-teoría-de-redes.html#cb29-1" tabindex="-1"></a>pos <span class="op">=</span> nx.spring_layout(G, seed<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb29-2"><a href="fundamentos-de-teoría-de-redes.html#cb29-2" tabindex="-1"></a><span class="bu">print</span>(pos)</span></code></pre></div>
+<pre><code>## {&#39;CDMX&#39;: array([-0.00479153,  0.03721578]), &#39;Querétaro&#39;: array([-0.07130957,  0.54368146]), &#39;Puebla&#39;: array([ 0.07100945, -0.54065133]), &#39;San Luis&#39;: array([-0.12605188,  0.95975409]), &#39;Veracruz&#39;: array([ 0.13114354, -1.        ])}</code></pre>
+<p><strong>Ejercicio:</strong> Comparar con <code>nx.circular_layout(G)</code> para ver que “layout” = regla de colocación.</p>
+</div>
+<div id="redes-dirigidas" class="section level3 hasAnchor" number="2.0.3">
+<h3><span class="header-section-number">2.0.3</span> Redes dirigidas<a href="fundamentos-de-teoría-de-redes.html#redes-dirigidas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En una red dirigida las aristas tienen orientación.</p>
+<p>Ejemplo: prerequisitos de materias.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="fundamentos-de-teoría-de-redes.html#cb31-1" tabindex="-1"></a>DG <span class="op">=</span> nx.DiGraph()</span>
+<span id="cb31-2"><a href="fundamentos-de-teoría-de-redes.html#cb31-2" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="fundamentos-de-teoría-de-redes.html#cb31-3" tabindex="-1"></a>DG.add_edge(<span class="st">&quot;Álgebra I&quot;</span>, <span class="st">&quot;Álgebra II&quot;</span>)</span>
+<span id="cb31-4"><a href="fundamentos-de-teoría-de-redes.html#cb31-4" tabindex="-1"></a>DG.add_edge(<span class="st">&quot;Álgebra II&quot;</span>, <span class="st">&quot;Geometría&quot;</span>)</span>
+<span id="cb31-5"><a href="fundamentos-de-teoría-de-redes.html#cb31-5" tabindex="-1"></a>DG.add_edge(<span class="st">&quot;Cálculo I&quot;</span>, <span class="st">&quot;Cálculo II&quot;</span>)</span>
+<span id="cb31-6"><a href="fundamentos-de-teoría-de-redes.html#cb31-6" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="fundamentos-de-teoría-de-redes.html#cb31-7" tabindex="-1"></a>pos <span class="op">=</span> nx.spring_layout(DG, seed<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb31-8"><a href="fundamentos-de-teoría-de-redes.html#cb31-8" tabindex="-1"></a></span>
+<span id="cb31-9"><a href="fundamentos-de-teoría-de-redes.html#cb31-9" tabindex="-1"></a>nx.draw(DG, pos,</span>
+<span id="cb31-10"><a href="fundamentos-de-teoría-de-redes.html#cb31-10" tabindex="-1"></a>        with_labels<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb31-11"><a href="fundamentos-de-teoría-de-redes.html#cb31-11" tabindex="-1"></a>        node_size<span class="op">=</span><span class="dv">2500</span>,</span>
+<span id="cb31-12"><a href="fundamentos-de-teoría-de-redes.html#cb31-12" tabindex="-1"></a>        node_color<span class="op">=</span><span class="st">&quot;lightcoral&quot;</span>,</span>
+<span id="cb31-13"><a href="fundamentos-de-teoría-de-redes.html#cb31-13" tabindex="-1"></a>        arrows<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb31-14"><a href="fundamentos-de-teoría-de-redes.html#cb31-14" tabindex="-1"></a>        arrowsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb31-15"><a href="fundamentos-de-teoría-de-redes.html#cb31-15" tabindex="-1"></a></span>
+<span id="cb31-16"><a href="fundamentos-de-teoría-de-redes.html#cb31-16" tabindex="-1"></a>plt.title(<span class="st">&quot;Red dirigida (prerrequisitos)&quot;</span>)</span>
+<span id="cb31-17"><a href="fundamentos-de-teoría-de-redes.html#cb31-17" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-17-21.png" width="672" /></p>
+<p><strong>Grado en redes dirigidas</strong></p>
+<ul>
+<li><p><em>In-degree</em>: número de aristas que llegan.</p></li>
+<li><p><em>Out-degree</em>: número de aristas que salen.</p></li>
+</ul>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="fundamentos-de-teoría-de-redes.html#cb32-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;In-degree:&quot;</span>, <span class="bu">dict</span>(DG.in_degree()))</span></code></pre></div>
+<pre><code>## In-degree: {&#39;Álgebra I&#39;: 0, &#39;Álgebra II&#39;: 1, &#39;Geometría&#39;: 1, &#39;Cálculo I&#39;: 0, &#39;Cálculo II&#39;: 1}</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="fundamentos-de-teoría-de-redes.html#cb34-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Out-degree:&quot;</span>, <span class="bu">dict</span>(DG.out_degree()))</span></code></pre></div>
+<pre><code>## Out-degree: {&#39;Álgebra I&#39;: 1, &#39;Álgebra II&#39;: 1, &#39;Geometría&#39;: 0, &#39;Cálculo I&#39;: 1, &#39;Cálculo II&#39;: 0}</code></pre>
+</div>
+<div id="graficas-acíclicas" class="section level3 hasAnchor" number="2.0.4">
+<h3><span class="header-section-number">2.0.4</span> Graficas acíclicas<a href="#graficas-ac%C3%ADclicas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Un grafo dirigido es acíclico si no contiene ciclos.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="fundamentos-de-teoría-de-redes.html#cb36-1" tabindex="-1"></a>DAG <span class="op">=</span> nx.DiGraph()</span>
+<span id="cb36-2"><a href="fundamentos-de-teoría-de-redes.html#cb36-2" tabindex="-1"></a>DAG.add_edges_from([</span>
+<span id="cb36-3"><a href="fundamentos-de-teoría-de-redes.html#cb36-3" tabindex="-1"></a>    (<span class="dv">1</span>,<span class="dv">2</span>),</span>
+<span id="cb36-4"><a href="fundamentos-de-teoría-de-redes.html#cb36-4" tabindex="-1"></a>    (<span class="dv">1</span>,<span class="dv">3</span>),</span>
+<span id="cb36-5"><a href="fundamentos-de-teoría-de-redes.html#cb36-5" tabindex="-1"></a>    (<span class="dv">2</span>,<span class="dv">4</span>),</span>
+<span id="cb36-6"><a href="fundamentos-de-teoría-de-redes.html#cb36-6" tabindex="-1"></a>    (<span class="dv">3</span>,<span class="dv">4</span>)</span>
+<span id="cb36-7"><a href="fundamentos-de-teoría-de-redes.html#cb36-7" tabindex="-1"></a>])</span>
+<span id="cb36-8"><a href="fundamentos-de-teoría-de-redes.html#cb36-8" tabindex="-1"></a></span>
+<span id="cb36-9"><a href="fundamentos-de-teoría-de-redes.html#cb36-9" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;¿Es DAG?&quot;</span>, nx.is_directed_acyclic_graph(DAG))</span></code></pre></div>
+<pre><code>## ¿Es DAG? True</code></pre>
+<p>Ordenamiento topológico:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="fundamentos-de-teoría-de-redes.html#cb38-1" tabindex="-1"></a><span class="bu">list</span>(nx.topological_sort(DAG))</span></code></pre></div>
+<pre><code>## [1, 2, 3, 4]</code></pre>
+<p>Si numeramos los vértices según ese orden, la matriz de adyacencia queda triangular superior.</p>
+<p>En un grafo dirigido sin ciclos, existe un orden de los vértices tal que todas las aristas van “hacia adelante” en ese orden. <code>nx.topological_sort</code> devuelve ese orden.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="fundamentos-de-teoría-de-redes.html#cb40-1" tabindex="-1"></a>order <span class="op">=</span> <span class="bu">list</span>(nx.topological_sort(DAG))</span>
+<span id="cb40-2"><a href="fundamentos-de-teoría-de-redes.html#cb40-2" tabindex="-1"></a><span class="bu">print</span>(order)</span></code></pre></div>
+<pre><code>## [1, 2, 3, 4]</code></pre>
+<p>Si reetiquetas/ordenas los vértices según ese orden y construyes la matriz de adyacencia en ese orden, la matriz queda triangular superior. Por ejemplo:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="fundamentos-de-teoría-de-redes.html#cb42-1" tabindex="-1"></a>DAG <span class="op">=</span> nx.DiGraph()</span>
+<span id="cb42-2"><a href="fundamentos-de-teoría-de-redes.html#cb42-2" tabindex="-1"></a>DAG.add_edges_from([(<span class="dv">1</span>,<span class="dv">2</span>),(<span class="dv">1</span>,<span class="dv">3</span>),(<span class="dv">2</span>,<span class="dv">4</span>),(<span class="dv">3</span>,<span class="dv">4</span>)])</span>
+<span id="cb42-3"><a href="fundamentos-de-teoría-de-redes.html#cb42-3" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="fundamentos-de-teoría-de-redes.html#cb42-4" tabindex="-1"></a>order <span class="op">=</span> <span class="bu">list</span>(nx.topological_sort(DAG))</span>
+<span id="cb42-5"><a href="fundamentos-de-teoría-de-redes.html#cb42-5" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Orden topológico:&quot;</span>, order)</span></code></pre></div>
+<pre><code>## Orden topológico: [1, 2, 3, 4]</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="fundamentos-de-teoría-de-redes.html#cb44-1" tabindex="-1"></a>A <span class="op">=</span> nx.to_numpy_array(DAG, nodelist<span class="op">=</span>order, dtype<span class="op">=</span><span class="bu">int</span>)</span>
+<span id="cb44-2"><a href="fundamentos-de-teoría-de-redes.html#cb44-2" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Matriz en ese orden:</span><span class="ch">\n</span><span class="st">&quot;</span>, A)</span></code></pre></div>
+<pre><code>## Matriz en ese orden:
+##  [[0 1 1 0]
+##  [0 0 0 1]
+##  [0 0 0 1]
+##  [0 0 0 0]]</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="fundamentos-de-teoría-de-redes.html#cb46-1" tabindex="-1"></a>A_weird <span class="op">=</span> A.T</span>
+<span id="cb46-2"><a href="fundamentos-de-teoría-de-redes.html#cb46-2" tabindex="-1"></a><span class="bu">print</span>(A_weird)</span></code></pre></div>
+<pre><code>## [[0 0 0 0]
+##  [1 0 0 0]
+##  [1 0 0 0]
+##  [0 1 1 0]]</code></pre>
+</div>
+<div id="redes-k-regulares" class="section level3 hasAnchor" number="2.0.5">
+<h3><span class="header-section-number">2.0.5</span> Redes k-regulares<a href="fundamentos-de-teoría-de-redes.html#redes-k-regulares" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Un grafo es <span class="math inline">\(k\)</span>-regular si todos los vértices tienen grado <span class="math inline">\(k\)</span>.</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="fundamentos-de-teoría-de-redes.html#cb48-1" tabindex="-1"></a>R <span class="op">=</span> nx.random_regular_graph(d<span class="op">=</span><span class="dv">3</span>, n<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb48-2"><a href="fundamentos-de-teoría-de-redes.html#cb48-2" tabindex="-1"></a></span>
+<span id="cb48-3"><a href="fundamentos-de-teoría-de-redes.html#cb48-3" tabindex="-1"></a>nx.draw(R, with_labels<span class="op">=</span><span class="va">True</span>, node_size<span class="op">=</span><span class="dv">1500</span>)</span>
+<span id="cb48-4"><a href="fundamentos-de-teoría-de-redes.html#cb48-4" tabindex="-1"></a>plt.title(<span class="st">&quot;Grafo 3-regular&quot;</span>)</span>
+<span id="cb48-5"><a href="fundamentos-de-teoría-de-redes.html#cb48-5" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-23-23.png" width="672" /></p>
+<div id="multigrafos-multiaristas" class="section level4 hasAnchor" number="2.0.5.1">
+<h4><span class="header-section-number">2.0.5.1</span> Multigrafos (multiaristas)<a href="fundamentos-de-teoría-de-redes.html#multigrafos-multiaristas" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>En algunos sistemas pueden existir varias relaciones entre dos nodos.</p>
+<p>Ejemplo: dos actores que colaboran en varias películas.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="fundamentos-de-teoría-de-redes.html#cb49-1" tabindex="-1"></a>MG <span class="op">=</span> nx.MultiGraph()</span>
+<span id="cb49-2"><a href="fundamentos-de-teoría-de-redes.html#cb49-2" tabindex="-1"></a></span>
+<span id="cb49-3"><a href="fundamentos-de-teoría-de-redes.html#cb49-3" tabindex="-1"></a>MG.add_edge(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>)</span></code></pre></div>
+<pre><code>## 0</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="fundamentos-de-teoría-de-redes.html#cb51-1" tabindex="-1"></a>MG.add_edge(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>)</span></code></pre></div>
+<pre><code>## 1</code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="fundamentos-de-teoría-de-redes.html#cb53-1" tabindex="-1"></a>MG.add_edge(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>)</span></code></pre></div>
+<pre><code>## 2</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="fundamentos-de-teoría-de-redes.html#cb55-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Número de aristas entre A y B:&quot;</span>,</span>
+<span id="cb55-2"><a href="fundamentos-de-teoría-de-redes.html#cb55-2" tabindex="-1"></a>      MG.number_of_edges(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>))</span></code></pre></div>
+<pre><code>## Número de aristas entre A y B: 3</code></pre>
+<p>Y para visualziarla:</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="fundamentos-de-teoría-de-redes.html#cb57-1" tabindex="-1"></a>pos <span class="op">=</span> nx.spring_layout(MG, seed<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb57-2"><a href="fundamentos-de-teoría-de-redes.html#cb57-2" tabindex="-1"></a>nx.draw(MG, pos, with_labels<span class="op">=</span><span class="va">True</span>, node_size<span class="op">=</span><span class="dv">2000</span>)</span>
+<span id="cb57-3"><a href="fundamentos-de-teoría-de-redes.html#cb57-3" tabindex="-1"></a>plt.title(<span class="st">&quot;MultiGraph&quot;</span>)</span>
+<span id="cb57-4"><a href="fundamentos-de-teoría-de-redes.html#cb57-4" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-25-25.png" width="672" /></p>
+<p>Para que se vea que hay varias aristas entre los mismos nodos, usamos connectionstyle con distintos radios.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb58-1"><a href="fundamentos-de-teoría-de-redes.html#cb58-1" tabindex="-1"></a>MG <span class="op">=</span> nx.MultiGraph()</span>
+<span id="cb58-2"><a href="fundamentos-de-teoría-de-redes.html#cb58-2" tabindex="-1"></a>MG.add_edge(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>)</span></code></pre></div>
+<pre><code>## 0</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb60-1"><a href="fundamentos-de-teoría-de-redes.html#cb60-1" tabindex="-1"></a>MG.add_edge(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>)</span></code></pre></div>
+<pre><code>## 1</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb62-1"><a href="fundamentos-de-teoría-de-redes.html#cb62-1" tabindex="-1"></a>MG.add_edge(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>)</span></code></pre></div>
+<pre><code>## 2</code></pre>
+<div class="sourceCode" id="cb64"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb64-1"><a href="fundamentos-de-teoría-de-redes.html#cb64-1" tabindex="-1"></a>MG.add_edge(<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>)</span></code></pre></div>
+<pre><code>## 0</code></pre>
+<div class="sourceCode" id="cb66"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb66-1"><a href="fundamentos-de-teoría-de-redes.html#cb66-1" tabindex="-1"></a>pos <span class="op">=</span> nx.spring_layout(MG, seed<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb66-2"><a href="fundamentos-de-teoría-de-redes.html#cb66-2" tabindex="-1"></a></span>
+<span id="cb66-3"><a href="fundamentos-de-teoría-de-redes.html#cb66-3" tabindex="-1"></a><span class="co"># Dibujo de nodos</span></span>
+<span id="cb66-4"><a href="fundamentos-de-teoría-de-redes.html#cb66-4" tabindex="-1"></a>nx.draw_networkx_nodes(MG, pos, node_size<span class="op">=</span><span class="dv">2000</span>, node_color<span class="op">=</span><span class="st">&quot;lightgreen&quot;</span>)</span>
+<span id="cb66-5"><a href="fundamentos-de-teoría-de-redes.html#cb66-5" tabindex="-1"></a>nx.draw_networkx_labels(MG, pos)</span></code></pre></div>
+<pre><code>## {&#39;A&#39;: Text(0.8284668313118051, -0.8726270765014832, &#39;A&#39;), &#39;B&#39;: Text(0.12093500309378266, -0.1273729234985168, &#39;B&#39;), &#39;C&#39;: Text(-0.949401834405588, 1.0, &#39;C&#39;)}</code></pre>
+<div class="sourceCode" id="cb68"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb68-1"><a href="fundamentos-de-teoría-de-redes.html#cb68-1" tabindex="-1"></a><span class="co"># Dibujo de aristas: si son paralelas, usamos curvaturas distintas</span></span>
+<span id="cb68-2"><a href="fundamentos-de-teoría-de-redes.html#cb68-2" tabindex="-1"></a>edges <span class="op">=</span> <span class="bu">list</span>(MG.edges(keys<span class="op">=</span><span class="va">True</span>))</span>
+<span id="cb68-3"><a href="fundamentos-de-teoría-de-redes.html#cb68-3" tabindex="-1"></a><span class="cf">for</span> i, (u, v, k) <span class="kw">in</span> <span class="bu">enumerate</span>(edges):</span>
+<span id="cb68-4"><a href="fundamentos-de-teoría-de-redes.html#cb68-4" tabindex="-1"></a>    rad <span class="op">=</span> <span class="fl">0.15</span> <span class="op">*</span> (i <span class="op">%</span> <span class="dv">3</span>)  <span class="co"># radios 0, 0.15, 0.30 (repite)</span></span>
+<span id="cb68-5"><a href="fundamentos-de-teoría-de-redes.html#cb68-5" tabindex="-1"></a>    nx.draw_networkx_edges(</span>
+<span id="cb68-6"><a href="fundamentos-de-teoría-de-redes.html#cb68-6" tabindex="-1"></a>        MG, pos,</span>
+<span id="cb68-7"><a href="fundamentos-de-teoría-de-redes.html#cb68-7" tabindex="-1"></a>        edgelist<span class="op">=</span>[(u, v)],</span>
+<span id="cb68-8"><a href="fundamentos-de-teoría-de-redes.html#cb68-8" tabindex="-1"></a>        width<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb68-9"><a href="fundamentos-de-teoría-de-redes.html#cb68-9" tabindex="-1"></a>        connectionstyle<span class="op">=</span><span class="ss">f&quot;arc3,rad=</span><span class="sc">{</span>rad<span class="sc">}</span><span class="ss">&quot;</span>,</span>
+<span id="cb68-10"><a href="fundamentos-de-teoría-de-redes.html#cb68-10" tabindex="-1"></a>        edge_color<span class="op">=</span><span class="st">&quot;gray&quot;</span></span>
+<span id="cb68-11"><a href="fundamentos-de-teoría-de-redes.html#cb68-11" tabindex="-1"></a>    )</span>
+<span id="cb68-12"><a href="fundamentos-de-teoría-de-redes.html#cb68-12" tabindex="-1"></a></span>
+<span id="cb68-13"><a href="fundamentos-de-teoría-de-redes.html#cb68-13" tabindex="-1"></a>plt.title(<span class="st">&quot;MultiGraph con multiaristas (arcos curvos)&quot;</span>)</span>
+<span id="cb68-14"><a href="fundamentos-de-teoría-de-redes.html#cb68-14" tabindex="-1"></a>plt.axis(<span class="st">&quot;off&quot;</span>)</span></code></pre></div>
+<pre><code>## (np.float64(-1.0962567812307198), np.float64(0.9571815276728693), np.float64(-1.0082027056679594), np.float64(1.1546815676912536))</code></pre>
+<div class="sourceCode" id="cb70"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb70-1"><a href="fundamentos-de-teoría-de-redes.html#cb70-1" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-26-27.png" width="672" /></p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb71-1"><a href="fundamentos-de-teoría-de-redes.html#cb71-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Número de aristas A-B:&quot;</span>, MG.number_of_edges(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>))</span></code></pre></div>
+<pre><code>## Número de aristas A-B: 3</code></pre>
+</div>
+</div>
+<div id="loops-lazos" class="section level3 hasAnchor" number="2.0.6">
+<h3><span class="header-section-number">2.0.6</span> Loops (lazos)<a href="fundamentos-de-teoría-de-redes.html#loops-lazos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Un loop es una arista de un nodo a sí mismo.</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb73-1"><a href="fundamentos-de-teoría-de-redes.html#cb73-1" tabindex="-1"></a>G <span class="op">=</span> nx.Graph()</span>
+<span id="cb73-2"><a href="fundamentos-de-teoría-de-redes.html#cb73-2" tabindex="-1"></a>G.add_edge(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;A&quot;</span>)  <span class="co"># loop</span></span>
+<span id="cb73-3"><a href="fundamentos-de-teoría-de-redes.html#cb73-3" tabindex="-1"></a>G.add_edge(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>)</span>
+<span id="cb73-4"><a href="fundamentos-de-teoría-de-redes.html#cb73-4" tabindex="-1"></a></span>
+<span id="cb73-5"><a href="fundamentos-de-teoría-de-redes.html#cb73-5" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Grados:&quot;</span>, <span class="bu">dict</span>(G.degree()))</span></code></pre></div>
+<pre><code>## Grados: {&#39;A&#39;: 3, &#39;B&#39;: 1}</code></pre>
+<p>Importante:</p>
+<p>En grafos no dirigidos, un loop contribuye 2 al grado.</p>
+<p>NetworkX dibuja loops como “arcos” pequeños, pero a veces quedan discretos.</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb75-1"><a href="fundamentos-de-teoría-de-redes.html#cb75-1" tabindex="-1"></a>G <span class="op">=</span> nx.Graph()</span>
+<span id="cb75-2"><a href="fundamentos-de-teoría-de-redes.html#cb75-2" tabindex="-1"></a>G.add_edges_from([(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;A&quot;</span>), (<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>), (<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>), (<span class="st">&quot;C&quot;</span>,<span class="st">&quot;C&quot;</span>)])  <span class="co"># loops en A y C</span></span>
+<span id="cb75-3"><a href="fundamentos-de-teoría-de-redes.html#cb75-3" tabindex="-1"></a></span>
+<span id="cb75-4"><a href="fundamentos-de-teoría-de-redes.html#cb75-4" tabindex="-1"></a>pos <span class="op">=</span> nx.spring_layout(G, seed<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb75-5"><a href="fundamentos-de-teoría-de-redes.html#cb75-5" tabindex="-1"></a></span>
+<span id="cb75-6"><a href="fundamentos-de-teoría-de-redes.html#cb75-6" tabindex="-1"></a>nx.draw(G, pos, with_labels<span class="op">=</span><span class="va">True</span>, node_size<span class="op">=</span><span class="dv">2000</span>, node_color<span class="op">=</span><span class="st">&quot;lightblue&quot;</span>,</span>
+<span id="cb75-7"><a href="fundamentos-de-teoría-de-redes.html#cb75-7" tabindex="-1"></a>        width<span class="op">=</span><span class="dv">2</span>, edge_color<span class="op">=</span><span class="st">&quot;gray&quot;</span>)</span>
+<span id="cb75-8"><a href="fundamentos-de-teoría-de-redes.html#cb75-8" tabindex="-1"></a></span>
+<span id="cb75-9"><a href="fundamentos-de-teoría-de-redes.html#cb75-9" tabindex="-1"></a>plt.title(<span class="st">&quot;Grafo con loops en A y C&quot;</span>)</span>
+<span id="cb75-10"><a href="fundamentos-de-teoría-de-redes.html#cb75-10" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-28-29.png" width="672" /></p>
+<p>También podemos listarlos:</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb76-1"><a href="fundamentos-de-teoría-de-redes.html#cb76-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Loops:&quot;</span>, <span class="bu">list</span>(nx.selfloop_edges(G)))</span></code></pre></div>
+<pre><code>## Loops: [(&#39;A&#39;, &#39;A&#39;), (&#39;C&#39;, &#39;C&#39;)]</code></pre>
+</div>
+<div id="redes-bipartitas" class="section level3 hasAnchor" number="2.0.7">
+<h3><span class="header-section-number">2.0.7</span> Redes bipartitas<a href="fundamentos-de-teoría-de-redes.html#redes-bipartitas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Ejemplo: películas y actores.</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb78-1"><a href="fundamentos-de-teoría-de-redes.html#cb78-1" tabindex="-1"></a>data <span class="op">=</span> {</span>
+<span id="cb78-2"><a href="fundamentos-de-teoría-de-redes.html#cb78-2" tabindex="-1"></a>    <span class="st">&quot;Movie&quot;</span>: [<span class="st">&quot;Matrix&quot;</span>,<span class="st">&quot;Matrix&quot;</span>,<span class="st">&quot;Titanic&quot;</span>,<span class="st">&quot;Titanic&quot;</span>,<span class="st">&quot;Inception&quot;</span>],</span>
+<span id="cb78-3"><a href="fundamentos-de-teoría-de-redes.html#cb78-3" tabindex="-1"></a>    <span class="st">&quot;Actor&quot;</span>: [<span class="st">&quot;Keanu&quot;</span>,<span class="st">&quot;Carrie&quot;</span>,<span class="st">&quot;Leonardo&quot;</span>,<span class="st">&quot;Kate&quot;</span>,<span class="st">&quot;Leonardo&quot;</span>]</span>
+<span id="cb78-4"><a href="fundamentos-de-teoría-de-redes.html#cb78-4" tabindex="-1"></a>}</span>
+<span id="cb78-5"><a href="fundamentos-de-teoría-de-redes.html#cb78-5" tabindex="-1"></a></span>
+<span id="cb78-6"><a href="fundamentos-de-teoría-de-redes.html#cb78-6" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(data)</span></code></pre></div>
+<p>Vamos a construirla:</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb79-1"><a href="fundamentos-de-teoría-de-redes.html#cb79-1" tabindex="-1"></a>B <span class="op">=</span> nx.Graph()</span>
+<span id="cb79-2"><a href="fundamentos-de-teoría-de-redes.html#cb79-2" tabindex="-1"></a></span>
+<span id="cb79-3"><a href="fundamentos-de-teoría-de-redes.html#cb79-3" tabindex="-1"></a>movies <span class="op">=</span> df[<span class="st">&quot;Movie&quot;</span>].unique()</span>
+<span id="cb79-4"><a href="fundamentos-de-teoría-de-redes.html#cb79-4" tabindex="-1"></a>actors <span class="op">=</span> df[<span class="st">&quot;Actor&quot;</span>].unique()</span>
+<span id="cb79-5"><a href="fundamentos-de-teoría-de-redes.html#cb79-5" tabindex="-1"></a></span>
+<span id="cb79-6"><a href="fundamentos-de-teoría-de-redes.html#cb79-6" tabindex="-1"></a>B.add_nodes_from(movies, bipartite<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb79-7"><a href="fundamentos-de-teoría-de-redes.html#cb79-7" tabindex="-1"></a>B.add_nodes_from(actors, bipartite<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb79-8"><a href="fundamentos-de-teoría-de-redes.html#cb79-8" tabindex="-1"></a></span>
+<span id="cb79-9"><a href="fundamentos-de-teoría-de-redes.html#cb79-9" tabindex="-1"></a>B.add_edges_from([(row.Movie,row.Actor)</span>
+<span id="cb79-10"><a href="fundamentos-de-teoría-de-redes.html#cb79-10" tabindex="-1"></a>                  <span class="cf">for</span> _,row <span class="kw">in</span> df.iterrows()])</span>
+<span id="cb79-11"><a href="fundamentos-de-teoría-de-redes.html#cb79-11" tabindex="-1"></a></span>
+<span id="cb79-12"><a href="fundamentos-de-teoría-de-redes.html#cb79-12" tabindex="-1"></a>nx.draw(B, with_labels<span class="op">=</span><span class="va">True</span>, node_size<span class="op">=</span><span class="dv">2000</span>)</span>
+<span id="cb79-13"><a href="fundamentos-de-teoría-de-redes.html#cb79-13" tabindex="-1"></a>plt.title(<span class="st">&quot;Red bipartita&quot;</span>)</span>
+<span id="cb79-14"><a href="fundamentos-de-teoría-de-redes.html#cb79-14" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-31-31.png" width="672" /></p>
+<p>Otra forma de hacer el plot:</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb80-1"><a href="fundamentos-de-teoría-de-redes.html#cb80-1" tabindex="-1"></a>pos <span class="op">=</span> nx.bipartite_layout(B, movies)  <span class="co"># movies será la capa superior</span></span>
+<span id="cb80-2"><a href="fundamentos-de-teoría-de-redes.html#cb80-2" tabindex="-1"></a></span>
+<span id="cb80-3"><a href="fundamentos-de-teoría-de-redes.html#cb80-3" tabindex="-1"></a>nx.draw(B, pos,</span>
+<span id="cb80-4"><a href="fundamentos-de-teoría-de-redes.html#cb80-4" tabindex="-1"></a>        with_labels<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb80-5"><a href="fundamentos-de-teoría-de-redes.html#cb80-5" tabindex="-1"></a>        node_size<span class="op">=</span><span class="dv">2000</span>,</span>
+<span id="cb80-6"><a href="fundamentos-de-teoría-de-redes.html#cb80-6" tabindex="-1"></a>        node_color<span class="op">=</span><span class="st">&quot;lightblue&quot;</span>)</span>
+<span id="cb80-7"><a href="fundamentos-de-teoría-de-redes.html#cb80-7" tabindex="-1"></a></span>
+<span id="cb80-8"><a href="fundamentos-de-teoría-de-redes.html#cb80-8" tabindex="-1"></a>plt.title(<span class="st">&quot;Red bipartita (películas arriba, actores abajo)&quot;</span>)</span>
+<span id="cb80-9"><a href="fundamentos-de-teoría-de-redes.html#cb80-9" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-32-33.png" width="672" /></p>
+<p>Y se puede “forzar” también esto:</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb81-1"><a href="fundamentos-de-teoría-de-redes.html#cb81-1" tabindex="-1"></a>movies <span class="op">=</span> <span class="bu">list</span>(df[<span class="st">&quot;Movie&quot;</span>].unique())</span>
+<span id="cb81-2"><a href="fundamentos-de-teoría-de-redes.html#cb81-2" tabindex="-1"></a>actors <span class="op">=</span> <span class="bu">list</span>(df[<span class="st">&quot;Actor&quot;</span>].unique())</span>
+<span id="cb81-3"><a href="fundamentos-de-teoría-de-redes.html#cb81-3" tabindex="-1"></a></span>
+<span id="cb81-4"><a href="fundamentos-de-teoría-de-redes.html#cb81-4" tabindex="-1"></a>pos <span class="op">=</span> {}</span>
+<span id="cb81-5"><a href="fundamentos-de-teoría-de-redes.html#cb81-5" tabindex="-1"></a></span>
+<span id="cb81-6"><a href="fundamentos-de-teoría-de-redes.html#cb81-6" tabindex="-1"></a><span class="co"># Películas arriba (y=1)</span></span>
+<span id="cb81-7"><a href="fundamentos-de-teoría-de-redes.html#cb81-7" tabindex="-1"></a><span class="cf">for</span> i, movie <span class="kw">in</span> <span class="bu">enumerate</span>(movies):</span>
+<span id="cb81-8"><a href="fundamentos-de-teoría-de-redes.html#cb81-8" tabindex="-1"></a>    pos[movie] <span class="op">=</span> (i, <span class="dv">1</span>)</span>
+<span id="cb81-9"><a href="fundamentos-de-teoría-de-redes.html#cb81-9" tabindex="-1"></a></span>
+<span id="cb81-10"><a href="fundamentos-de-teoría-de-redes.html#cb81-10" tabindex="-1"></a><span class="co"># Actores abajo (y=0)</span></span>
+<span id="cb81-11"><a href="fundamentos-de-teoría-de-redes.html#cb81-11" tabindex="-1"></a><span class="cf">for</span> i, actor <span class="kw">in</span> <span class="bu">enumerate</span>(actors):</span>
+<span id="cb81-12"><a href="fundamentos-de-teoría-de-redes.html#cb81-12" tabindex="-1"></a>    pos[actor] <span class="op">=</span> (i, <span class="dv">0</span>)</span>
+<span id="cb81-13"><a href="fundamentos-de-teoría-de-redes.html#cb81-13" tabindex="-1"></a></span>
+<span id="cb81-14"><a href="fundamentos-de-teoría-de-redes.html#cb81-14" tabindex="-1"></a>nx.draw(B, pos,</span>
+<span id="cb81-15"><a href="fundamentos-de-teoría-de-redes.html#cb81-15" tabindex="-1"></a>        with_labels<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb81-16"><a href="fundamentos-de-teoría-de-redes.html#cb81-16" tabindex="-1"></a>        node_size<span class="op">=</span><span class="dv">2000</span>,</span>
+<span id="cb81-17"><a href="fundamentos-de-teoría-de-redes.html#cb81-17" tabindex="-1"></a>        node_color<span class="op">=</span><span class="st">&quot;lightyellow&quot;</span>,</span>
+<span id="cb81-18"><a href="fundamentos-de-teoría-de-redes.html#cb81-18" tabindex="-1"></a>        edge_color<span class="op">=</span><span class="st">&quot;gray&quot;</span>)</span>
+<span id="cb81-19"><a href="fundamentos-de-teoría-de-redes.html#cb81-19" tabindex="-1"></a></span>
+<span id="cb81-20"><a href="fundamentos-de-teoría-de-redes.html#cb81-20" tabindex="-1"></a>plt.title(<span class="st">&quot;Red bipartita forzada (arriba películas, abajo actores)&quot;</span>)</span>
+<span id="cb81-21"><a href="fundamentos-de-teoría-de-redes.html#cb81-21" tabindex="-1"></a>plt.ylim(<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">1.5</span>)</span></code></pre></div>
+<pre><code>## (-0.5, 1.5)</code></pre>
+<div class="sourceCode" id="cb83"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb83-1"><a href="fundamentos-de-teoría-de-redes.html#cb83-1" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-33-35.png" width="672" /></p>
+<p>Otra forma más, coloreando cada capa:</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb84-1"><a href="fundamentos-de-teoría-de-redes.html#cb84-1" tabindex="-1"></a>color_map <span class="op">=</span> []</span>
+<span id="cb84-2"><a href="fundamentos-de-teoría-de-redes.html#cb84-2" tabindex="-1"></a></span>
+<span id="cb84-3"><a href="fundamentos-de-teoría-de-redes.html#cb84-3" tabindex="-1"></a><span class="cf">for</span> node <span class="kw">in</span> B.nodes():</span>
+<span id="cb84-4"><a href="fundamentos-de-teoría-de-redes.html#cb84-4" tabindex="-1"></a>    <span class="cf">if</span> node <span class="kw">in</span> movies:</span>
+<span id="cb84-5"><a href="fundamentos-de-teoría-de-redes.html#cb84-5" tabindex="-1"></a>        color_map.append(<span class="st">&quot;lightcoral&quot;</span>)</span>
+<span id="cb84-6"><a href="fundamentos-de-teoría-de-redes.html#cb84-6" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb84-7"><a href="fundamentos-de-teoría-de-redes.html#cb84-7" tabindex="-1"></a>        color_map.append(<span class="st">&quot;lightblue&quot;</span>)</span>
+<span id="cb84-8"><a href="fundamentos-de-teoría-de-redes.html#cb84-8" tabindex="-1"></a></span>
+<span id="cb84-9"><a href="fundamentos-de-teoría-de-redes.html#cb84-9" tabindex="-1"></a>nx.draw(B, pos,</span>
+<span id="cb84-10"><a href="fundamentos-de-teoría-de-redes.html#cb84-10" tabindex="-1"></a>        with_labels<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb84-11"><a href="fundamentos-de-teoría-de-redes.html#cb84-11" tabindex="-1"></a>        node_color<span class="op">=</span>color_map,</span>
+<span id="cb84-12"><a href="fundamentos-de-teoría-de-redes.html#cb84-12" tabindex="-1"></a>        node_size<span class="op">=</span><span class="dv">2000</span>)</span>
+<span id="cb84-13"><a href="fundamentos-de-teoría-de-redes.html#cb84-13" tabindex="-1"></a></span>
+<span id="cb84-14"><a href="fundamentos-de-teoría-de-redes.html#cb84-14" tabindex="-1"></a>plt.title(<span class="st">&quot;Red bipartita con capas diferenciadas&quot;</span>)</span>
+<span id="cb84-15"><a href="fundamentos-de-teoría-de-redes.html#cb84-15" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-34-37.png" width="672" /></p>
+<div id="matriz-de-incidencia" class="section level4 hasAnchor" number="2.0.7.1">
+<h4><span class="header-section-number">2.0.7.1</span> Matriz de incidencia<a href="fundamentos-de-teoría-de-redes.html#matriz-de-incidencia" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb85"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb85-1"><a href="fundamentos-de-teoría-de-redes.html#cb85-1" tabindex="-1"></a>B_matrix <span class="op">=</span> np.zeros((<span class="bu">len</span>(movies), <span class="bu">len</span>(actors)))</span>
+<span id="cb85-2"><a href="fundamentos-de-teoría-de-redes.html#cb85-2" tabindex="-1"></a></span>
+<span id="cb85-3"><a href="fundamentos-de-teoría-de-redes.html#cb85-3" tabindex="-1"></a><span class="cf">for</span> _,row <span class="kw">in</span> df.iterrows():</span>
+<span id="cb85-4"><a href="fundamentos-de-teoría-de-redes.html#cb85-4" tabindex="-1"></a>    i <span class="op">=</span> <span class="bu">list</span>(movies).index(row.Movie)</span>
+<span id="cb85-5"><a href="fundamentos-de-teoría-de-redes.html#cb85-5" tabindex="-1"></a>    j <span class="op">=</span> <span class="bu">list</span>(actors).index(row.Actor)</span>
+<span id="cb85-6"><a href="fundamentos-de-teoría-de-redes.html#cb85-6" tabindex="-1"></a>    B_matrix[i,j] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb85-7"><a href="fundamentos-de-teoría-de-redes.html#cb85-7" tabindex="-1"></a></span>
+<span id="cb85-8"><a href="fundamentos-de-teoría-de-redes.html#cb85-8" tabindex="-1"></a><span class="bu">print</span>(B_matrix)</span></code></pre></div>
+<pre><code>## [[1. 1. 0. 0.]
+##  [0. 0. 1. 1.]
+##  [0. 0. 1. 0.]]</code></pre>
+</div>
+<div id="proyección-one-mode" class="section level4 hasAnchor" number="2.0.7.2">
+<h4><span class="header-section-number">2.0.7.2</span> Proyección one-mode<a href="#proyecci%C3%B3n-one-mode" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb87"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb87-1"><a href="fundamentos-de-teoría-de-redes.html#cb87-1" tabindex="-1"></a>W <span class="op">=</span> B_matrix.T <span class="op">@</span> B_matrix</span>
+<span id="cb87-2"><a href="fundamentos-de-teoría-de-redes.html#cb87-2" tabindex="-1"></a><span class="bu">print</span>(W)</span></code></pre></div>
+<pre><code>## [[1. 1. 0. 0.]
+##  [1. 1. 0. 0.]
+##  [0. 0. 2. 1.]
+##  [0. 0. 1. 1.]]</code></pre>
+<div class="sourceCode" id="cb89"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb89-1"><a href="fundamentos-de-teoría-de-redes.html#cb89-1" tabindex="-1"></a><span class="im">from</span> networkx.algorithms <span class="im">import</span> bipartite</span>
+<span id="cb89-2"><a href="fundamentos-de-teoría-de-redes.html#cb89-2" tabindex="-1"></a></span>
+<span id="cb89-3"><a href="fundamentos-de-teoría-de-redes.html#cb89-3" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb89-4"><a href="fundamentos-de-teoría-de-redes.html#cb89-4" tabindex="-1"></a>    <span class="st">&quot;Movie&quot;</span>: [<span class="st">&quot;Matrix&quot;</span>,<span class="st">&quot;Matrix&quot;</span>,<span class="st">&quot;Titanic&quot;</span>,<span class="st">&quot;Titanic&quot;</span>,<span class="st">&quot;Inception&quot;</span>],</span>
+<span id="cb89-5"><a href="fundamentos-de-teoría-de-redes.html#cb89-5" tabindex="-1"></a>    <span class="st">&quot;Actor&quot;</span>: [<span class="st">&quot;Keanu&quot;</span>,<span class="st">&quot;Carrie&quot;</span>,<span class="st">&quot;Leonardo&quot;</span>,<span class="st">&quot;Kate&quot;</span>,<span class="st">&quot;Leonardo&quot;</span>]</span>
+<span id="cb89-6"><a href="fundamentos-de-teoría-de-redes.html#cb89-6" tabindex="-1"></a>})</span>
+<span id="cb89-7"><a href="fundamentos-de-teoría-de-redes.html#cb89-7" tabindex="-1"></a></span>
+<span id="cb89-8"><a href="fundamentos-de-teoría-de-redes.html#cb89-8" tabindex="-1"></a>movies <span class="op">=</span> <span class="bu">list</span>(df[<span class="st">&quot;Movie&quot;</span>].unique())</span>
+<span id="cb89-9"><a href="fundamentos-de-teoría-de-redes.html#cb89-9" tabindex="-1"></a>actors <span class="op">=</span> <span class="bu">list</span>(df[<span class="st">&quot;Actor&quot;</span>].unique())</span>
+<span id="cb89-10"><a href="fundamentos-de-teoría-de-redes.html#cb89-10" tabindex="-1"></a></span>
+<span id="cb89-11"><a href="fundamentos-de-teoría-de-redes.html#cb89-11" tabindex="-1"></a><span class="co"># Grafo bipartito</span></span>
+<span id="cb89-12"><a href="fundamentos-de-teoría-de-redes.html#cb89-12" tabindex="-1"></a>B <span class="op">=</span> nx.Graph()</span>
+<span id="cb89-13"><a href="fundamentos-de-teoría-de-redes.html#cb89-13" tabindex="-1"></a>B.add_nodes_from(movies, bipartite<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb89-14"><a href="fundamentos-de-teoría-de-redes.html#cb89-14" tabindex="-1"></a>B.add_nodes_from(actors, bipartite<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb89-15"><a href="fundamentos-de-teoría-de-redes.html#cb89-15" tabindex="-1"></a>B.add_edges_from([(row.Movie, row.Actor) <span class="cf">for</span> _, row <span class="kw">in</span> df.iterrows()])</span>
+<span id="cb89-16"><a href="fundamentos-de-teoría-de-redes.html#cb89-16" tabindex="-1"></a></span>
+<span id="cb89-17"><a href="fundamentos-de-teoría-de-redes.html#cb89-17" tabindex="-1"></a><span class="co"># Posiciones forzadas (películas arriba, actores abajo)</span></span>
+<span id="cb89-18"><a href="fundamentos-de-teoría-de-redes.html#cb89-18" tabindex="-1"></a>pos <span class="op">=</span> {}</span>
+<span id="cb89-19"><a href="fundamentos-de-teoría-de-redes.html#cb89-19" tabindex="-1"></a><span class="cf">for</span> i, m <span class="kw">in</span> <span class="bu">enumerate</span>(movies):</span>
+<span id="cb89-20"><a href="fundamentos-de-teoría-de-redes.html#cb89-20" tabindex="-1"></a>    pos[m] <span class="op">=</span> (i, <span class="dv">1</span>)</span>
+<span id="cb89-21"><a href="fundamentos-de-teoría-de-redes.html#cb89-21" tabindex="-1"></a><span class="cf">for</span> i, a <span class="kw">in</span> <span class="bu">enumerate</span>(actors):</span>
+<span id="cb89-22"><a href="fundamentos-de-teoría-de-redes.html#cb89-22" tabindex="-1"></a>    pos[a] <span class="op">=</span> (i, <span class="dv">0</span>)</span>
+<span id="cb89-23"><a href="fundamentos-de-teoría-de-redes.html#cb89-23" tabindex="-1"></a></span>
+<span id="cb89-24"><a href="fundamentos-de-teoría-de-redes.html#cb89-24" tabindex="-1"></a><span class="co"># Colores por capa</span></span>
+<span id="cb89-25"><a href="fundamentos-de-teoría-de-redes.html#cb89-25" tabindex="-1"></a>node_colors <span class="op">=</span> [<span class="st">&quot;lightcoral&quot;</span> <span class="cf">if</span> n <span class="kw">in</span> movies <span class="cf">else</span> <span class="st">&quot;lightblue&quot;</span> <span class="cf">for</span> n <span class="kw">in</span> B.nodes()]</span>
+<span id="cb89-26"><a href="fundamentos-de-teoría-de-redes.html#cb89-26" tabindex="-1"></a></span>
+<span id="cb89-27"><a href="fundamentos-de-teoría-de-redes.html#cb89-27" tabindex="-1"></a>nx.draw(B, pos, with_labels<span class="op">=</span><span class="va">True</span>, node_color<span class="op">=</span>node_colors, node_size<span class="op">=</span><span class="dv">2000</span>, edge_color<span class="op">=</span><span class="st">&quot;gray&quot;</span>)</span>
+<span id="cb89-28"><a href="fundamentos-de-teoría-de-redes.html#cb89-28" tabindex="-1"></a>plt.title(<span class="st">&quot;Bipartita: películas (arriba) – actores (abajo)&quot;</span>)</span></code></pre></div>
+<pre><code>## Text(0.5, 1.0, &#39;Bipartita: películas (arriba) – actores (abajo)&#39;)</code></pre>
+<div class="sourceCode" id="cb91"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb91-1"><a href="fundamentos-de-teoría-de-redes.html#cb91-1" tabindex="-1"></a>plt.ylim(<span class="op">-</span><span class="fl">0.6</span>, <span class="fl">1.6</span>)</span></code></pre></div>
+<pre><code>## (-0.6, 1.6)</code></pre>
+<div class="sourceCode" id="cb93"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb93-1"><a href="fundamentos-de-teoría-de-redes.html#cb93-1" tabindex="-1"></a>plt.axis(<span class="st">&quot;off&quot;</span>)</span></code></pre></div>
+<pre><code>## (np.float64(-0.31500000000000006), np.float64(3.315), np.float64(-0.6), np.float64(1.6))</code></pre>
+<div class="sourceCode" id="cb95"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb95-1"><a href="fundamentos-de-teoría-de-redes.html#cb95-1" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-37-39.png" width="672" /></p>
+<p>Vamos a crear las dos proyecciones.</p>
+</div>
+</div>
+<div id="proyección-one-mode-a-actores" class="section level3 hasAnchor" number="2.0.8">
+<h3><span class="header-section-number">2.0.8</span> Proyección one-mode a Actores<a href="#proyecci%C3%B3n-one-mode-a-actores" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb96"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb96-1"><a href="fundamentos-de-teoría-de-redes.html#cb96-1" tabindex="-1"></a><span class="co"># Proyección a actores (one-mode)</span></span>
+<span id="cb96-2"><a href="fundamentos-de-teoría-de-redes.html#cb96-2" tabindex="-1"></a>P_actors <span class="op">=</span> bipartite.weighted_projected_graph(B, actors)</span>
+<span id="cb96-3"><a href="fundamentos-de-teoría-de-redes.html#cb96-3" tabindex="-1"></a></span>
+<span id="cb96-4"><a href="fundamentos-de-teoría-de-redes.html#cb96-4" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Aristas (actor-actor) con pesos:&quot;</span>, <span class="bu">list</span>(P_actors.edges(data<span class="op">=</span><span class="va">True</span>)))</span></code></pre></div>
+<pre><code>## Aristas (actor-actor) con pesos: [(&#39;Keanu&#39;, &#39;Carrie&#39;, {&#39;weight&#39;: 1}), (&#39;Leonardo&#39;, &#39;Kate&#39;, {&#39;weight&#39;: 1})]</code></pre>
+<div class="sourceCode" id="cb98"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb98-1"><a href="fundamentos-de-teoría-de-redes.html#cb98-1" tabindex="-1"></a>posA <span class="op">=</span> nx.spring_layout(P_actors, seed<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb98-2"><a href="fundamentos-de-teoría-de-redes.html#cb98-2" tabindex="-1"></a>nx.draw(P_actors, posA, with_labels<span class="op">=</span><span class="va">True</span>, node_size<span class="op">=</span><span class="dv">2000</span>, node_color<span class="op">=</span><span class="st">&quot;lightblue&quot;</span>, edge_color<span class="op">=</span><span class="st">&quot;gray&quot;</span>)</span>
+<span id="cb98-3"><a href="fundamentos-de-teoría-de-redes.html#cb98-3" tabindex="-1"></a></span>
+<span id="cb98-4"><a href="fundamentos-de-teoría-de-redes.html#cb98-4" tabindex="-1"></a><span class="co"># Etiquetas de peso</span></span>
+<span id="cb98-5"><a href="fundamentos-de-teoría-de-redes.html#cb98-5" tabindex="-1"></a>labelsA <span class="op">=</span> nx.get_edge_attributes(P_actors, <span class="st">&quot;weight&quot;</span>)</span>
+<span id="cb98-6"><a href="fundamentos-de-teoría-de-redes.html#cb98-6" tabindex="-1"></a>nx.draw_networkx_edge_labels(P_actors, posA, edge_labels<span class="op">=</span>labelsA)</span></code></pre></div>
+<pre><code>## {(&#39;Keanu&#39;, &#39;Carrie&#39;): Text(-0.35775095734238305, 0.19487556024727604, &#39;1&#39;), (&#39;Leonardo&#39;, &#39;Kate&#39;): Text(0.3577635707881759, -0.19487292868700534, &#39;1&#39;)}</code></pre>
+<div class="sourceCode" id="cb100"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb100-1"><a href="fundamentos-de-teoría-de-redes.html#cb100-1" tabindex="-1"></a>plt.title(<span class="st">&quot;Proyección one-mode: red de actores (peso = películas compartidas)&quot;</span>)</span></code></pre></div>
+<pre><code>## Text(0.5, 1.0, &#39;Proyección one-mode: red de actores (peso = películas compartidas)&#39;)</code></pre>
+<div class="sourceCode" id="cb102"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb102-1"><a href="fundamentos-de-teoría-de-redes.html#cb102-1" tabindex="-1"></a>plt.axis(<span class="st">&quot;off&quot;</span>)</span></code></pre></div>
+<pre><code>## (np.float64(-0.9375232965348552), np.float64(1.184108548539511), np.float64(-0.699174762922632), np.float64(1.0700229118070153))</code></pre>
+<div class="sourceCode" id="cb104"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb104-1"><a href="fundamentos-de-teoría-de-redes.html#cb104-1" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-38-41.png" width="672" /></p>
+</div>
+<div id="proyección-one-mode-a-películas" class="section level3 hasAnchor" number="2.0.9">
+<h3><span class="header-section-number">2.0.9</span> Proyección one-mode a PELÍCULAS<a href="#proyecci%C3%B3n-one-mode-a-pel%C3%ADculas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb105"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb105-1"><a href="fundamentos-de-teoría-de-redes.html#cb105-1" tabindex="-1"></a><span class="co"># Proyección a películas (one-mode)</span></span>
+<span id="cb105-2"><a href="fundamentos-de-teoría-de-redes.html#cb105-2" tabindex="-1"></a>P_movies <span class="op">=</span> bipartite.weighted_projected_graph(B, movies)</span>
+<span id="cb105-3"><a href="fundamentos-de-teoría-de-redes.html#cb105-3" tabindex="-1"></a></span>
+<span id="cb105-4"><a href="fundamentos-de-teoría-de-redes.html#cb105-4" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Aristas (movie-movie) con pesos:&quot;</span>, <span class="bu">list</span>(P_movies.edges(data<span class="op">=</span><span class="va">True</span>)))</span></code></pre></div>
+<pre><code>## Aristas (movie-movie) con pesos: [(&#39;Titanic&#39;, &#39;Inception&#39;, {&#39;weight&#39;: 1})]</code></pre>
+<div class="sourceCode" id="cb107"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb107-1"><a href="fundamentos-de-teoría-de-redes.html#cb107-1" tabindex="-1"></a>posM <span class="op">=</span> nx.spring_layout(P_movies, seed<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb107-2"><a href="fundamentos-de-teoría-de-redes.html#cb107-2" tabindex="-1"></a>nx.draw(P_movies, posM, with_labels<span class="op">=</span><span class="va">True</span>, node_size<span class="op">=</span><span class="dv">2300</span>, node_color<span class="op">=</span><span class="st">&quot;lightcoral&quot;</span>, edge_color<span class="op">=</span><span class="st">&quot;gray&quot;</span>)</span>
+<span id="cb107-3"><a href="fundamentos-de-teoría-de-redes.html#cb107-3" tabindex="-1"></a></span>
+<span id="cb107-4"><a href="fundamentos-de-teoría-de-redes.html#cb107-4" tabindex="-1"></a>labelsM <span class="op">=</span> nx.get_edge_attributes(P_movies, <span class="st">&quot;weight&quot;</span>)</span>
+<span id="cb107-5"><a href="fundamentos-de-teoría-de-redes.html#cb107-5" tabindex="-1"></a>nx.draw_networkx_edge_labels(P_movies, posM, edge_labels<span class="op">=</span>labelsM)</span></code></pre></div>
+<pre><code>## {(&#39;Titanic&#39;, &#39;Inception&#39;): Text(-0.5000007838353786, -0.32225756924227716, &#39;1&#39;)}</code></pre>
+<div class="sourceCode" id="cb109"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb109-1"><a href="fundamentos-de-teoría-de-redes.html#cb109-1" tabindex="-1"></a>plt.title(<span class="st">&quot;Proyección one-mode: red de películas (peso = actores compartidos)&quot;</span>)</span></code></pre></div>
+<pre><code>## Text(0.5, 1.0, &#39;Proyección one-mode: red de películas (peso = actores compartidos)&#39;)</code></pre>
+<div class="sourceCode" id="cb111"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb111-1"><a href="fundamentos-de-teoría-de-redes.html#cb111-1" tabindex="-1"></a>plt.axis(<span class="st">&quot;off&quot;</span>)</span></code></pre></div>
+<pre><code>## (np.float64(-0.7473488387186665), np.float64(1.0832070875580317), np.float64(-0.6374842965559769), np.float64(0.7055652738076293))</code></pre>
+<div class="sourceCode" id="cb113"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb113-1"><a href="fundamentos-de-teoría-de-redes.html#cb113-1" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-39-43.png" width="672" /></p>
+<p>Si <span class="math inline">\(B\)</span> es la matriz de incidencia (películas × actores), entonces:</p>
+<ul>
+<li><p><span class="math inline">\(B^TB\)</span>: co-ocurrencia actor–actor</p></li>
+<li><p><span class="math inline">\(BB^T\)</span>: co-ocurrencia película–película</p></li>
+</ul>
+<div class="sourceCode" id="cb114"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb114-1"><a href="fundamentos-de-teoría-de-redes.html#cb114-1" tabindex="-1"></a><span class="co"># Matriz de incidencia: filas=películas, columnas=actores</span></span>
+<span id="cb114-2"><a href="fundamentos-de-teoría-de-redes.html#cb114-2" tabindex="-1"></a>Bmat <span class="op">=</span> np.zeros((<span class="bu">len</span>(movies), <span class="bu">len</span>(actors)), dtype<span class="op">=</span><span class="bu">int</span>)</span>
+<span id="cb114-3"><a href="fundamentos-de-teoría-de-redes.html#cb114-3" tabindex="-1"></a></span>
+<span id="cb114-4"><a href="fundamentos-de-teoría-de-redes.html#cb114-4" tabindex="-1"></a>movie_idx <span class="op">=</span> {m:i <span class="cf">for</span> i,m <span class="kw">in</span> <span class="bu">enumerate</span>(movies)}</span>
+<span id="cb114-5"><a href="fundamentos-de-teoría-de-redes.html#cb114-5" tabindex="-1"></a>actor_idx <span class="op">=</span> {a:j <span class="cf">for</span> j,a <span class="kw">in</span> <span class="bu">enumerate</span>(actors)}</span>
+<span id="cb114-6"><a href="fundamentos-de-teoría-de-redes.html#cb114-6" tabindex="-1"></a></span>
+<span id="cb114-7"><a href="fundamentos-de-teoría-de-redes.html#cb114-7" tabindex="-1"></a><span class="cf">for</span> _, row <span class="kw">in</span> df.iterrows():</span>
+<span id="cb114-8"><a href="fundamentos-de-teoría-de-redes.html#cb114-8" tabindex="-1"></a>    Bmat[movie_idx[row.Movie], actor_idx[row.Actor]] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb114-9"><a href="fundamentos-de-teoría-de-redes.html#cb114-9" tabindex="-1"></a></span>
+<span id="cb114-10"><a href="fundamentos-de-teoría-de-redes.html#cb114-10" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;B (películas x actores):</span><span class="ch">\n</span><span class="st">&quot;</span>, Bmat)</span></code></pre></div>
+<pre><code>## B (películas x actores):
+##  [[1 1 0 0]
+##  [0 0 1 1]
+##  [0 0 1 0]]</code></pre>
+<div class="sourceCode" id="cb116"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb116-1"><a href="fundamentos-de-teoría-de-redes.html#cb116-1" tabindex="-1"></a>W_actors <span class="op">=</span> Bmat.T <span class="op">@</span> Bmat   <span class="co"># actores x actores</span></span>
+<span id="cb116-2"><a href="fundamentos-de-teoría-de-redes.html#cb116-2" tabindex="-1"></a>W_movies <span class="op">=</span> Bmat <span class="op">@</span> Bmat.T   <span class="co"># películas x películas</span></span>
+<span id="cb116-3"><a href="fundamentos-de-teoría-de-redes.html#cb116-3" tabindex="-1"></a></span>
+<span id="cb116-4"><a href="fundamentos-de-teoría-de-redes.html#cb116-4" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">B^T B (actores x actores):</span><span class="ch">\n</span><span class="st">&quot;</span>, W_actors)</span></code></pre></div>
+<pre><code>## 
+## B^T B (actores x actores):
+##  [[1 1 0 0]
+##  [1 1 0 0]
+##  [0 0 2 1]
+##  [0 0 1 1]]</code></pre>
+<div class="sourceCode" id="cb118"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb118-1"><a href="fundamentos-de-teoría-de-redes.html#cb118-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">B B^T (películas x películas):</span><span class="ch">\n</span><span class="st">&quot;</span>, W_movies)</span></code></pre></div>
+<pre><code>## 
+## B B^T (películas x películas):
+##  [[2 0 0]
+##  [0 2 1]
+##  [0 1 1]]</code></pre>
 
 </div>
 </div>
@@ -399,6 +825,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
