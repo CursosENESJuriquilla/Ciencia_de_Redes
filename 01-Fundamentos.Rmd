@@ -9,6 +9,9 @@ workingDir <-  "."
 setwd(workingDir)
 ```
 
+```{r}
+library(reticulate)
+```
 Primero, tenemos que importar algunas de las librerías básicas. 
 
 - `networkx` es la librería básica de redes en Python.
@@ -126,7 +129,7 @@ nx.draw(G, with_labels=True)
 ```
 
 
-### Matriz de Adyacencia
+## Matriz de Adyacencia
 
 Las gráficas en `networkx`, las podemos crear también a partir de su matriz de adyacencia.
 
@@ -153,7 +156,7 @@ print(G.edges())
 nx.draw(G, with_labels=True)
 ```
 
-### Redes con pesos
+## Redes con pesos
 
 En muchas aplicaciones, no basta saber si dos nodos están conectados: queremos medir intensidad.
 
@@ -198,7 +201,7 @@ print(pos)
 
 **Ejercicio:** Comparar con `nx.circular_layout(G)` para ver que “layout” = regla de colocación.
 
-### Redes dirigidas
+## Redes dirigidas
 
 En una red dirigida las aristas tienen orientación.
 
@@ -235,7 +238,7 @@ print("In-degree:", dict(DG.in_degree()))
 print("Out-degree:", dict(DG.out_degree()))
 ```
 
-### Graficas acíclicas
+## Graficas acíclicas
 
 Un grafo dirigido es acíclico si no contiene ciclos.
 
@@ -283,7 +286,7 @@ print(A_weird)
 ```
 
 
-### Redes k-regulares
+## Redes k-regulares
 
 Un grafo es $k$-regular si todos los vértices tienen grado $k$.
 
@@ -295,7 +298,7 @@ plt.title("Grafo 3-regular")
 plt.show()
 ```
 
-#### Multigrafos (multiaristas)
+## Multigrafos (multiaristas)
 
 En algunos sistemas pueden existir varias relaciones entre dos nodos.
 
@@ -356,7 +359,7 @@ plt.show()
 print("Número de aristas A-B:", MG.number_of_edges("A","B"))
 ```
 
-### Loops (lazos)
+## Loops (lazos)
 
 Un loop es una arista de un nodo a sí mismo.
 
@@ -393,7 +396,7 @@ También podemos listarlos:
 print("Loops:", list(nx.selfloop_edges(G)))
 ```
 
-### Redes bipartitas
+## Redes bipartitas
 
 Ejemplo: películas y actores.
 
@@ -486,7 +489,7 @@ plt.title("Red bipartita con capas diferenciadas")
 plt.show()
 ```
 
-#### Matriz de incidencia
+### Matriz de incidencia
 
 ```{python}
 B_matrix = np.zeros((len(movies), len(actors)))
@@ -499,7 +502,7 @@ for _,row in df.iterrows():
 print(B_matrix)
 ```
 
-#### Proyección one-mode
+### Proyección one-mode
 
 ```{python}
 W = B_matrix.T @ B_matrix
@@ -608,3 +611,415 @@ W_movies = Bmat @ Bmat.T   # películas x películas
 print("\nB^T B (actores x actores):\n", W_actors)
 print("\nB B^T (películas x películas):\n", W_movies)
 ```
+
+
+## Árboles
+
+En Python, podemos crear árboles con la instrucción `nx.path_graph(n)`
+
+```{python}
+T = nx.path_graph(6)
+nx.draw(T, with_labels=True)
+```
+
+No hay una función tal cual que nos cree un árbol cualquiera, hay que jugar tantito con el código.
+
+Lo que si podemos verificar es si una gráfica dada es un árbol, al verificar la condición de que $|E| = |V|-1$.
+
+```{python}
+n = T.number_of_nodes()
+m = T.number_of_edges()
+
+print("Nodos:", n)
+print("Aristas:", m)
+print("¿Cumple m = n-1?", m == n-1)
+```
+
+**Ejercicio:** Genera un `cycle_graph(6)`. Verifica si es un árbol. Elimina una arista y vuelve a verificar.
+
+## Gráficas planas
+
+Con la función `nx.check_planarity(Graph_object)` podemos verificar si una red es plana o no.
+
+```{python}
+G1 = nx.cycle_graph(5)
+nx.check_planarity(G1)
+```
+
+```{python}
+G2 = nx.complete_graph(5)
+nx.check_planarity(G2)
+```
+
+**Ejercicio:** Verifica la planaridad de `complete_graph(4)` y `complete_graph(6)`.
+
+## Grado y grado medio
+
+```{python}
+G = nx.cycle_graph(6)
+dict(G.degree())
+```
+
+El grado medio lo podemos obtener de la siguiente forma:
+
+```{python}
+deg_values = [d for n,d in G.degree()]
+c = np.mean(deg_values)
+print("EL grado medio c es igual a ", c)
+```
+
+Teóricamente, el grado medio cumple que $c=\frac{2m}{n}$, donde $m$ es el número de aristas y $n$ el número de vértices.
+
+```{python}
+n = G.number_of_nodes()
+m = G.number_of_edges()
+v = 2*m/n
+print('Se cumple la relación c=2m/n', c == v)
+```
+
+
+**Ejercicio:** Crea una `complete_graph(8)`, calcula el grado medio y comparalo con la fórmula teórica.
+
+## Densidad
+
+Para una red no dirigida, tenemos lo siguiente:
+
+```{python}
+G = nx.path_graph(10)
+nx.density(G)
+```
+
+Para el caso de una red dirigida,
+
+```{python}
+DG = nx.DiGraph()
+DG.add_edges_from([(1,2),(2,3),(3,4)])
+nx.density(DG)
+```
+
+**Ejemplo:** Compara la desidad de las gráficas `path_graph(20)` y `complete_graph(20)`. ¿Cuál es sparse y cuál densa?
+
+### Sparsidad y crecimiento
+
+```{python}
+for n in [20,50,100]:
+   G = nx.path_graph(n)
+   print("n =", n, "densidad =", nx.density(G))
+```
+
+
+## Redes multicapa
+
+```{python}
+G = nx.Graph()
+
+G.add_edge("Ana","Luis", layer="amistad")
+G.add_edge("Ana","Luis", layer="trabajo")
+
+G.edges(data=True)
+
+nx.draw(G)
+```
+
+**Ejercicio:** ¿Cómo cambiaría el grado si consideramos cada capa por separado?
+
+
+## Redes dinámicas
+
+```{python}
+G_t1 = nx.Graph()
+G_t1.add_edges_from([(1,2),(2,3)])
+
+G_t2 = nx.Graph()
+G_t2.add_edges_from([(1,2),(2,4)])
+
+print("Densidad t1:", nx.density(G_t1))
+print("Densidad t2:", nx.density(G_t2))
+```
+
+## Caminos y trayectorias
+
+```{python}
+G = nx.Graph()
+G.add_edges_from([
+   (1,2),
+   (2,3),
+   (3,4),
+   (2,4),
+   (4,5)
+])
+
+nx.draw(G, with_labels=True)
+```
+
+Podemos listas todos los posibles caminos simples(sin vértices repetidos):
+
+```{python}
+list(nx.all_simple_paths(G, source=1, target=5))
+```
+
+Se puede demostrar que que un camino simple se puede encontrar en tiempo $O(V+E)$ pero el número de trayectorias simples puede ser muy grande, por ejemplo para gráficas completas de orden $n$ es de tiempo $O(n!)$.
+
+Uno puede especificar trayectorias de longitud $r$ como sigue:
+
+```{python}
+G = nx.complete_graph(4)
+paths = nx.all_simple_paths(G, source=0, target=3, cutoff=2)
+print(list(paths))
+```
+
+Y podemos obtenerlas también como la lista de aristas:
+
+```{python}
+paths = nx.all_simple_paths(G, source=0, target=3)
+for path in map(nx.utils.pairwise, paths):
+    print(list(path))
+```
+
+Podríamos también fijar solo uno de los nodos y el otro variarlo:
+
+```{python}
+G = nx.complete_graph(4)
+for path in nx.all_simple_paths(G, source=0, target=[3, 2]):
+    print(path)
+```
+
+La trayectoria que va de un vértice a si mismo de tamaño 0:
+
+```{python}
+G = nx.empty_graph(5)
+list(nx.all_simple_paths(G, source=0, target=0))
+```
+
+```{python}
+G = nx.path_graph(3)
+list(nx.all_simple_paths(G, source=0, target={0, 1, 2}))
+```
+
+Podemos contar las trayectorias de una raíz a sus hojas en una gráfica dirigida acíclica.
+```{python}
+G = nx.DiGraph([(0, 1), (1, 2), (0, 3), (3, 2)])
+roots = (v for v, d in G.in_degree() if d == 0)
+leaves = (v for v, d in G.out_degree() if d == 0)
+all_paths = []
+for root in roots:
+    for leaf in leaves:
+        paths = nx.all_simple_paths(G, root, leaf)
+        all_paths.extend(paths)
+all_paths
+```
+
+Iterar sobre cada ruta desde los nodos raíz a los nodos hoja en un gráfico acíclico dirigido pasando todas las hojas juntas para evitar cálculos innecesarios:
+
+```{python}
+G = nx.DiGraph([(0, 1), (2, 1), (1, 3), (1, 4)])
+roots = (v for v, d in G.in_degree() if d == 0)
+leaves = [v for v, d in G.out_degree() if d == 0]
+all_paths = []
+for root in roots:
+    paths = nx.all_simple_paths(G, root, leaves)
+    all_paths.extend(paths)
+all_paths
+```
+
+En las multigráficas, es decir si tenemos aristas paralelas, nos va a regresar las trayectorias múltiple veces:
+
+```{python}
+G = nx.MultiDiGraph([(0, 1), (0, 1), (1, 2)])
+list(nx.all_simple_paths(G, 0, 2))
+```
+
+
+Como decíamos antes, el tiempo en el que encuentra caminos simples puede ser muy grande, entonces es recomendado preguntarse primero si existen caminos entre dos nodos.
+
+```{python}
+G1 = nx.Graph()
+G1.add_edges_from([
+   (1,2),
+   (2,3),
+   (3,4),
+   (2,4),
+   (4,5)
+])
+nx.has_path(G1, 1, 4)
+```
+
+```{pyton}
+G2 = nx.Graph()
+G2.add_edges_from([(1, 2), (2, 3), (4, 5)])
+
+# nodo 1 y nodo 3 
+path_exists_1_to_3 = nx.has_path(G2, 1, 3)
+print(f"Existe una trayectoria de 1 a 3: {path_exists_1_to_3}")
+
+# Nodo 1 y nodo 4 
+path_exists_1_to_4 = nx.has_path(G2, 1, 4)
+print(f"Existe una trayectoria de 1 a 4: {path_exists_1_to_4}")
+```
+
+**Ejercicio:** Construye una red que no tenga un camino entre dos nodos dados. Y usa la función `has_path()` para verificarlo.
+
+## Trayectorias más cortas
+
+```{python}
+G1 = nx.Graph()
+G1.add_edges_from([
+   (1,2),
+   (2,3),
+   (3,4),
+   (2,4),
+   (4,5)
+])
+nx.shortest_path(G1, source=1, target=4)
+```
+
+```{python}
+G1 = nx.Graph()
+G1.add_edges_from([
+   (1,2),
+   (2,3),
+   (3,4),
+   (2,4),
+   (4,5)
+])
+nx.shortest_path_length(G1, source=1, target=4)
+```
+
+Para el caso de gráficas con peso:
+
+```{python}
+WG = nx.Graph()
+WG.add_weighted_edges_from([
+ (1,2,1),
+   (2,3,2),
+   (1,3,5),
+   (3,4,1)
+])
+
+nx.shortest_path(WG, source=1, target=4, weight="weight")
+```
+
+**Ejercicio:** Modifica los pesos para que cambie el camino más corto.
+
+## Componentes conexas
+
+```{python}
+G = nx.Graph()
+G.add_edges_from([(1,2),(2,3),(4,5)])
+
+nx.draw(G, with_labels=True)
+```
+
+```{python}
+list(nx.connected_components(G))
+```
+
+```{python}
+nx.number_connected_components(G)
+```
+
+Para el caso de redes dirigidas, tenemos una forma de preguntar por las debilmente conectadas y las fuertemente conectadas.
+
+```{python}
+DG = nx.DiGraph()
+DG.add_edges_from([
+   (1,2),
+   (2,3),
+   (3,1),
+   (3,4),
+   (5,4)
+])
+```
+
+
+```{python}
+list(nx.weakly_connected_components(DG))
+```
+
+```{python}
+list(nx.strongly_connected_components(DG))
+```
+
+Y para las In y Out componentes también:
+
+- `descendants(G, source)`: nos regresa todos los vértices que son alcanzables desde algún vértice `source`.
+
+- `ancestors(G, source)`: nos regresa todos los vértices que tienen una trayectoria al vértice `source`.
+
+```{python}
+nx.descendants(DG, 1)
+nx.ancestors(DG, 1)
+```
+
+## Trayectorias independientes
+
+- Independientes por aristas:
+
+```{python}
+G1 = nx.Graph()
+G1.add_edges_from([
+   (1,2),
+   (2,3),
+   (3,4),
+   (2,4),
+   (4,5)
+])
+nx.edge_disjoint_paths(G1, 1, 4)
+```
+
+```{python}
+G1 = nx.Graph()
+G1.add_edges_from([
+   (1,2),
+   (2,3),
+   (3,4),
+   (2,4),
+   (4,5)
+])
+list(nx.edge_disjoint_paths(G1, 1, 4))
+```
+
+- Independientes por vértices:
+
+```{python}
+G1 = nx.Graph()
+G1.add_edges_from([
+   (1,2),
+   (2,3),
+   (3,4),
+   (2,4),
+   (4,5)
+])
+list(nx.node_disjoint_paths(G1, 1, 4))
+```
+
+## Conjuntos de corte
+
+- Conjunto de corte por aristas mínimo:
+
+```{python}
+G1 = nx.Graph()
+G1.add_edges_from([
+   (1,2),
+   (2,3),
+   (3,4),
+   (2,4),
+   (4,5)
+])
+nx.minimum_edge_cut(G1, 1, 4)
+```
+
+- Conjunto de corte por vértices mínimo:
+
+```{python}
+G1 = nx.Graph()
+G1.add_edges_from([
+   (1,2),
+   (2,3),
+   (3,4),
+   (2,4),
+   (4,5)
+])
+nx.minimum_node_cut(G1, 1, 4)
+```
+

@@ -84,3 +84,15 @@ matriz-de-incidencia
 proyección-one-mode
 proyección-one-mode-a-actores
 proyección-one-mode-a-películas
+árboles
+gráficas-planas
+grado-y-grado-medio
+densidad
+sparsidad-y-crecimiento
+redes-multicapa
+redes-dinámicas
+caminos-y-trayectorias
+trayectorias-más-cortas
+componentes-conexas
+trayectorias-independientes
+conjuntos-de-corte
