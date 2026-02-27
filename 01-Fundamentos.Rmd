@@ -622,9 +622,7 @@ T = nx.path_graph(6)
 nx.draw(T, with_labels=True)
 ```
 
-No hay una función tal cual que nos cree un árbol cualquiera, hay que jugar tantito con el código.
-
-Lo que si podemos verificar es si una gráfica dada es un árbol, al verificar la condición de que $|E| = |V|-1$.
+Podemos verificar si una gráfica dada es un árbol, al verificar la condición de que $|E| = |V|-1$.
 
 ```{python}
 n = T.number_of_nodes()
@@ -637,6 +635,78 @@ print("¿Cumple m = n-1?", m == n-1)
 
 **Ejercicio:** Genera un `cycle_graph(6)`. Verifica si es un árbol. Elimina una arista y vuelve a verificar.
 
+Veamos otros algoritmos de `networkx` para generar árboles.
+
+- `prefix_tree`: Un "árbol de prefijos" representa la estructura de prefijos de las cadenas. Cada nodo representa un prefijo de alguna cadena. La raíz representa el prefijo vacío con hijos para los prefijos de una sola letra, que a su vez tienen hijos para cada prefijo de dos letras, comenzando con la letra correspondiente al nodo padre, y así sucesivamente. Añade artificialmente dos nodos, el nodo raíz y el nodo `NIL`. El nodo raíz siempre es 0 y su atributo de origen es "Ninguno". Es el único nodo con grado de entrada cero. El nodo nulo siempre es -1 y su atributo de origen es "NIL". Es el único nodo con grado de salida cero.
+
+```{python}
+paths = ["ab", "abs", "ad"]
+T = nx.prefix_tree(paths)
+list(T.edges)
+```
+
+```{python}
+nx.draw(T, with_labels= True)
+```
+
+```{python}
+nx.is_tree(T)
+```
+
+```{python}
+T.remove_node(-1)
+nx.draw(T, with_labels= True)
+nx.is_tree(T)
+```
+
+Podemos recuperar las trayectorias que teníamos.
+
+```{python}
+paths = ["ab", "abs", "ad"]
+T = nx.prefix_tree(paths)
+root, NIL = 0, -1
+
+recovered = []
+for v in T.predecessors(NIL):
+    prefix = ""
+    while v != root:
+        prefix = str(T.nodes[v]["source"]) + prefix
+        v = next(T.predecessors(v))  # only one predecessor
+    recovered.append(prefix)
+sorted(recovered)
+```
+
+- `random_labeled_tree`:
+
+```{python}
+G = nx.random_labeled_tree(5, seed=42)
+nx.is_tree(G)
+nx.draw(G, with_labels = True)
+```
+
+```{python}
+DG = nx.DiGraph()
+DG.add_edges_from(G.edges)
+nx.is_tree(DG)
+nx.draw(DG, with_labels = True)
+```
+
+- `random_labeled_rooted_forest`:
+
+```{python}
+F = nx.random_labeled_rooted_forest(10, seed = 42)
+nx.is_forest(F)
+nx.draw(F, with_labels = True)
+```
+
+- `random_unlabeled_rooted_forest`
+
+```{python}
+#F2 = nx.random_unlabeled_rooted_forest(10, number_of_forests=3, seed = 42)
+#nx.is_forest(F2)
+#nx.draw(F2, with_labels = True)
+```
+
 ## Gráficas planas
 
 Con la función `nx.check_planarity(Graph_object)` podemos verificar si una red es plana o no.
@@ -647,17 +717,27 @@ nx.check_planarity(G1)
 ```
 
 ```{python}
-G2 = nx.complete_graph(5)
-nx.check_planarity(G2)
+G2 = nx.complete_graph(6)
+nx.draw(G2, with_labels=True)
+is_planar, P = nx.check_planarity(G2, counterexample=True)
 ```
 
-**Ejercicio:** Verifica la planaridad de `complete_graph(4)` y `complete_graph(6)`.
+```{python}
+print(is_planar)
+nx.draw(P, with_labels=True)
+```
+
+**Ejercicio:** Verifica la planaridad de `complete_graph(4)` y `complete_graph(5)`.
 
 ## Grado y grado medio
 
 ```{python}
 G = nx.cycle_graph(6)
 dict(G.degree())
+```
+
+```{python}
+G.degree[1]
 ```
 
 El grado medio lo podemos obtener de la siguiente forma:
