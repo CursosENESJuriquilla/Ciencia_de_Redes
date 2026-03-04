@@ -96,3 +96,7 @@ trayectorias-más-cortas
 componentes-conexas
 trayectorias-independientes
 conjuntos-de-corte
+caminos
+predecesor-antecesor-y-descendientes
+teorema-max-flow-min-cut
+teorema-de-menger
