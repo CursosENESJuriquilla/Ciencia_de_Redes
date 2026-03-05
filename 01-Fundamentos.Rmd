@@ -1364,8 +1364,6 @@ flow_dict
 El teorema dice flujo máximo = capacidad de corte. Veamos un ejemplo:
 
 ```{python}
-import networkx as nx
-
 G = nx.DiGraph()
 
 G.add_edge("s","a", capacity=3)
@@ -1480,4 +1478,304 @@ s\rightarrow d \rightarrow c \rightarrow t\]
 3) Determine el minimum edge cut que separa $s$ y $t$.
 4) Suponga que cada arista tiene capacidad 1. ¿Cuál es el maximum flow entre $s$ y $t$?
 5) Explique por qué este grafo tiene un cuello de botella.
+
+
+## Flujo máximo y corte mínimo en redes con pesos
+
+Consideremos la siguiente red:
+
+```{python}
+G = nx.DiGraph()
+
+G.add_edge("s","a", capacity=3)
+G.add_edge("s","b", capacity=2)
+
+G.add_edge("a","b", capacity=1)
+G.add_edge("a","t", capacity=2)
+
+G.add_edge("b","t", capacity=3)
+
+pos = nx.spring_layout(G, seed=42)
+
+nx.draw(G, pos, with_labels=True, node_size=2000, node_color="lightblue")
+labels = nx.get_edge_attributes(G, "capacity")
+nx.draw_networkx_edge_labels(G, pos, edge_labels=labels)
+```
+Calculemos el flujo máximo.
+```{python}
+flow_value, flow_dict = nx.maximum_flow(G, "s", "t")
+flow_value
+```
+
+Y la distribución del flujo sería entonces:
+
+```{python}
+flow_dict
+```
+
+
+Ahora calculamos el minimum cut:
+
+```{python}
+cut_value, partition = nx.minimum_cut(G, "s", "t")
+cut_value
+```
+
+Y la partición nos quedaría como:
+
+```{python}
+partition
+```
+
+La partición es las componentes que quedan separadas al realizar el corte mínimo.
+
+El corte mínimo representa el cuello de botella de la red.
+
+Aunque haya muchas rutas, la capacidad total hacia $t$ es $2+3=5$, por lo que no puede pasar más flujo.
+
+
+## El Laplaciano
+
+
+Dada una matriz, recordemos que el Laplaciano está dado como $L=D-A$, donde $D$ es la matriz diagonal con los grados de los vértices y $A$ es la matriz de adyacencia. Si en `networkx` no proporcionamos la lista de vértices, el orden por default que usa para crear el Laplaciano, será el orden que nos regrese la función `G.nodes()`. Las matrices que devuelve `networkx` son matrices del tipo `sparse`, es decir, no almacenan los ceros para optimizar recursos. Si queremos ver una matriz con todas sus entradas, debemos convertirla a un arreglo de `numpy` o a una matriz densa con `todense()`.
+
+Consideremos la siguiente gráfica $1\rightarrow 2 \rightarrow 3$.
+
+```{python}
+G = nx.path_graph(3)
+nx.adjacency_matrix(G).todense()
+```
+
+Y el Laplaciano estaría dado por:
+
+```{python}
+L = nx.laplacian_matrix(G).todense()
+L
+```
+
+En `networkx` también podemos calcular el Laplaciano normalizado $L_{norm}=D^{-172}LD^{1/2}$:
+
+```{python}
+nx.normalized_laplacian_matrix(G).todense()
+```
+
+Vimos también, que los valores propios del Laplaciano nos ayudan en algunos problemas en especifico y que revelaban propiedades estructurales de la gráfica.
+
+```{python}
+eigvals = np.linalg.eigvals(L)
+eigvals
+```
+
+Y como ya vimos, siempre hay al menos un valor propio cero. En este ejemplo, hay exactamente uno que es cero, es decir vamos a tener solo una componente conexa.
+
+```{python}
+nx.number_connected_components(G)
+```
+
+Veamos un ejemplo con dos componentes conexas.
+
+```{python}
+G = nx.Graph()
+
+G.add_edges_from([
+(1,2),
+(2,3),
+(4,5)
+])
+
+L = nx.laplacian_matrix(G).todense()
+
+eigvals = np.linalg.eigvals(L)
+
+eigvals
+```
+
+```{python}
+nx.number_connected_components(G)
+```
+
+Un ejemplo más:
+
+```{python}
+G = nx.cycle_graph(5)
+
+nx.draw(G, with_labels=True)
+```
+
+```{python}
+L = nx.laplacian_matrix(G).todense()
+np.linalg.eigvals(L)
+```
+
+Si es posible definir el Laplaciano para redes dirigidas, pero muchas propiedades cambian.
+
+```{python}
+edges = [
+    (1, 2),
+    (2, 1),
+    (2, 4),
+    (4, 3),
+    (3, 4),
+]
+DiG = nx.DiGraph(edges)
+print(nx.laplacian_matrix(DiG).toarray())
+```
+
+Y como mencionamos, le podemos pasar el orden de los nodos.
+
+```{python}
+print(nx.laplacian_matrix(DiG, nodelist=[1, 2, 3, 4]).toarray())
+```
+
+Todos estos cálculos, usan el `out-degree`, si queremos usar el `in-degree`, se puede obtener la matriz reversa `G.reverse(copy=False)` y calcular la transpuesta del Laplaciano.
+
+```{python}
+print(nx.laplacian_matrix(DiG.reverse(copy=False)).toarray().T)
+```
+
+`Netoworkx` tiene implementado obtener los valores propios con la función `laplacian_spectrum`.
+
+```{python}
+G = nx.Graph()  # Gráfica con 5 vértices y 3 componentes conexas
+G.add_nodes_from(range(5))
+G.add_edges_from([(0, 2), (3, 4)])
+nx.laplacian_spectrum(G)
+```
+
+**Ejercicios:**
+
+1) Considere el grafo $1-2-3-4-1$. Calcula el grafo en Networkx, la matriz de adyacencia, el Laplaciano y los eigenvalores.
+
+2) Realiza una gráfica con 4 componentes conexas y 10 vértices. Calcula el Laplaciano, y verifica que en efecto tenga 4 componentes conexas usando las propiedades del Laplaciano. Intercambia tu ejemplo con tus compañeros para que lo repliquen.
+
+
+### Caminatas Aleatorias
+
+Veamos el ejemplo de del grafo $1\rightarrow 2 \rightarrow 3$:
+
+```{python}
+import numpy as np
+import networkx as nx
+
+# grafo
+G = nx.path_graph(3)
+
+# matriz de adyacencia
+A = nx.to_numpy_array(G)
+
+# matriz de grados
+deg = A.sum(axis=1)
+D = np.diag(deg)
+
+# inversa
+D_inv = np.linalg.inv(D)
+
+# matriz del libro
+T = A @ D_inv
+
+print("A=")
+print(A)
+
+print("\nT = A D^{-1}")
+print(T)
+```
+
+```{python}
+p = np.array([[1],[0],[0]])  # vector columna
+
+for i in range(5):
+    p = T @ p
+    print("p =",p)
+```
+
+Construyamos un ejemplo más interesante.
+
+```{python}
+# Dos cliques conectadas por un puente
+G1 = nx.complete_graph(range(0,6))
+G2 = nx.complete_graph(range(6,12))
+G  = nx.compose(G1, G2)
+G.add_edge(5, 6)  # cuello de botella
+
+# Matrices
+A = nx.to_numpy_array(G)                     
+deg = A.sum(axis=1)
+D = np.diag(deg)
+L = D - A                                    
+Lnorm = nx.normalized_laplacian_matrix(G).toarray()
+```
+
+
+Vamos a construir $P$ y simular una caminata aleatoria. Vamos a hacer un cambio con respecto a la notación del libro por simplicidad. Vamos a considerar vectores fila, entonces la matriz de cambio será $D^{-1}A$.
+
+```{python}
+P =  np.linalg.inv(D) @ A
+
+def random_walk(P, start, steps, rng=None):
+    rng = np.random.default_rng(rng) #fijamos la semilla, si es por ej 0 se fija si no cambia en cada paso
+    x = start # definimos el nodo donde comienza la caminata
+    path = [x] # creamos una lista con el nodo donde comienza y donde se agregaran los siguientes nodos de la caminata
+    for _ in range(steps):  # el _ significa que solo quiero repetir el proceso sin importar el valor del contador y lo haremos steps veces
+        x = rng.choice(len(P), p=P[x]) # elije un numero j del vector entre 0 y n-1 con las probabilidades del vector fila 
+        path.append(x) # agrega el nodo
+    return path
+
+path = random_walk(P, start=0, steps=20, rng=0)
+path
+```
+
+Así, la probabilidad de ir al vértice $i$ será la siguiente(usando la fórmula del libro):
+
+```{python}
+pi = deg / deg.sum()
+pi[:6], pi[6:]
+```
+
+
+Comprobemos que en el límite coincide:
+
+```{python}
+p = np.zeros(len(G))
+p[0] = 1.0  # inicio en nodo 0
+for _ in range(50):
+    p = p @ P
+p.round(4), pi.round(4)
+```
+
+
+## Ejemplos con datos reales
+
+Ejercicio tomado de: `https://github.com/CambridgeUniversityPress/FirstCourseNetworkScience/tree/master`
+
+```{python}
+G = nx.read_graphml('D:/Users/hayde/Documents/R_sites/Ciencia_de_Redes/data/openflights_usa.graphml.gz')
+
+print("Nodos:", G.number_of_nodes())
+print("Aristas:", G.number_of_edges())
+```
+
+Los nodos en este grafo son aeropuertos, representados por sus códigos IATA; dos nodos están conectados por una arista si existe un vuelo programado que conecta directamente esos dos aeropuertos. Supondremos que este grafo es no dirigido, ya que un vuelo en una dirección generalmente implica que existe también un vuelo de regreso.
+
+Por lo tanto, este grafo tiene aristas como `[('HOM', 'ANC'), ('BGM', 'PHL'), ('BGM', 'IAD'), ...]`
+
+donde ANC corresponde a Anchorage, IAD corresponde a Washington Dulles, etc.
+
+Estos nodos también tienen atributos asociados, que contienen información adicional sobre los aeropuertos.
+
+```{python}
+G.nodes['IND']
+```
+
+Y también estan guardados como diccionarios:
+
+```{python}
+G.nodes['IND']['name']
+```
+
+
+**Ejercicio 1:** ¿Hay un vuelo directo entre Indianápolis y Fairbanks, Alaska (FAI)? Un vuelo directo es aquel sin escalas.
+
+**Ejercicio 2:** Si quisiera volar desde Indianápolis a Fairbanks, Alaska, ¿cuál sería el itinerario con el menor número de vuelos?
+
+**Ejercicio 3:** ¿Es posible viajar desde cualquier aeropuerto de EE. UU. a cualquier otro, posiblemente con vuelos de conexión? En otras palabras, ¿existe una ruta en la red entre cada par de aeropuertos posibles?
 

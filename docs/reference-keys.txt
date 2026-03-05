@@ -100,3 +100,7 @@ caminos
 predecesor-antecesor-y-descendientes
 teorema-max-flow-min-cut
 teorema-de-menger
+flujo-máximo-y-corte-mínimo-en-redes-con-pesos
+el-laplaciano
+caminatas-aleatorias
+ejemplos-con-datos-reales

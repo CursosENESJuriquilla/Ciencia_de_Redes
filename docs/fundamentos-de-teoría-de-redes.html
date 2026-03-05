@@ -23,7 +23,7 @@
 <meta name="author" content="Haydeé Peruyero" />
 
 
-<meta name="date" content="2026-03-03" />
+<meta name="date" content="2026-03-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -183,6 +183,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.18" data-path="fundamentos-de-teoría-de-redes.html"><a href="fundamentos-de-teoría-de-redes.html#conjuntos-de-corte"><i class="fa fa-check"></i><b>2.18</b> Conjuntos de corte</a></li>
 <li class="chapter" data-level="2.19" data-path="fundamentos-de-teoría-de-redes.html"><a href="fundamentos-de-teoría-de-redes.html#teorema-max-flow-min-cut"><i class="fa fa-check"></i><b>2.19</b> Teorema max-flow / min-cut</a></li>
 <li class="chapter" data-level="2.20" data-path="fundamentos-de-teoría-de-redes.html"><a href="fundamentos-de-teoría-de-redes.html#teorema-de-menger"><i class="fa fa-check"></i><b>2.20</b> Teorema de Menger</a></li>
+<li class="chapter" data-level="2.21" data-path="01-Fundamentos.html"><a href="#flujo-m%C3%A1ximo-y-corte-m%C3%ADnimo-en-redes-con-pesos"><i class="fa fa-check"></i><b>2.21</b> Flujo máximo y corte mínimo en redes con pesos</a></li>
+<li class="chapter" data-level="2.22" data-path="fundamentos-de-teoría-de-redes.html"><a href="fundamentos-de-teoría-de-redes.html#el-laplaciano"><i class="fa fa-check"></i><b>2.22</b> El Laplaciano</a>
+<ul>
+<li class="chapter" data-level="2.22.1" data-path="fundamentos-de-teoría-de-redes.html"><a href="fundamentos-de-teoría-de-redes.html#caminatas-aleatorias"><i class="fa fa-check"></i><b>2.22.1</b> Caminatas Aleatorias</a></li>
+</ul></li>
+<li class="chapter" data-level="2.23" data-path="fundamentos-de-teoría-de-redes.html"><a href="fundamentos-de-teoría-de-redes.html#ejemplos-con-datos-reales"><i class="fa fa-check"></i><b>2.23</b> Ejemplos con datos reales</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="01-Fundamentos.html"><a href="#ap%C3%A9ndice-introducci%C3%B3n-a-python"><i class="fa fa-check"></i><b>3</b> Apéndice: Introducción a Python</a>
 <ul>
@@ -870,7 +876,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Con la función <code>nx.check_planarity(Graph_object)</code> podemos verificar si una red es plana o no.</p>
 <div class="sourceCode" id="cb147"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb147-1"><a href="fundamentos-de-teoría-de-redes.html#cb147-1" tabindex="-1"></a>G1 <span class="op">=</span> nx.cycle_graph(<span class="dv">5</span>)</span>
 <span id="cb147-2"><a href="fundamentos-de-teoría-de-redes.html#cb147-2" tabindex="-1"></a>nx.check_planarity(G1)</span></code></pre></div>
-<pre><code>## (True, &lt;networkx.algorithms.planarity.PlanarEmbedding object at 0x00000209B4BCD1D0&gt;)</code></pre>
+<pre><code>## (True, &lt;networkx.algorithms.planarity.PlanarEmbedding object at 0x000001EF42230E10&gt;)</code></pre>
 <div class="sourceCode" id="cb149"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb149-1"><a href="fundamentos-de-teoría-de-redes.html#cb149-1" tabindex="-1"></a>G2 <span class="op">=</span> nx.complete_graph(<span class="dv">6</span>)</span>
 <span id="cb149-2"><a href="fundamentos-de-teoría-de-redes.html#cb149-2" tabindex="-1"></a>nx.draw(G2, with_labels<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb149-3"><a href="fundamentos-de-teoría-de-redes.html#cb149-3" tabindex="-1"></a>is_planar, P <span class="op">=</span> nx.check_planarity(G2, counterexample<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
@@ -956,17 +962,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb171-10"><a href="fundamentos-de-teoría-de-redes.html#cb171-10" tabindex="-1"></a></span>
 <span id="cb171-11"><a href="fundamentos-de-teoría-de-redes.html#cb171-11" tabindex="-1"></a><span class="co"># Dibujamos vértices y aristas de diferentes capas con diferentes colores</span></span>
 <span id="cb171-12"><a href="fundamentos-de-teoría-de-redes.html#cb171-12" tabindex="-1"></a>nx.draw_networkx_nodes(G, pos, node_color<span class="op">=</span><span class="st">&#39;skyblue&#39;</span>)</span></code></pre></div>
-<pre><code>## &lt;matplotlib.collections.PathCollection object at 0x00000209B4BCC2D0&gt;</code></pre>
+<pre><code>## &lt;matplotlib.collections.PathCollection object at 0x000001EF42205BD0&gt;</code></pre>
 <div class="sourceCode" id="cb173"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb173-1"><a href="fundamentos-de-teoría-de-redes.html#cb173-1" tabindex="-1"></a>nx.draw_networkx_edges(G, pos, edgelist<span class="op">=</span>physical_edges, edge_color<span class="op">=</span><span class="st">&#39;red&#39;</span>, width<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div>
-<pre><code>## &lt;matplotlib.collections.LineCollection object at 0x00000209B4BCC410&gt;</code></pre>
+<pre><code>## &lt;matplotlib.collections.LineCollection object at 0x000001EF42207390&gt;</code></pre>
 <div class="sourceCode" id="cb175"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb175-1"><a href="fundamentos-de-teoría-de-redes.html#cb175-1" tabindex="-1"></a>nx.draw_networkx_edges(G, pos, edgelist<span class="op">=</span>logical_edges, edge_color<span class="op">=</span><span class="st">&#39;blue&#39;</span>, width<span class="op">=</span><span class="dv">1</span>, style<span class="op">=</span><span class="st">&#39;dashed&#39;</span>)</span></code></pre></div>
-<pre><code>## &lt;matplotlib.collections.LineCollection object at 0x00000209B4BCC550&gt;</code></pre>
+<pre><code>## &lt;matplotlib.collections.LineCollection object at 0x000001EF42205F90&gt;</code></pre>
 <div class="sourceCode" id="cb177"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb177-1"><a href="fundamentos-de-teoría-de-redes.html#cb177-1" tabindex="-1"></a>nx.draw_networkx_labels(G, pos)</span></code></pre></div>
-<pre><code>## {1: Text(-0.8035353246381022, 0.9833157750297001, &#39;1&#39;), 2: Text(-0.9937418633746797, -0.8094340429380097, &#39;2&#39;), 3: Text(0.9999999999999999, 0.8109029338976078, &#39;3&#39;), 4: Text(0.7972771880127811, -0.9847846659892986, &#39;4&#39;)}</code></pre>
+<pre><code>## {1: Text(-0.9888177581262856, -0.17082647196474937, &#39;1&#39;), 2: Text(-0.17067312676210322, 1.0, &#39;2&#39;), 3: Text(0.17000547800458643, -0.9960132190120625, &#39;3&#39;), 4: Text(0.9894854068838017, 0.16683969097681262, &#39;4&#39;)}</code></pre>
 <div class="sourceCode" id="cb179"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb179-1"><a href="fundamentos-de-teoría-de-redes.html#cb179-1" tabindex="-1"></a>plt.title(<span class="st">&quot;Redes Multicapa&quot;</span>)</span></code></pre></div>
 <pre><code>## Text(0.5, 1.0, &#39;Redes Multicapa&#39;)</code></pre>
 <div class="sourceCode" id="cb181"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb181-1"><a href="fundamentos-de-teoría-de-redes.html#cb181-1" tabindex="-1"></a>plt.axis(<span class="st">&#39;off&#39;</span>)</span></code></pre></div>
-<pre><code>## (np.float64(-1.203084759029021), np.float64(1.2093428956543413), np.float64(-1.1819451615792305), np.float64(1.1803293815236722))</code></pre>
+<pre><code>## (np.float64(-1.1514715326077753), np.float64(1.1522059462410432), np.float64(-1.205594607008329), np.float64(1.2095813879962667))</code></pre>
 <div class="sourceCode" id="cb183"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb183-1"><a href="fundamentos-de-teoría-de-redes.html#cb183-1" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-65-61.png" width="672" /></p>
 <div class="sourceCode" id="cb184"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb184-1"><a href="fundamentos-de-teoría-de-redes.html#cb184-1" tabindex="-1"></a>G <span class="op">=</span> nx.Graph()</span>
@@ -1436,19 +1442,17 @@ print(f&quot;Existe una trayectoria de 1 a 4: {path_exists_1_to_4}&quot;)</code>
 <div id="teorema-max-flow-min-cut" class="section level2 hasAnchor" number="2.19">
 <h2><span class="header-section-number">2.19</span> Teorema max-flow / min-cut<a href="fundamentos-de-teoría-de-redes.html#teorema-max-flow-min-cut" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>El teorema dice flujo máximo = capacidad de corte. Veamos un ejemplo:</p>
-<div class="sourceCode" id="cb287"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb287-1"><a href="fundamentos-de-teoría-de-redes.html#cb287-1" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<div class="sourceCode" id="cb287"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb287-1"><a href="fundamentos-de-teoría-de-redes.html#cb287-1" tabindex="-1"></a>G <span class="op">=</span> nx.DiGraph()</span>
 <span id="cb287-2"><a href="fundamentos-de-teoría-de-redes.html#cb287-2" tabindex="-1"></a></span>
-<span id="cb287-3"><a href="fundamentos-de-teoría-de-redes.html#cb287-3" tabindex="-1"></a>G <span class="op">=</span> nx.DiGraph()</span>
-<span id="cb287-4"><a href="fundamentos-de-teoría-de-redes.html#cb287-4" tabindex="-1"></a></span>
-<span id="cb287-5"><a href="fundamentos-de-teoría-de-redes.html#cb287-5" tabindex="-1"></a>G.add_edge(<span class="st">&quot;s&quot;</span>,<span class="st">&quot;a&quot;</span>, capacity<span class="op">=</span><span class="dv">3</span>)</span>
-<span id="cb287-6"><a href="fundamentos-de-teoría-de-redes.html#cb287-6" tabindex="-1"></a>G.add_edge(<span class="st">&quot;s&quot;</span>,<span class="st">&quot;b&quot;</span>, capacity<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb287-7"><a href="fundamentos-de-teoría-de-redes.html#cb287-7" tabindex="-1"></a>G.add_edge(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;b&quot;</span>, capacity<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb287-8"><a href="fundamentos-de-teoría-de-redes.html#cb287-8" tabindex="-1"></a>G.add_edge(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;t&quot;</span>, capacity<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb287-9"><a href="fundamentos-de-teoría-de-redes.html#cb287-9" tabindex="-1"></a>G.add_edge(<span class="st">&quot;b&quot;</span>,<span class="st">&quot;t&quot;</span>, capacity<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb287-3"><a href="fundamentos-de-teoría-de-redes.html#cb287-3" tabindex="-1"></a>G.add_edge(<span class="st">&quot;s&quot;</span>,<span class="st">&quot;a&quot;</span>, capacity<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb287-4"><a href="fundamentos-de-teoría-de-redes.html#cb287-4" tabindex="-1"></a>G.add_edge(<span class="st">&quot;s&quot;</span>,<span class="st">&quot;b&quot;</span>, capacity<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb287-5"><a href="fundamentos-de-teoría-de-redes.html#cb287-5" tabindex="-1"></a>G.add_edge(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;b&quot;</span>, capacity<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb287-6"><a href="fundamentos-de-teoría-de-redes.html#cb287-6" tabindex="-1"></a>G.add_edge(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;t&quot;</span>, capacity<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb287-7"><a href="fundamentos-de-teoría-de-redes.html#cb287-7" tabindex="-1"></a>G.add_edge(<span class="st">&quot;b&quot;</span>,<span class="st">&quot;t&quot;</span>, capacity<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb287-8"><a href="fundamentos-de-teoría-de-redes.html#cb287-8" tabindex="-1"></a></span>
+<span id="cb287-9"><a href="fundamentos-de-teoría-de-redes.html#cb287-9" tabindex="-1"></a>flow_value, flow_dict <span class="op">=</span> nx.maximum_flow(G, <span class="st">&quot;s&quot;</span>, <span class="st">&quot;t&quot;</span>)</span>
 <span id="cb287-10"><a href="fundamentos-de-teoría-de-redes.html#cb287-10" tabindex="-1"></a></span>
-<span id="cb287-11"><a href="fundamentos-de-teoría-de-redes.html#cb287-11" tabindex="-1"></a>flow_value, flow_dict <span class="op">=</span> nx.maximum_flow(G, <span class="st">&quot;s&quot;</span>, <span class="st">&quot;t&quot;</span>)</span>
-<span id="cb287-12"><a href="fundamentos-de-teoría-de-redes.html#cb287-12" tabindex="-1"></a></span>
-<span id="cb287-13"><a href="fundamentos-de-teoría-de-redes.html#cb287-13" tabindex="-1"></a>cut_value, partition <span class="op">=</span> nx.minimum_cut(G, <span class="st">&quot;s&quot;</span>, <span class="st">&quot;t&quot;</span>)</span></code></pre></div>
+<span id="cb287-11"><a href="fundamentos-de-teoría-de-redes.html#cb287-11" tabindex="-1"></a>cut_value, partition <span class="op">=</span> nx.minimum_cut(G, <span class="st">&quot;s&quot;</span>, <span class="st">&quot;t&quot;</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb288"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb288-1"><a href="fundamentos-de-teoría-de-redes.html#cb288-1" tabindex="-1"></a>flow_value <span class="op">==</span> cut_value</span></code></pre></div>
 <pre><code>## True</code></pre>
 </div>
@@ -1521,7 +1525,7 @@ print(f&quot;Existe una trayectoria de 1 a 4: {path_exists_1_to_4}&quot;)</code>
 <div class="sourceCode" id="cb308"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb308-1"><a href="fundamentos-de-teoría-de-redes.html#cb308-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Min cut value:&quot;</span>, cut_value)</span></code></pre></div>
 <pre><code>## Min cut value: 3</code></pre>
 <div class="sourceCode" id="cb310"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb310-1"><a href="fundamentos-de-teoría-de-redes.html#cb310-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Partición del min-cut: S =&quot;</span>, S, <span class="st">&quot; | T =&quot;</span>, T)</span></code></pre></div>
-<pre><code>## Partición del min-cut: S = {&#39;a&#39;, &#39;c&#39;, &#39;b&#39;, &#39;s&#39;}  | T = {&#39;t&#39;}</code></pre>
+<pre><code>## Partición del min-cut: S = {&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;s&#39;}  | T = {&#39;t&#39;}</code></pre>
 <div class="sourceCode" id="cb312"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb312-1"><a href="fundamentos-de-teoría-de-redes.html#cb312-1" tabindex="-1"></a><span class="co"># --- Menger (por nodos) ---</span></span>
 <span id="cb312-2"><a href="fundamentos-de-teoría-de-redes.html#cb312-2" tabindex="-1"></a>nd_paths <span class="op">=</span> <span class="bu">list</span>(nx.node_disjoint_paths(G, s, t))</span>
 <span id="cb312-3"><a href="fundamentos-de-teoría-de-redes.html#cb312-3" tabindex="-1"></a>min_n_cut <span class="op">=</span> nx.minimum_node_cut(G, s, t)</span>
@@ -1532,7 +1536,7 @@ print(f&quot;Existe una trayectoria de 1 a 4: {path_exists_1_to_4}&quot;)</code>
 <div class="sourceCode" id="cb314"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb314-1"><a href="fundamentos-de-teoría-de-redes.html#cb314-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Número de node-disjoint paths:&quot;</span>, <span class="bu">len</span>(nd_paths))</span></code></pre></div>
 <pre><code>## Número de node-disjoint paths: 3</code></pre>
 <div class="sourceCode" id="cb316"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb316-1"><a href="fundamentos-de-teoría-de-redes.html#cb316-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Minimum node cut:&quot;</span>, min_n_cut)</span></code></pre></div>
-<pre><code>## Minimum node cut: {&#39;a&#39;, &#39;b&#39;, &#39;c&#39;}</code></pre>
+<pre><code>## Minimum node cut: {&#39;b&#39;, &#39;c&#39;, &#39;a&#39;}</code></pre>
 <div class="sourceCode" id="cb318"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb318-1"><a href="fundamentos-de-teoría-de-redes.html#cb318-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Tamaño minimum node cut:&quot;</span>, <span class="bu">len</span>(min_n_cut))</span></code></pre></div>
 <pre><code>## Tamaño minimum node cut: 3</code></pre>
 <p><strong>Ejercicio:</strong> Considere el siguiente grafo que representa una red de transporte entre dos ciudades <span class="math inline">\(s\)</span> y <span class="math inline">\(t\)</span>.</p>
@@ -1546,6 +1550,257 @@ s\rightarrow d \rightarrow c \rightarrow t\]</span></p>
 <li>Suponga que cada arista tiene capacidad 1. ¿Cuál es el maximum flow entre <span class="math inline">\(s\)</span> y <span class="math inline">\(t\)</span>?</li>
 <li>Explique por qué este grafo tiene un cuello de botella.</li>
 </ol>
+</div>
+<div id="flujo-máximo-y-corte-mínimo-en-redes-con-pesos" class="section level2 hasAnchor" number="2.21">
+<h2><span class="header-section-number">2.21</span> Flujo máximo y corte mínimo en redes con pesos<a href="#flujo-m%C3%A1ximo-y-corte-m%C3%ADnimo-en-redes-con-pesos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Consideremos la siguiente red:</p>
+<div class="sourceCode" id="cb320"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb320-1"><a href="fundamentos-de-teoría-de-redes.html#cb320-1" tabindex="-1"></a>G <span class="op">=</span> nx.DiGraph()</span>
+<span id="cb320-2"><a href="fundamentos-de-teoría-de-redes.html#cb320-2" tabindex="-1"></a></span>
+<span id="cb320-3"><a href="fundamentos-de-teoría-de-redes.html#cb320-3" tabindex="-1"></a>G.add_edge(<span class="st">&quot;s&quot;</span>,<span class="st">&quot;a&quot;</span>, capacity<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb320-4"><a href="fundamentos-de-teoría-de-redes.html#cb320-4" tabindex="-1"></a>G.add_edge(<span class="st">&quot;s&quot;</span>,<span class="st">&quot;b&quot;</span>, capacity<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb320-5"><a href="fundamentos-de-teoría-de-redes.html#cb320-5" tabindex="-1"></a></span>
+<span id="cb320-6"><a href="fundamentos-de-teoría-de-redes.html#cb320-6" tabindex="-1"></a>G.add_edge(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;b&quot;</span>, capacity<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb320-7"><a href="fundamentos-de-teoría-de-redes.html#cb320-7" tabindex="-1"></a>G.add_edge(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;t&quot;</span>, capacity<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb320-8"><a href="fundamentos-de-teoría-de-redes.html#cb320-8" tabindex="-1"></a></span>
+<span id="cb320-9"><a href="fundamentos-de-teoría-de-redes.html#cb320-9" tabindex="-1"></a>G.add_edge(<span class="st">&quot;b&quot;</span>,<span class="st">&quot;t&quot;</span>, capacity<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb320-10"><a href="fundamentos-de-teoría-de-redes.html#cb320-10" tabindex="-1"></a></span>
+<span id="cb320-11"><a href="fundamentos-de-teoría-de-redes.html#cb320-11" tabindex="-1"></a>pos <span class="op">=</span> nx.spring_layout(G, seed<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb320-12"><a href="fundamentos-de-teoría-de-redes.html#cb320-12" tabindex="-1"></a></span>
+<span id="cb320-13"><a href="fundamentos-de-teoría-de-redes.html#cb320-13" tabindex="-1"></a>nx.draw(G, pos, with_labels<span class="op">=</span><span class="va">True</span>, node_size<span class="op">=</span><span class="dv">2000</span>, node_color<span class="op">=</span><span class="st">&quot;lightblue&quot;</span>)</span>
+<span id="cb320-14"><a href="fundamentos-de-teoría-de-redes.html#cb320-14" tabindex="-1"></a>labels <span class="op">=</span> nx.get_edge_attributes(G, <span class="st">&quot;capacity&quot;</span>)</span>
+<span id="cb320-15"><a href="fundamentos-de-teoría-de-redes.html#cb320-15" tabindex="-1"></a>nx.draw_networkx_edge_labels(G, pos, edge_labels<span class="op">=</span>labels)</span></code></pre></div>
+<pre><code>## {(&#39;s&#39;, &#39;a&#39;): Text(0.1655166880701242, -0.23607636216976674, &#39;3&#39;), (&#39;s&#39;, &#39;b&#39;): Text(-0.3226585354136076, -0.33387624504536834, &#39;2&#39;), (&#39;a&#39;, &#39;b&#39;): Text(-0.0180688086388876, -0.4300449375108723, &#39;1&#39;), (&#39;a&#39;, &#39;t&#39;): Text(0.32265961604055593, 0.33388152652512626, &#39;2&#39;), (&#39;b&#39;, &#39;t&#39;): Text(-0.16551753061102586, 0.2360760202066411, &#39;3&#39;)}</code></pre>
+<p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-121-73.png" width="672" />
+Calculemos el flujo máximo.</p>
+<div class="sourceCode" id="cb322"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb322-1"><a href="fundamentos-de-teoría-de-redes.html#cb322-1" tabindex="-1"></a>flow_value, flow_dict <span class="op">=</span> nx.maximum_flow(G, <span class="st">&quot;s&quot;</span>, <span class="st">&quot;t&quot;</span>)</span>
+<span id="cb322-2"><a href="fundamentos-de-teoría-de-redes.html#cb322-2" tabindex="-1"></a>flow_value</span></code></pre></div>
+<pre><code>## 5</code></pre>
+<p>Y la distribución del flujo sería entonces:</p>
+<div class="sourceCode" id="cb324"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb324-1"><a href="fundamentos-de-teoría-de-redes.html#cb324-1" tabindex="-1"></a>flow_dict</span></code></pre></div>
+<pre><code>## {&#39;s&#39;: {&#39;a&#39;: 3, &#39;b&#39;: 2}, &#39;a&#39;: {&#39;b&#39;: 1, &#39;t&#39;: 2}, &#39;b&#39;: {&#39;t&#39;: 3}, &#39;t&#39;: {}}</code></pre>
+<p>Ahora calculamos el minimum cut:</p>
+<div class="sourceCode" id="cb326"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb326-1"><a href="fundamentos-de-teoría-de-redes.html#cb326-1" tabindex="-1"></a>cut_value, partition <span class="op">=</span> nx.minimum_cut(G, <span class="st">&quot;s&quot;</span>, <span class="st">&quot;t&quot;</span>)</span>
+<span id="cb326-2"><a href="fundamentos-de-teoría-de-redes.html#cb326-2" tabindex="-1"></a>cut_value</span></code></pre></div>
+<pre><code>## 5</code></pre>
+<p>Y la partición nos quedaría como:</p>
+<div class="sourceCode" id="cb328"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb328-1"><a href="fundamentos-de-teoría-de-redes.html#cb328-1" tabindex="-1"></a>partition</span></code></pre></div>
+<pre><code>## ({&#39;b&#39;, &#39;a&#39;, &#39;s&#39;}, {&#39;t&#39;})</code></pre>
+<p>La partición es las componentes que quedan separadas al realizar el corte mínimo.</p>
+<p>El corte mínimo representa el cuello de botella de la red.</p>
+<p>Aunque haya muchas rutas, la capacidad total hacia <span class="math inline">\(t\)</span> es <span class="math inline">\(2+3=5\)</span>, por lo que no puede pasar más flujo.</p>
+</div>
+<div id="el-laplaciano" class="section level2 hasAnchor" number="2.22">
+<h2><span class="header-section-number">2.22</span> El Laplaciano<a href="fundamentos-de-teoría-de-redes.html#el-laplaciano" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Dada una matriz, recordemos que el Laplaciano está dado como <span class="math inline">\(L=D-A\)</span>, donde <span class="math inline">\(D\)</span> es la matriz diagonal con los grados de los vértices y <span class="math inline">\(A\)</span> es la matriz de adyacencia. Si en <code>networkx</code> no proporcionamos la lista de vértices, el orden por default que usa para crear el Laplaciano, será el orden que nos regrese la función <code>G.nodes()</code>. Las matrices que devuelve <code>networkx</code> son matrices del tipo <code>sparse</code>, es decir, no almacenan los ceros para optimizar recursos. Si queremos ver una matriz con todas sus entradas, debemos convertirla a un arreglo de <code>numpy</code> o a una matriz densa con <code>todense()</code>.</p>
+<p>Consideremos la siguiente gráfica <span class="math inline">\(1\rightarrow 2 \rightarrow 3\)</span>.</p>
+<div class="sourceCode" id="cb330"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb330-1"><a href="fundamentos-de-teoría-de-redes.html#cb330-1" tabindex="-1"></a>G <span class="op">=</span> nx.path_graph(<span class="dv">3</span>)</span>
+<span id="cb330-2"><a href="fundamentos-de-teoría-de-redes.html#cb330-2" tabindex="-1"></a>nx.adjacency_matrix(G).todense()</span></code></pre></div>
+<pre><code>## array([[0, 1, 0],
+##        [1, 0, 1],
+##        [0, 1, 0]])</code></pre>
+<p>Y el Laplaciano estaría dado por:</p>
+<div class="sourceCode" id="cb332"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb332-1"><a href="fundamentos-de-teoría-de-redes.html#cb332-1" tabindex="-1"></a>L <span class="op">=</span> nx.laplacian_matrix(G).todense()</span>
+<span id="cb332-2"><a href="fundamentos-de-teoría-de-redes.html#cb332-2" tabindex="-1"></a>L</span></code></pre></div>
+<pre><code>## array([[ 1, -1,  0],
+##        [-1,  2, -1],
+##        [ 0, -1,  1]])</code></pre>
+<p>En <code>networkx</code> también podemos calcular el Laplaciano normalizado <span class="math inline">\(L_{norm}=D^{-172}LD^{1/2}\)</span>:</p>
+<div class="sourceCode" id="cb334"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb334-1"><a href="fundamentos-de-teoría-de-redes.html#cb334-1" tabindex="-1"></a>nx.normalized_laplacian_matrix(G).todense()</span></code></pre></div>
+<pre><code>## array([[ 1.        , -0.70710678,  0.        ],
+##        [-0.70710678,  1.        , -0.70710678],
+##        [ 0.        , -0.70710678,  1.        ]])</code></pre>
+<p>Vimos también, que los valores propios del Laplaciano nos ayudan en algunos problemas en especifico y que revelaban propiedades estructurales de la gráfica.</p>
+<div class="sourceCode" id="cb336"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb336-1"><a href="fundamentos-de-teoría-de-redes.html#cb336-1" tabindex="-1"></a>eigvals <span class="op">=</span> np.linalg.eigvals(L)</span>
+<span id="cb336-2"><a href="fundamentos-de-teoría-de-redes.html#cb336-2" tabindex="-1"></a>eigvals</span></code></pre></div>
+<pre><code>## array([ 3.00000000e+00,  1.00000000e+00, -3.36770206e-17])</code></pre>
+<p>Y como ya vimos, siempre hay al menos un valor propio cero. En este ejemplo, hay exactamente uno que es cero, es decir vamos a tener solo una componente conexa.</p>
+<div class="sourceCode" id="cb338"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb338-1"><a href="fundamentos-de-teoría-de-redes.html#cb338-1" tabindex="-1"></a>nx.number_connected_components(G)</span></code></pre></div>
+<pre><code>## 1</code></pre>
+<p>Veamos un ejemplo con dos componentes conexas.</p>
+<div class="sourceCode" id="cb340"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb340-1"><a href="fundamentos-de-teoría-de-redes.html#cb340-1" tabindex="-1"></a>G <span class="op">=</span> nx.Graph()</span>
+<span id="cb340-2"><a href="fundamentos-de-teoría-de-redes.html#cb340-2" tabindex="-1"></a></span>
+<span id="cb340-3"><a href="fundamentos-de-teoría-de-redes.html#cb340-3" tabindex="-1"></a>G.add_edges_from([</span>
+<span id="cb340-4"><a href="fundamentos-de-teoría-de-redes.html#cb340-4" tabindex="-1"></a>(<span class="dv">1</span>,<span class="dv">2</span>),</span>
+<span id="cb340-5"><a href="fundamentos-de-teoría-de-redes.html#cb340-5" tabindex="-1"></a>(<span class="dv">2</span>,<span class="dv">3</span>),</span>
+<span id="cb340-6"><a href="fundamentos-de-teoría-de-redes.html#cb340-6" tabindex="-1"></a>(<span class="dv">4</span>,<span class="dv">5</span>)</span>
+<span id="cb340-7"><a href="fundamentos-de-teoría-de-redes.html#cb340-7" tabindex="-1"></a>])</span>
+<span id="cb340-8"><a href="fundamentos-de-teoría-de-redes.html#cb340-8" tabindex="-1"></a></span>
+<span id="cb340-9"><a href="fundamentos-de-teoría-de-redes.html#cb340-9" tabindex="-1"></a>L <span class="op">=</span> nx.laplacian_matrix(G).todense()</span>
+<span id="cb340-10"><a href="fundamentos-de-teoría-de-redes.html#cb340-10" tabindex="-1"></a></span>
+<span id="cb340-11"><a href="fundamentos-de-teoría-de-redes.html#cb340-11" tabindex="-1"></a>eigvals <span class="op">=</span> np.linalg.eigvals(L)</span>
+<span id="cb340-12"><a href="fundamentos-de-teoría-de-redes.html#cb340-12" tabindex="-1"></a></span>
+<span id="cb340-13"><a href="fundamentos-de-teoría-de-redes.html#cb340-13" tabindex="-1"></a>eigvals</span></code></pre></div>
+<pre><code>## array([ 3.00000000e+00,  1.00000000e+00, -3.36770206e-17,  2.00000000e+00,
+##         0.00000000e+00])</code></pre>
+<div class="sourceCode" id="cb342"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb342-1"><a href="fundamentos-de-teoría-de-redes.html#cb342-1" tabindex="-1"></a>nx.number_connected_components(G)</span></code></pre></div>
+<pre><code>## 2</code></pre>
+<p>Un ejemplo más:</p>
+<div class="sourceCode" id="cb344"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb344-1"><a href="fundamentos-de-teoría-de-redes.html#cb344-1" tabindex="-1"></a>G <span class="op">=</span> nx.cycle_graph(<span class="dv">5</span>)</span>
+<span id="cb344-2"><a href="fundamentos-de-teoría-de-redes.html#cb344-2" tabindex="-1"></a></span>
+<span id="cb344-3"><a href="fundamentos-de-teoría-de-redes.html#cb344-3" tabindex="-1"></a>nx.draw(G, with_labels<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-133-75.png" width="672" /></p>
+<div class="sourceCode" id="cb345"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb345-1"><a href="fundamentos-de-teoría-de-redes.html#cb345-1" tabindex="-1"></a>L <span class="op">=</span> nx.laplacian_matrix(G).todense()</span>
+<span id="cb345-2"><a href="fundamentos-de-teoría-de-redes.html#cb345-2" tabindex="-1"></a>np.linalg.eigvals(L)</span></code></pre></div>
+<pre><code>## array([ 3.61803399e+00,  1.38196601e+00, -2.38411352e-16,  3.61803399e+00,
+##         1.38196601e+00])</code></pre>
+<p>Si es posible definir el Laplaciano para redes dirigidas, pero muchas propiedades cambian.</p>
+<div class="sourceCode" id="cb347"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb347-1"><a href="fundamentos-de-teoría-de-redes.html#cb347-1" tabindex="-1"></a>edges <span class="op">=</span> [</span>
+<span id="cb347-2"><a href="fundamentos-de-teoría-de-redes.html#cb347-2" tabindex="-1"></a>    (<span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb347-3"><a href="fundamentos-de-teoría-de-redes.html#cb347-3" tabindex="-1"></a>    (<span class="dv">2</span>, <span class="dv">1</span>),</span>
+<span id="cb347-4"><a href="fundamentos-de-teoría-de-redes.html#cb347-4" tabindex="-1"></a>    (<span class="dv">2</span>, <span class="dv">4</span>),</span>
+<span id="cb347-5"><a href="fundamentos-de-teoría-de-redes.html#cb347-5" tabindex="-1"></a>    (<span class="dv">4</span>, <span class="dv">3</span>),</span>
+<span id="cb347-6"><a href="fundamentos-de-teoría-de-redes.html#cb347-6" tabindex="-1"></a>    (<span class="dv">3</span>, <span class="dv">4</span>),</span>
+<span id="cb347-7"><a href="fundamentos-de-teoría-de-redes.html#cb347-7" tabindex="-1"></a>]</span>
+<span id="cb347-8"><a href="fundamentos-de-teoría-de-redes.html#cb347-8" tabindex="-1"></a>DiG <span class="op">=</span> nx.DiGraph(edges)</span>
+<span id="cb347-9"><a href="fundamentos-de-teoría-de-redes.html#cb347-9" tabindex="-1"></a><span class="bu">print</span>(nx.laplacian_matrix(DiG).toarray())</span></code></pre></div>
+<pre><code>## [[ 1 -1  0  0]
+##  [-1  2 -1  0]
+##  [ 0  0  1 -1]
+##  [ 0  0 -1  1]]</code></pre>
+<p>Y como mencionamos, le podemos pasar el orden de los nodos.</p>
+<div class="sourceCode" id="cb349"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb349-1"><a href="fundamentos-de-teoría-de-redes.html#cb349-1" tabindex="-1"></a><span class="bu">print</span>(nx.laplacian_matrix(DiG, nodelist<span class="op">=</span>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]).toarray())</span></code></pre></div>
+<pre><code>## [[ 1 -1  0  0]
+##  [-1  2  0 -1]
+##  [ 0  0  1 -1]
+##  [ 0  0 -1  1]]</code></pre>
+<p>Todos estos cálculos, usan el <code>out-degree</code>, si queremos usar el <code>in-degree</code>, se puede obtener la matriz reversa <code>G.reverse(copy=False)</code> y calcular la transpuesta del Laplaciano.</p>
+<div class="sourceCode" id="cb351"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb351-1"><a href="fundamentos-de-teoría-de-redes.html#cb351-1" tabindex="-1"></a><span class="bu">print</span>(nx.laplacian_matrix(DiG.reverse(copy<span class="op">=</span><span class="va">False</span>)).toarray().T)</span></code></pre></div>
+<pre><code>## [[ 1 -1  0  0]
+##  [-1  1 -1  0]
+##  [ 0  0  2 -1]
+##  [ 0  0 -1  1]]</code></pre>
+<p><code>Netoworkx</code> tiene implementado obtener los valores propios con la función <code>laplacian_spectrum</code>.</p>
+<div class="sourceCode" id="cb353"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb353-1"><a href="fundamentos-de-teoría-de-redes.html#cb353-1" tabindex="-1"></a>G <span class="op">=</span> nx.Graph()  <span class="co"># Gráfica con 5 vértices y 3 componentes conexas</span></span>
+<span id="cb353-2"><a href="fundamentos-de-teoría-de-redes.html#cb353-2" tabindex="-1"></a>G.add_nodes_from(<span class="bu">range</span>(<span class="dv">5</span>))</span>
+<span id="cb353-3"><a href="fundamentos-de-teoría-de-redes.html#cb353-3" tabindex="-1"></a>G.add_edges_from([(<span class="dv">0</span>, <span class="dv">2</span>), (<span class="dv">3</span>, <span class="dv">4</span>)])</span>
+<span id="cb353-4"><a href="fundamentos-de-teoría-de-redes.html#cb353-4" tabindex="-1"></a>nx.laplacian_spectrum(G)</span></code></pre></div>
+<pre><code>## array([0., 0., 0., 2., 2.])</code></pre>
+<p><strong>Ejercicios:</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Considere el grafo <span class="math inline">\(1-2-3-4-1\)</span>. Calcula el grafo en Networkx, la matriz de adyacencia, el Laplaciano y los eigenvalores.</p></li>
+<li><p>Realiza una gráfica con 4 componentes conexas y 10 vértices. Calcula el Laplaciano, y verifica que en efecto tenga 4 componentes conexas usando las propiedades del Laplaciano. Intercambia tu ejemplo con tus compañeros para que lo repliquen.</p></li>
+</ol>
+<div id="caminatas-aleatorias" class="section level3 hasAnchor" number="2.22.1">
+<h3><span class="header-section-number">2.22.1</span> Caminatas Aleatorias<a href="fundamentos-de-teoría-de-redes.html#caminatas-aleatorias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Veamos el ejemplo de del grafo <span class="math inline">\(1\rightarrow 2 \rightarrow 3\)</span>:</p>
+<div class="sourceCode" id="cb355"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb355-1"><a href="fundamentos-de-teoría-de-redes.html#cb355-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb355-2"><a href="fundamentos-de-teoría-de-redes.html#cb355-2" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb355-3"><a href="fundamentos-de-teoría-de-redes.html#cb355-3" tabindex="-1"></a></span>
+<span id="cb355-4"><a href="fundamentos-de-teoría-de-redes.html#cb355-4" tabindex="-1"></a><span class="co"># grafo</span></span>
+<span id="cb355-5"><a href="fundamentos-de-teoría-de-redes.html#cb355-5" tabindex="-1"></a>G <span class="op">=</span> nx.path_graph(<span class="dv">3</span>)</span>
+<span id="cb355-6"><a href="fundamentos-de-teoría-de-redes.html#cb355-6" tabindex="-1"></a></span>
+<span id="cb355-7"><a href="fundamentos-de-teoría-de-redes.html#cb355-7" tabindex="-1"></a><span class="co"># matriz de adyacencia</span></span>
+<span id="cb355-8"><a href="fundamentos-de-teoría-de-redes.html#cb355-8" tabindex="-1"></a>A <span class="op">=</span> nx.to_numpy_array(G)</span>
+<span id="cb355-9"><a href="fundamentos-de-teoría-de-redes.html#cb355-9" tabindex="-1"></a></span>
+<span id="cb355-10"><a href="fundamentos-de-teoría-de-redes.html#cb355-10" tabindex="-1"></a><span class="co"># matriz de grados</span></span>
+<span id="cb355-11"><a href="fundamentos-de-teoría-de-redes.html#cb355-11" tabindex="-1"></a>deg <span class="op">=</span> A.<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb355-12"><a href="fundamentos-de-teoría-de-redes.html#cb355-12" tabindex="-1"></a>D <span class="op">=</span> np.diag(deg)</span>
+<span id="cb355-13"><a href="fundamentos-de-teoría-de-redes.html#cb355-13" tabindex="-1"></a></span>
+<span id="cb355-14"><a href="fundamentos-de-teoría-de-redes.html#cb355-14" tabindex="-1"></a><span class="co"># inversa</span></span>
+<span id="cb355-15"><a href="fundamentos-de-teoría-de-redes.html#cb355-15" tabindex="-1"></a>D_inv <span class="op">=</span> np.linalg.inv(D)</span>
+<span id="cb355-16"><a href="fundamentos-de-teoría-de-redes.html#cb355-16" tabindex="-1"></a></span>
+<span id="cb355-17"><a href="fundamentos-de-teoría-de-redes.html#cb355-17" tabindex="-1"></a><span class="co"># matriz del libro</span></span>
+<span id="cb355-18"><a href="fundamentos-de-teoría-de-redes.html#cb355-18" tabindex="-1"></a>T <span class="op">=</span> A <span class="op">@</span> D_inv</span>
+<span id="cb355-19"><a href="fundamentos-de-teoría-de-redes.html#cb355-19" tabindex="-1"></a></span>
+<span id="cb355-20"><a href="fundamentos-de-teoría-de-redes.html#cb355-20" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;A=&quot;</span>)</span></code></pre></div>
+<pre><code>## A=</code></pre>
+<div class="sourceCode" id="cb357"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb357-1"><a href="fundamentos-de-teoría-de-redes.html#cb357-1" tabindex="-1"></a><span class="bu">print</span>(A)</span></code></pre></div>
+<pre><code>## [[0. 1. 0.]
+##  [1. 0. 1.]
+##  [0. 1. 0.]]</code></pre>
+<div class="sourceCode" id="cb359"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb359-1"><a href="fundamentos-de-teoría-de-redes.html#cb359-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">T = A D^{-1}&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## T = A D^{-1}</code></pre>
+<div class="sourceCode" id="cb361"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb361-1"><a href="fundamentos-de-teoría-de-redes.html#cb361-1" tabindex="-1"></a><span class="bu">print</span>(T)</span></code></pre></div>
+<pre><code>## [[0.  0.5 0. ]
+##  [1.  0.  1. ]
+##  [0.  0.5 0. ]]</code></pre>
+<div class="sourceCode" id="cb363"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb363-1"><a href="fundamentos-de-teoría-de-redes.html#cb363-1" tabindex="-1"></a>p <span class="op">=</span> np.array([[<span class="dv">1</span>],[<span class="dv">0</span>],[<span class="dv">0</span>]])  <span class="co"># vector columna</span></span>
+<span id="cb363-2"><a href="fundamentos-de-teoría-de-redes.html#cb363-2" tabindex="-1"></a></span>
+<span id="cb363-3"><a href="fundamentos-de-teoría-de-redes.html#cb363-3" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb363-4"><a href="fundamentos-de-teoría-de-redes.html#cb363-4" tabindex="-1"></a>    p <span class="op">=</span> T <span class="op">@</span> p</span>
+<span id="cb363-5"><a href="fundamentos-de-teoría-de-redes.html#cb363-5" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;p =&quot;</span>,p)</span></code></pre></div>
+<pre><code>## p = [[0.]
+##  [1.]
+##  [0.]]
+## p = [[0.5]
+##  [0. ]
+##  [0.5]]
+## p = [[0.]
+##  [1.]
+##  [0.]]
+## p = [[0.5]
+##  [0. ]
+##  [0.5]]
+## p = [[0.]
+##  [1.]
+##  [0.]]</code></pre>
+<p>Construyamos un ejemplo más interesante.</p>
+<div class="sourceCode" id="cb365"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb365-1"><a href="fundamentos-de-teoría-de-redes.html#cb365-1" tabindex="-1"></a><span class="co"># Dos cliques conectadas por un puente</span></span>
+<span id="cb365-2"><a href="fundamentos-de-teoría-de-redes.html#cb365-2" tabindex="-1"></a>G1 <span class="op">=</span> nx.complete_graph(<span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">6</span>))</span>
+<span id="cb365-3"><a href="fundamentos-de-teoría-de-redes.html#cb365-3" tabindex="-1"></a>G2 <span class="op">=</span> nx.complete_graph(<span class="bu">range</span>(<span class="dv">6</span>,<span class="dv">12</span>))</span>
+<span id="cb365-4"><a href="fundamentos-de-teoría-de-redes.html#cb365-4" tabindex="-1"></a>G  <span class="op">=</span> nx.compose(G1, G2)</span>
+<span id="cb365-5"><a href="fundamentos-de-teoría-de-redes.html#cb365-5" tabindex="-1"></a>G.add_edge(<span class="dv">5</span>, <span class="dv">6</span>)  <span class="co"># cuello de botella</span></span>
+<span id="cb365-6"><a href="fundamentos-de-teoría-de-redes.html#cb365-6" tabindex="-1"></a></span>
+<span id="cb365-7"><a href="fundamentos-de-teoría-de-redes.html#cb365-7" tabindex="-1"></a><span class="co"># Matrices</span></span>
+<span id="cb365-8"><a href="fundamentos-de-teoría-de-redes.html#cb365-8" tabindex="-1"></a>A <span class="op">=</span> nx.to_numpy_array(G)                     </span>
+<span id="cb365-9"><a href="fundamentos-de-teoría-de-redes.html#cb365-9" tabindex="-1"></a>deg <span class="op">=</span> A.<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb365-10"><a href="fundamentos-de-teoría-de-redes.html#cb365-10" tabindex="-1"></a>D <span class="op">=</span> np.diag(deg)</span>
+<span id="cb365-11"><a href="fundamentos-de-teoría-de-redes.html#cb365-11" tabindex="-1"></a>L <span class="op">=</span> D <span class="op">-</span> A                                    </span>
+<span id="cb365-12"><a href="fundamentos-de-teoría-de-redes.html#cb365-12" tabindex="-1"></a>Lnorm <span class="op">=</span> nx.normalized_laplacian_matrix(G).toarray()</span></code></pre></div>
+<p>Vamos a construir <span class="math inline">\(P\)</span> y simular una caminata aleatoria. Vamos a hacer un cambio con respecto a la notación del libro por simplicidad. Vamos a considerar vectores fila, entonces la matriz de cambio será <span class="math inline">\(D^{-1}A\)</span>.</p>
+<div class="sourceCode" id="cb366"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb366-1"><a href="fundamentos-de-teoría-de-redes.html#cb366-1" tabindex="-1"></a>P <span class="op">=</span>  np.linalg.inv(D) <span class="op">@</span> A</span>
+<span id="cb366-2"><a href="fundamentos-de-teoría-de-redes.html#cb366-2" tabindex="-1"></a></span>
+<span id="cb366-3"><a href="fundamentos-de-teoría-de-redes.html#cb366-3" tabindex="-1"></a><span class="kw">def</span> random_walk(P, start, steps, rng<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb366-4"><a href="fundamentos-de-teoría-de-redes.html#cb366-4" tabindex="-1"></a>    rng <span class="op">=</span> np.random.default_rng(rng) <span class="co">#fijamos la semilla, si es por ej 0 se fija si no cambia en cada paso</span></span>
+<span id="cb366-5"><a href="fundamentos-de-teoría-de-redes.html#cb366-5" tabindex="-1"></a>    x <span class="op">=</span> start <span class="co"># definimos el nodo donde comienza la caminata</span></span>
+<span id="cb366-6"><a href="fundamentos-de-teoría-de-redes.html#cb366-6" tabindex="-1"></a>    path <span class="op">=</span> [x] <span class="co"># creamos una lista con el nodo donde comienza y donde se agregaran los siguientes nodos de la caminata</span></span>
+<span id="cb366-7"><a href="fundamentos-de-teoría-de-redes.html#cb366-7" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(steps):  <span class="co"># el _ significa que solo quiero repetir el proceso sin importar el valor del contador y lo haremos steps veces</span></span>
+<span id="cb366-8"><a href="fundamentos-de-teoría-de-redes.html#cb366-8" tabindex="-1"></a>        x <span class="op">=</span> rng.choice(<span class="bu">len</span>(P), p<span class="op">=</span>P[x]) <span class="co"># elije un numero j del vector entre 0 y n-1 con las probabilidades del vector fila </span></span>
+<span id="cb366-9"><a href="fundamentos-de-teoría-de-redes.html#cb366-9" tabindex="-1"></a>        path.append(x) <span class="co"># agrega el nodo</span></span>
+<span id="cb366-10"><a href="fundamentos-de-teoría-de-redes.html#cb366-10" tabindex="-1"></a>    <span class="cf">return</span> path</span>
+<span id="cb366-11"><a href="fundamentos-de-teoría-de-redes.html#cb366-11" tabindex="-1"></a></span>
+<span id="cb366-12"><a href="fundamentos-de-teoría-de-redes.html#cb366-12" tabindex="-1"></a>path <span class="op">=</span> random_walk(P, start<span class="op">=</span><span class="dv">0</span>, steps<span class="op">=</span><span class="dv">20</span>, rng<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb366-13"><a href="fundamentos-de-teoría-de-redes.html#cb366-13" tabindex="-1"></a>path</span></code></pre></div>
+<pre><code>## [0, 4, 1, 0, 1, 5, 6, 9, 10, 8, 11, 10, 6, 11, 6, 10, 6, 11, 8, 7, 9]</code></pre>
+<p>Así, la probabilidad de ir al vértice <span class="math inline">\(i\)</span> será la siguiente(usando la fórmula del libro):</p>
+<div class="sourceCode" id="cb368"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb368-1"><a href="fundamentos-de-teoría-de-redes.html#cb368-1" tabindex="-1"></a>pi <span class="op">=</span> deg <span class="op">/</span> deg.<span class="bu">sum</span>()</span>
+<span id="cb368-2"><a href="fundamentos-de-teoría-de-redes.html#cb368-2" tabindex="-1"></a>pi[:<span class="dv">6</span>], pi[<span class="dv">6</span>:]</span></code></pre></div>
+<pre><code>## (array([0.08064516, 0.08064516, 0.08064516, 0.08064516, 0.08064516,
+##        0.09677419]), array([0.09677419, 0.08064516, 0.08064516, 0.08064516, 0.08064516,
+##        0.08064516]))</code></pre>
+<p>Comprobemos que en el límite coincide:</p>
+<div class="sourceCode" id="cb370"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb370-1"><a href="fundamentos-de-teoría-de-redes.html#cb370-1" tabindex="-1"></a>p <span class="op">=</span> np.zeros(<span class="bu">len</span>(G))</span>
+<span id="cb370-2"><a href="fundamentos-de-teoría-de-redes.html#cb370-2" tabindex="-1"></a>p[<span class="dv">0</span>] <span class="op">=</span> <span class="fl">1.0</span>  <span class="co"># inicio en nodo 0</span></span>
+<span id="cb370-3"><a href="fundamentos-de-teoría-de-redes.html#cb370-3" tabindex="-1"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">50</span>):</span>
+<span id="cb370-4"><a href="fundamentos-de-teoría-de-redes.html#cb370-4" tabindex="-1"></a>    p <span class="op">=</span> p <span class="op">@</span> P</span>
+<span id="cb370-5"><a href="fundamentos-de-teoría-de-redes.html#cb370-5" tabindex="-1"></a>p.<span class="bu">round</span>(<span class="dv">4</span>), pi.<span class="bu">round</span>(<span class="dv">4</span>)</span></code></pre></div>
+<pre><code>## (array([0.0872, 0.0872, 0.0872, 0.0872, 0.0872, 0.1026, 0.0909, 0.0741,
+##        0.0741, 0.0741, 0.0741, 0.0741]), array([0.0806, 0.0806, 0.0806, 0.0806, 0.0806, 0.0968, 0.0968, 0.0806,
+##        0.0806, 0.0806, 0.0806, 0.0806]))</code></pre>
+</div>
+</div>
+<div id="ejemplos-con-datos-reales" class="section level2 hasAnchor" number="2.23">
+<h2><span class="header-section-number">2.23</span> Ejemplos con datos reales<a href="fundamentos-de-teoría-de-redes.html#ejemplos-con-datos-reales" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Ejercicio tomado de: <code>https://github.com/CambridgeUniversityPress/FirstCourseNetworkScience/tree/master</code></p>
+<div class="sourceCode" id="cb372"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb372-1"><a href="fundamentos-de-teoría-de-redes.html#cb372-1" tabindex="-1"></a>G <span class="op">=</span> nx.read_graphml(<span class="st">&#39;D:/Users/hayde/Documents/R_sites/Ciencia_de_Redes/data/openflights_usa.graphml.gz&#39;</span>)</span>
+<span id="cb372-2"><a href="fundamentos-de-teoría-de-redes.html#cb372-2" tabindex="-1"></a></span>
+<span id="cb372-3"><a href="fundamentos-de-teoría-de-redes.html#cb372-3" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Nodos:&quot;</span>, G.number_of_nodes())</span></code></pre></div>
+<pre><code>## Nodos: 546</code></pre>
+<div class="sourceCode" id="cb374"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb374-1"><a href="fundamentos-de-teoría-de-redes.html#cb374-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Aristas:&quot;</span>, G.number_of_edges())</span></code></pre></div>
+<pre><code>## Aristas: 2781</code></pre>
+<p>Los nodos en este grafo son aeropuertos, representados por sus códigos IATA; dos nodos están conectados por una arista si existe un vuelo programado que conecta directamente esos dos aeropuertos. Supondremos que este grafo es no dirigido, ya que un vuelo en una dirección generalmente implica que existe también un vuelo de regreso.</p>
+<p>Por lo tanto, este grafo tiene aristas como <code>[('HOM', 'ANC'), ('BGM', 'PHL'), ('BGM', 'IAD'), ...]</code></p>
+<p>donde ANC corresponde a Anchorage, IAD corresponde a Washington Dulles, etc.</p>
+<p>Estos nodos también tienen atributos asociados, que contienen información adicional sobre los aeropuertos.</p>
+<div class="sourceCode" id="cb376"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb376-1"><a href="fundamentos-de-teoría-de-redes.html#cb376-1" tabindex="-1"></a>G.nodes[<span class="st">&#39;IND&#39;</span>]</span></code></pre></div>
+<pre><code>## {&#39;name&#39;: &#39;Indianapolis International Airport&#39;, &#39;latitude&#39;: 39.7173, &#39;longitude&#39;: -86.294403, &#39;IATA&#39;: &#39;IND&#39;}</code></pre>
+<p>Y también estan guardados como diccionarios:</p>
+<div class="sourceCode" id="cb378"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb378-1"><a href="fundamentos-de-teoría-de-redes.html#cb378-1" tabindex="-1"></a>G.nodes[<span class="st">&#39;IND&#39;</span>][<span class="st">&#39;name&#39;</span>]</span></code></pre></div>
+<pre><code>## &#39;Indianapolis International Airport&#39;</code></pre>
+<p><strong>Ejercicio 1:</strong> ¿Hay un vuelo directo entre Indianápolis y Fairbanks, Alaska (FAI)? Un vuelo directo es aquel sin escalas.</p>
+<p><strong>Ejercicio 2:</strong> Si quisiera volar desde Indianápolis a Fairbanks, Alaska, ¿cuál sería el itinerario con el menor número de vuelos?</p>
+<p><strong>Ejercicio 3:</strong> ¿Es posible viajar desde cualquier aeropuerto de EE. UU. a cualquier otro, posiblemente con vuelos de conexión? En otras palabras, ¿existe una ruta en la red entre cada par de aeropuertos posibles?</p>
 
 </div>
 </div>
