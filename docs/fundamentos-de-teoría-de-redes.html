@@ -188,7 +188,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="2.22.1" data-path="fundamentos-de-teoría-de-redes.html"><a href="fundamentos-de-teoría-de-redes.html#caminatas-aleatorias"><i class="fa fa-check"></i><b>2.22.1</b> Caminatas Aleatorias</a></li>
 </ul></li>
-<li class="chapter" data-level="2.23" data-path="fundamentos-de-teoría-de-redes.html"><a href="fundamentos-de-teoría-de-redes.html#ejemplos-con-datos-reales"><i class="fa fa-check"></i><b>2.23</b> Ejemplos con datos reales</a></li>
+<li class="chapter" data-level="2.23" data-path="fundamentos-de-teoría-de-redes.html"><a href="fundamentos-de-teoría-de-redes.html#ejemplos-con-datos-reales"><i class="fa fa-check"></i><b>2.23</b> Ejemplos con datos reales</a>
+<ul>
+<li class="chapter" data-level="2.23.1" data-path="fundamentos-de-teoría-de-redes.html"><a href="fundamentos-de-teoría-de-redes.html#ejercicio-1-vuelos-en-eu"><i class="fa fa-check"></i><b>2.23.1</b> Ejercicio 1: Vuelos en EU</a></li>
+<li class="chapter" data-level="2.23.2" data-path="fundamentos-de-teoría-de-redes.html"><a href="fundamentos-de-teoría-de-redes.html#ejercicio-2-conectividad-y-robustez-en-redes-sociales-animales"><i class="fa fa-check"></i><b>2.23.2</b> Ejercicio 2: Conectividad y robustez en redes sociales animales</a></li>
+<li class="chapter" data-level="2.23.3" data-path="01-Fundamentos.html"><a href="#ejercicio-3-comparaci%C3%B3n-de-redes-de-personajes-en-dos-pel%C3%ADculas"><i class="fa fa-check"></i><b>2.23.3</b> Ejercicio 3: Comparación de redes de personajes en dos películas</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="01-Fundamentos.html"><a href="#ap%C3%A9ndice-introducci%C3%B3n-a-python"><i class="fa fa-check"></i><b>3</b> Apéndice: Introducción a Python</a>
 <ul>
@@ -876,7 +881,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Con la función <code>nx.check_planarity(Graph_object)</code> podemos verificar si una red es plana o no.</p>
 <div class="sourceCode" id="cb147"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb147-1"><a href="fundamentos-de-teoría-de-redes.html#cb147-1" tabindex="-1"></a>G1 <span class="op">=</span> nx.cycle_graph(<span class="dv">5</span>)</span>
 <span id="cb147-2"><a href="fundamentos-de-teoría-de-redes.html#cb147-2" tabindex="-1"></a>nx.check_planarity(G1)</span></code></pre></div>
-<pre><code>## (True, &lt;networkx.algorithms.planarity.PlanarEmbedding object at 0x000001EF42230E10&gt;)</code></pre>
+<pre><code>## (True, &lt;networkx.algorithms.planarity.PlanarEmbedding object at 0x000002966B66AFD0&gt;)</code></pre>
 <div class="sourceCode" id="cb149"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb149-1"><a href="fundamentos-de-teoría-de-redes.html#cb149-1" tabindex="-1"></a>G2 <span class="op">=</span> nx.complete_graph(<span class="dv">6</span>)</span>
 <span id="cb149-2"><a href="fundamentos-de-teoría-de-redes.html#cb149-2" tabindex="-1"></a>nx.draw(G2, with_labels<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb149-3"><a href="fundamentos-de-teoría-de-redes.html#cb149-3" tabindex="-1"></a>is_planar, P <span class="op">=</span> nx.check_planarity(G2, counterexample<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
@@ -962,17 +967,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb171-10"><a href="fundamentos-de-teoría-de-redes.html#cb171-10" tabindex="-1"></a></span>
 <span id="cb171-11"><a href="fundamentos-de-teoría-de-redes.html#cb171-11" tabindex="-1"></a><span class="co"># Dibujamos vértices y aristas de diferentes capas con diferentes colores</span></span>
 <span id="cb171-12"><a href="fundamentos-de-teoría-de-redes.html#cb171-12" tabindex="-1"></a>nx.draw_networkx_nodes(G, pos, node_color<span class="op">=</span><span class="st">&#39;skyblue&#39;</span>)</span></code></pre></div>
-<pre><code>## &lt;matplotlib.collections.PathCollection object at 0x000001EF42205BD0&gt;</code></pre>
+<pre><code>## &lt;matplotlib.collections.PathCollection object at 0x000002966B697ED0&gt;</code></pre>
 <div class="sourceCode" id="cb173"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb173-1"><a href="fundamentos-de-teoría-de-redes.html#cb173-1" tabindex="-1"></a>nx.draw_networkx_edges(G, pos, edgelist<span class="op">=</span>physical_edges, edge_color<span class="op">=</span><span class="st">&#39;red&#39;</span>, width<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div>
-<pre><code>## &lt;matplotlib.collections.LineCollection object at 0x000001EF42207390&gt;</code></pre>
+<pre><code>## &lt;matplotlib.collections.LineCollection object at 0x000002966B695310&gt;</code></pre>
 <div class="sourceCode" id="cb175"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb175-1"><a href="fundamentos-de-teoría-de-redes.html#cb175-1" tabindex="-1"></a>nx.draw_networkx_edges(G, pos, edgelist<span class="op">=</span>logical_edges, edge_color<span class="op">=</span><span class="st">&#39;blue&#39;</span>, width<span class="op">=</span><span class="dv">1</span>, style<span class="op">=</span><span class="st">&#39;dashed&#39;</span>)</span></code></pre></div>
-<pre><code>## &lt;matplotlib.collections.LineCollection object at 0x000001EF42205F90&gt;</code></pre>
+<pre><code>## &lt;matplotlib.collections.LineCollection object at 0x000002966B694410&gt;</code></pre>
 <div class="sourceCode" id="cb177"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb177-1"><a href="fundamentos-de-teoría-de-redes.html#cb177-1" tabindex="-1"></a>nx.draw_networkx_labels(G, pos)</span></code></pre></div>
-<pre><code>## {1: Text(-0.9888177581262856, -0.17082647196474937, &#39;1&#39;), 2: Text(-0.17067312676210322, 1.0, &#39;2&#39;), 3: Text(0.17000547800458643, -0.9960132190120625, &#39;3&#39;), 4: Text(0.9894854068838017, 0.16683969097681262, &#39;4&#39;)}</code></pre>
+<pre><code>## {1: Text(0.3695983871506929, 0.9982579548849745, &#39;1&#39;), 2: Text(-0.9973704124628119, 0.37198498485170556, &#39;2&#39;), 3: Text(1.0, -0.3707813833423283, &#39;3&#39;), 4: Text(-0.37222797468788127, -0.9994615563943514, &#39;4&#39;)}</code></pre>
 <div class="sourceCode" id="cb179"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb179-1"><a href="fundamentos-de-teoría-de-redes.html#cb179-1" tabindex="-1"></a>plt.title(<span class="st">&quot;Redes Multicapa&quot;</span>)</span></code></pre></div>
 <pre><code>## Text(0.5, 1.0, &#39;Redes Multicapa&#39;)</code></pre>
 <div class="sourceCode" id="cb181"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb181-1"><a href="fundamentos-de-teoría-de-redes.html#cb181-1" tabindex="-1"></a>plt.axis(<span class="st">&#39;off&#39;</span>)</span></code></pre></div>
-<pre><code>## (np.float64(-1.1514715326077753), np.float64(1.1522059462410432), np.float64(-1.205594607008329), np.float64(1.2095813879962667))</code></pre>
+<pre><code>## (np.float64(-1.2070943057714072), np.float64(1.2097238933085954), np.float64(-1.174771073719304), np.float64(1.1734471120589893))</code></pre>
 <div class="sourceCode" id="cb183"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb183-1"><a href="fundamentos-de-teoría-de-redes.html#cb183-1" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-65-61.png" width="672" /></p>
 <div class="sourceCode" id="cb184"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb184-1"><a href="fundamentos-de-teoría-de-redes.html#cb184-1" tabindex="-1"></a>G <span class="op">=</span> nx.Graph()</span>
@@ -1477,7 +1482,7 @@ print(f&quot;Existe una trayectoria de 1 a 4: {path_exists_1_to_4}&quot;)</code>
 <pre><code>## 3</code></pre>
 <div class="sourceCode" id="cb292"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb292-1"><a href="fundamentos-de-teoría-de-redes.html#cb292-1" tabindex="-1"></a>size_edge_cut <span class="op">=</span> nx.minimum_edge_cut(G,<span class="st">&quot;s&quot;</span>,<span class="st">&quot;t&quot;</span>)</span>
 <span id="cb292-2"><a href="fundamentos-de-teoría-de-redes.html#cb292-2" tabindex="-1"></a>size_edge_cut</span></code></pre></div>
-<pre><code>## {(&#39;c&#39;, &#39;t&#39;), (&#39;b&#39;, &#39;t&#39;), (&#39;a&#39;, &#39;t&#39;)}</code></pre>
+<pre><code>## {(&#39;c&#39;, &#39;t&#39;), (&#39;a&#39;, &#39;t&#39;), (&#39;b&#39;, &#39;t&#39;)}</code></pre>
 <div class="sourceCode" id="cb294"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb294-1"><a href="fundamentos-de-teoría-de-redes.html#cb294-1" tabindex="-1"></a><span class="bu">len</span>(paths) <span class="op">==</span> <span class="bu">len</span>(size_edge_cut)</span></code></pre></div>
 <pre><code>## True</code></pre>
 <ul>
@@ -1508,7 +1513,7 @@ print(f&quot;Existe una trayectoria de 1 a 4: {path_exists_1_to_4}&quot;)</code>
 <div class="sourceCode" id="cb300"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb300-1"><a href="fundamentos-de-teoría-de-redes.html#cb300-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Número de edge-disjoint paths:&quot;</span>, <span class="bu">len</span>(ed_paths))</span></code></pre></div>
 <pre><code>## Número de edge-disjoint paths: 3</code></pre>
 <div class="sourceCode" id="cb302"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb302-1"><a href="fundamentos-de-teoría-de-redes.html#cb302-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Minimum edge cut:&quot;</span>, min_e_cut)</span></code></pre></div>
-<pre><code>## Minimum edge cut: {(&#39;c&#39;, &#39;t&#39;), (&#39;b&#39;, &#39;t&#39;), (&#39;a&#39;, &#39;t&#39;)}</code></pre>
+<pre><code>## Minimum edge cut: {(&#39;c&#39;, &#39;t&#39;), (&#39;a&#39;, &#39;t&#39;), (&#39;b&#39;, &#39;t&#39;)}</code></pre>
 <div class="sourceCode" id="cb304"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb304-1"><a href="fundamentos-de-teoría-de-redes.html#cb304-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Tamaño minimum edge cut:&quot;</span>, <span class="bu">len</span>(min_e_cut))</span></code></pre></div>
 <pre><code>## Tamaño minimum edge cut: 3</code></pre>
 <div class="sourceCode" id="cb306"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb306-1"><a href="fundamentos-de-teoría-de-redes.html#cb306-1" tabindex="-1"></a><span class="co"># 2) Max-flow / min-cut (con capacidades unitarias)</span></span>
@@ -1525,7 +1530,7 @@ print(f&quot;Existe una trayectoria de 1 a 4: {path_exists_1_to_4}&quot;)</code>
 <div class="sourceCode" id="cb308"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb308-1"><a href="fundamentos-de-teoría-de-redes.html#cb308-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Min cut value:&quot;</span>, cut_value)</span></code></pre></div>
 <pre><code>## Min cut value: 3</code></pre>
 <div class="sourceCode" id="cb310"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb310-1"><a href="fundamentos-de-teoría-de-redes.html#cb310-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Partición del min-cut: S =&quot;</span>, S, <span class="st">&quot; | T =&quot;</span>, T)</span></code></pre></div>
-<pre><code>## Partición del min-cut: S = {&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;s&#39;}  | T = {&#39;t&#39;}</code></pre>
+<pre><code>## Partición del min-cut: S = {&#39;s&#39;, &#39;a&#39;, &#39;c&#39;, &#39;b&#39;}  | T = {&#39;t&#39;}</code></pre>
 <div class="sourceCode" id="cb312"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb312-1"><a href="fundamentos-de-teoría-de-redes.html#cb312-1" tabindex="-1"></a><span class="co"># --- Menger (por nodos) ---</span></span>
 <span id="cb312-2"><a href="fundamentos-de-teoría-de-redes.html#cb312-2" tabindex="-1"></a>nd_paths <span class="op">=</span> <span class="bu">list</span>(nx.node_disjoint_paths(G, s, t))</span>
 <span id="cb312-3"><a href="fundamentos-de-teoría-de-redes.html#cb312-3" tabindex="-1"></a>min_n_cut <span class="op">=</span> nx.minimum_node_cut(G, s, t)</span>
@@ -1536,7 +1541,7 @@ print(f&quot;Existe una trayectoria de 1 a 4: {path_exists_1_to_4}&quot;)</code>
 <div class="sourceCode" id="cb314"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb314-1"><a href="fundamentos-de-teoría-de-redes.html#cb314-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Número de node-disjoint paths:&quot;</span>, <span class="bu">len</span>(nd_paths))</span></code></pre></div>
 <pre><code>## Número de node-disjoint paths: 3</code></pre>
 <div class="sourceCode" id="cb316"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb316-1"><a href="fundamentos-de-teoría-de-redes.html#cb316-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Minimum node cut:&quot;</span>, min_n_cut)</span></code></pre></div>
-<pre><code>## Minimum node cut: {&#39;b&#39;, &#39;c&#39;, &#39;a&#39;}</code></pre>
+<pre><code>## Minimum node cut: {&#39;a&#39;, &#39;c&#39;, &#39;b&#39;}</code></pre>
 <div class="sourceCode" id="cb318"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb318-1"><a href="fundamentos-de-teoría-de-redes.html#cb318-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Tamaño minimum node cut:&quot;</span>, <span class="bu">len</span>(min_n_cut))</span></code></pre></div>
 <pre><code>## Tamaño minimum node cut: 3</code></pre>
 <p><strong>Ejercicio:</strong> Considere el siguiente grafo que representa una red de transporte entre dos ciudades <span class="math inline">\(s\)</span> y <span class="math inline">\(t\)</span>.</p>
@@ -1545,7 +1550,7 @@ s\rightarrow b \rightarrow c \rightarrow t \\
 s\rightarrow d \rightarrow c \rightarrow t\]</span></p>
 <ol style="list-style-type: decimal">
 <li>Dibuje el grafo y determine todos los caminos de <span class="math inline">\(s\)</span> a <span class="math inline">\(t\)</span>.</li>
-<li>Determine cuántos caminos edge-disjoint existen entre <span class="math inline">\(s\)</span> y <span class="math inline">\(t\)</span>.</li>
+<li>Determine cuántos trayectorias edge-disjoint existen entre <span class="math inline">\(s\)</span> y <span class="math inline">\(t\)</span>.</li>
 <li>Determine el minimum edge cut que separa <span class="math inline">\(s\)</span> y <span class="math inline">\(t\)</span>.</li>
 <li>Suponga que cada arista tiene capacidad 1. ¿Cuál es el maximum flow entre <span class="math inline">\(s\)</span> y <span class="math inline">\(t\)</span>?</li>
 <li>Explique por qué este grafo tiene un cuello de botella.</li>
@@ -1584,7 +1589,7 @@ Calculemos el flujo máximo.</p>
 <pre><code>## 5</code></pre>
 <p>Y la partición nos quedaría como:</p>
 <div class="sourceCode" id="cb328"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb328-1"><a href="fundamentos-de-teoría-de-redes.html#cb328-1" tabindex="-1"></a>partition</span></code></pre></div>
-<pre><code>## ({&#39;b&#39;, &#39;a&#39;, &#39;s&#39;}, {&#39;t&#39;})</code></pre>
+<pre><code>## ({&#39;s&#39;, &#39;a&#39;, &#39;b&#39;}, {&#39;t&#39;})</code></pre>
 <p>La partición es las componentes que quedan separadas al realizar el corte mínimo.</p>
 <p>El corte mínimo representa el cuello de botella de la red.</p>
 <p>Aunque haya muchas rutas, la capacidad total hacia <span class="math inline">\(t\)</span> es <span class="math inline">\(2+3=5\)</span>, por lo que no puede pasar más flujo.</p>
@@ -1782,7 +1787,9 @@ Calculemos el flujo máximo.</p>
 </div>
 <div id="ejemplos-con-datos-reales" class="section level2 hasAnchor" number="2.23">
 <h2><span class="header-section-number">2.23</span> Ejemplos con datos reales<a href="fundamentos-de-teoría-de-redes.html#ejemplos-con-datos-reales" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Ejercicio tomado de: <code>https://github.com/CambridgeUniversityPress/FirstCourseNetworkScience/tree/master</code></p>
+<div id="ejercicio-1-vuelos-en-eu" class="section level3 hasAnchor" number="2.23.1">
+<h3><span class="header-section-number">2.23.1</span> Ejercicio 1: Vuelos en EU<a href="fundamentos-de-teoría-de-redes.html#ejercicio-1-vuelos-en-eu" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Base de datos tomada de <code>https://github.com/CambridgeUniversityPress/FirstCourseNetworkScience/tree/master</code></p>
 <div class="sourceCode" id="cb372"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb372-1"><a href="fundamentos-de-teoría-de-redes.html#cb372-1" tabindex="-1"></a>G <span class="op">=</span> nx.read_graphml(<span class="st">&#39;D:/Users/hayde/Documents/R_sites/Ciencia_de_Redes/data/openflights_usa.graphml.gz&#39;</span>)</span>
 <span id="cb372-2"><a href="fundamentos-de-teoría-de-redes.html#cb372-2" tabindex="-1"></a></span>
 <span id="cb372-3"><a href="fundamentos-de-teoría-de-redes.html#cb372-3" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Nodos:&quot;</span>, G.number_of_nodes())</span></code></pre></div>
@@ -1798,10 +1805,168 @@ Calculemos el flujo máximo.</p>
 <p>Y también estan guardados como diccionarios:</p>
 <div class="sourceCode" id="cb378"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb378-1"><a href="fundamentos-de-teoría-de-redes.html#cb378-1" tabindex="-1"></a>G.nodes[<span class="st">&#39;IND&#39;</span>][<span class="st">&#39;name&#39;</span>]</span></code></pre></div>
 <pre><code>## &#39;Indianapolis International Airport&#39;</code></pre>
-<p><strong>Ejercicio 1:</strong> ¿Hay un vuelo directo entre Indianápolis y Fairbanks, Alaska (FAI)? Un vuelo directo es aquel sin escalas.</p>
-<p><strong>Ejercicio 2:</strong> Si quisiera volar desde Indianápolis a Fairbanks, Alaska, ¿cuál sería el itinerario con el menor número de vuelos?</p>
-<p><strong>Ejercicio 3:</strong> ¿Es posible viajar desde cualquier aeropuerto de EE. UU. a cualquier otro, posiblemente con vuelos de conexión? En otras palabras, ¿existe una ruta en la red entre cada par de aeropuertos posibles?</p>
+<p>Responde las siguientes preguntas:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>¿Hay un vuelo directo entre Indianápolis y Fairbanks, Alaska (FAI)? Un vuelo directo es aquel sin escalas.</p></li>
+<li><p>Si quisiera volar desde Indianápolis a Fairbanks, Alaska, ¿cuál sería el itinerario con el menor número de vuelos?</p></li>
+<li><p>¿Es posible viajar desde cualquier aeropuerto de EE. UU. a cualquier otro, posiblemente con vuelos de conexión? En otras palabras, ¿existe una ruta en la red entre cada par de aeropuertos posibles?</p></li>
+</ol>
+</div>
+<div id="ejercicio-2-conectividad-y-robustez-en-redes-sociales-animales" class="section level3 hasAnchor" number="2.23.2">
+<h3><span class="header-section-number">2.23.2</span> Ejercicio 2: Conectividad y robustez en redes sociales animales<a href="fundamentos-de-teoría-de-redes.html#ejercicio-2-conectividad-y-robustez-en-redes-sociales-animales" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En este ejercicio trabajaremos con redes reales del repositorio <strong>Animal Social Network Repository (ASNR)</strong>, disponibles en formato <code>GraphML</code>.</p>
+<ul>
+<li><p><a href="https://bansallab.github.io/asnr/data.html">Sitio ASNR</a></p></li>
+<li><p><a href="https://github.com/bansallab/asnr/tree/master/Networks">GitHub con las redes en formato graphml</a></p></li>
+<li><p><a href="https://github.com/bansallab/asnr/blob/master/Network_summary_masterfile.csv">Archivo de metadatos</a></p></li>
+</ul>
+<p>Cada red representa interacciones sociales entre individuos de una especie animal. El objetivo es analizar propiedades estructurales básicas de estas redes y relacionarlas con los conceptos vistos en clase, como grado promedio, diámetro, caminos disjuntos por aristas y conjuntos de corte mínimos.</p>
+<p><strong>Instrucciones generales</strong></p>
+<ol style="list-style-type: decimal">
+<li>Elige <strong>dos redes</strong> correspondientes a especies distintas del repositorio.</li>
+<li>Carga ambas redes en <code>Python</code> usando <code>networkx</code>.</li>
+<li>Responde cada inciso con apoyo de código, cálculos e interpretación.</li>
+<li>Justifica tus respuestas usando las definiciones y resultados vistos en clase.</li>
+</ol>
+<p><strong>Parte 1.</strong> Propiedades básicas de la red</p>
+<p>Para cada una de las dos redes elegidas, calcula lo siguiente:</p>
+<ul>
+<li>número de nodos <span class="math inline">\(n\)</span>,</li>
+<li>número de aristas <span class="math inline">\(m\)</span>,</li>
+<li>grado promedio,</li>
+<li>diámetro de la red (si la red no es conexa, trabaja con su componente conexa más grande e indícalo explícitamente).</li>
+</ul>
+<p>Responde lo siguiente:</p>
+<ol style="list-style-type: lower-alpha">
+<li>¿Cuál de las dos redes tiene mayor grado promedio?<br />
+</li>
+<li>¿Cuál tiene mayor diámetro?<br />
+</li>
+<li>¿Qué podría sugerir esto sobre la organización de la red?</li>
+</ol>
+<p><strong>Parte 2.</strong> Caminos disjuntos por aristas y corte mínimo</p>
+<p>Para cada red, selecciona un par de nodos <span class="math inline">\(u,v\)</span>. Puedes elegirlos al azar o elegir dos nodos que pertenezcan a la componente conexa más grande.</p>
+<p>Calcula:</p>
+<ul>
+<li>el número de <strong>caminos disjuntos por aristas</strong> entre <span class="math inline">\(u\)</span> y <span class="math inline">\(v\)</span>,</li>
+<li>el tamaño de un <strong>conjunto de corte mínimo por aristas</strong> entre <span class="math inline">\(u\)</span> y <span class="math inline">\(v\)</span>.</li>
+</ul>
+<p>Responde lo siguiente:</p>
+<ol style="list-style-type: lower-alpha">
+<li>¿Coiniden ambos valores?<br />
+</li>
+<li>Explica por qué este resultado está relacionado con las ideas vistas en clase sobre conectividad y corte mínimo.<br />
+</li>
+<li>¿Qué interpretación puedes dar en términos de la robustez de la conexión entre esos dos individuos?</li>
+</ol>
+<p><strong>Parte 3.</strong> Eliminación de un nodo importante</p>
+<p>Para una de las dos redes, identifica el nodo de mayor grado.</p>
+<p>Después:</p>
+<ol style="list-style-type: decimal">
+<li>elimina ese nodo de la red;</li>
+<li>calcula nuevamente el número de componentes conexas;</li>
+<li>calcula el diámetro de la componente conexa más grande de la nueva red.</li>
+</ol>
+<p>Responde lo siguiente:</p>
+<ol style="list-style-type: lower-alpha">
+<li>¿La red se fragmentó al eliminar ese nodo?<br />
+</li>
+<li>¿Cambió el diámetro de manera importante?<br />
+</li>
+<li>¿Qué sugiere esto sobre el papel estructural de los nodos de alto grado?</li>
+</ol>
+<p><strong>Parte 4.</strong> Interpretación final</p>
+<p>Escribe un breve párrafo comparando ambas redes.</p>
+<p>Tu discusión debe incluir:</p>
+<ul>
+<li>cuál parece más conectada,</li>
+<li>cuál parece más vulnerable a la eliminación de enlaces o nodos,</li>
+<li>cómo se relacionan estas observaciones con los conceptos de grado, diámetro y corte mínimo.</li>
+</ul>
+</div>
+<div id="ejercicio-3-comparación-de-redes-de-personajes-en-dos-películas" class="section level3 hasAnchor" number="2.23.3">
+<h3><span class="header-section-number">2.23.3</span> Ejercicio 3: Comparación de redes de personajes en dos películas<a href="#ejercicio-3-comparaci%C3%B3n-de-redes-de-personajes-en-dos-pel%C3%ADculas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En este ejercicio analizaremos redes de interacción entre personajes utilizando datos del proyecto <strong>Moviegalaxies</strong>:</p>
+<p><a href="https://moviegalaxies.com/" class="uri">https://moviegalaxies.com/</a></p>
+<p>En estas redes:</p>
+<ul>
+<li>cada <strong>nodo</strong> representa un personaje,</li>
+<li>cada <strong>arista</strong> representa una interacción o co-aparición entre personajes.</li>
+</ul>
+<p>El objetivo es aplicar los conceptos vistos en clase para estudiar la <strong>estructura y conectividad</strong> de estas redes y comparar la organización social de dos historias diferentes.</p>
+<p><strong>Instrucciones generales</strong></p>
+<ol style="list-style-type: decimal">
+<li>Elige <strong>dos películas diferentes</strong> del sitio Moviegalaxies.</li>
+<li>Descarga los archivos de red en formato <strong>JSON</strong>. (Debes investigar como leer estos archivos en <code>Networkx</code>)</li>
+<li>Carga ambas redes en <code>Python</code> usando <code>networkx</code>.</li>
+<li>Responde cada inciso con apoyo de código, cálculos e interpretación.</li>
+</ol>
+<p><strong>Parte 1.</strong> Propiedades básicas de las redes</p>
+<p>Para <strong>cada una de las dos redes</strong>, calcula:</p>
+<ul>
+<li>número de nodos <span class="math inline">\(n\)</span>,</li>
+<li>número de aristas <span class="math inline">\(m\)</span>,</li>
+<li>grado promedio,</li>
+<li>diámetro de la red.</li>
+</ul>
+<p>Responde lo siguiente:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>¿Cuál de las dos redes tiene <strong>más personajes</strong>?</p></li>
+<li><p>¿Cuál tiene <strong>mayor grado promedio</strong>?</p></li>
+<li><p>¿Cuál tiene <strong>mayor diámetro</strong>?</p></li>
+<li><p>¿Qué sugiere el diámetro sobre la distancia social entre personajes en cada historia?</p></li>
+</ol>
+<p><strong>Parte 2.</strong> Personajes centrales</p>
+<p>Para cada red:</p>
+<ol style="list-style-type: decimal">
+<li>calcula el grado de todos los nodos,</li>
+<li>identifica el personaje con <strong>mayor grado</strong>.</li>
+</ol>
+<p>Responde lo siguiente:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>¿Quién es el personaje más conectado en cada película?</p></li>
+<li><p>¿Cuántos personajes diferentes interactúan con él o ella?</p></li>
+<li><p>¿Coincide este personaje con quien considerarías el protagonista de la historia?</p></li>
+</ol>
+<p><strong>Parte 3.</strong> Caminos disjuntos y corte mínimo</p>
+<p>En cada red elige <strong>dos personajes importantes</strong>.</p>
+<p>Calcula:</p>
+<ul>
+<li>el número de <strong>caminos disjuntos por aristas</strong> entre ellos,</li>
+<li>el tamaño del <strong>conjunto de corte mínimo por aristas</strong> entre esos nodos.</li>
+</ul>
+<p>Responde lo siguiente:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>¿Coinciden ambos valores?</p></li>
+<li><p>¿Qué significa esto en términos de la <strong>conectividad entre esos personajes</strong>?</p></li>
+<li><p>¿Cuántas interacciones tendrían que desaparecer para separarlos en la red?</p></li>
+</ol>
+<p><strong>Parte 4.</strong> Eliminación de un personaje importante</p>
+<p>Para cada red:</p>
+<ol style="list-style-type: decimal">
+<li>elimina el nodo de <strong>mayor grado</strong>,</li>
+<li>calcula nuevamente:
+<ul>
+<li>número de componentes conexas,</li>
+<li>diámetro de la componente conexa más grande.</li>
+</ul></li>
+</ol>
+<p>Responde lo siguiente:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>¿La red se fragmenta al eliminar ese personaje?</p></li>
+<li><p>¿En cuál de las dos redes el efecto es mayor?</p></li>
+<li><p>¿Qué indica esto sobre la <strong>robustez estructural</strong> de la red?</p></li>
+</ol>
+<p><strong>Parte 5.</strong> Comparación final</p>
+<p>Escribe un breve análisis comparando ambas redes.</p>
+<p>Tu discusión debe incluir:</p>
+<ul>
+<li>cuál red parece <strong>más conectada</strong>,</li>
+<li>cuál parece <strong>más vulnerable a la eliminación de nodos</strong>,</li>
+<li>cómo se relacionan estas observaciones con los conceptos de <strong>grado, diámetro y conectividad</strong>.</li>
+</ul>
 
+</div>
 </div>
 </div>
             </section>

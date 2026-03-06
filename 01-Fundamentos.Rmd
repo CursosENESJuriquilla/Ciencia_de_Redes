@@ -1474,7 +1474,7 @@ s\rightarrow b \rightarrow c \rightarrow t \\
 s\rightarrow d \rightarrow c \rightarrow t\]
 
 1) Dibuje el grafo y determine todos los caminos de $s$ a $t$.
-2) Determine cuántos caminos edge-disjoint existen entre $s$ y $t$.
+2) Determine cuántos trayectorias edge-disjoint existen entre $s$ y $t$.
 3) Determine el minimum edge cut que separa $s$ y $t$.
 4) Suponga que cada arista tiene capacidad 1. ¿Cuál es el maximum flow entre $s$ y $t$?
 5) Explique por qué este grafo tiene un cuello de botella.
@@ -1745,7 +1745,9 @@ p.round(4), pi.round(4)
 
 ## Ejemplos con datos reales
 
-Ejercicio tomado de: `https://github.com/CambridgeUniversityPress/FirstCourseNetworkScience/tree/master`
+### Ejercicio 1: Vuelos en EU
+
+Base de datos tomada de `https://github.com/CambridgeUniversityPress/FirstCourseNetworkScience/tree/master`
 
 ```{python}
 G = nx.read_graphml('D:/Users/hayde/Documents/R_sites/Ciencia_de_Redes/data/openflights_usa.graphml.gz')
@@ -1773,9 +1775,188 @@ G.nodes['IND']['name']
 ```
 
 
-**Ejercicio 1:** ¿Hay un vuelo directo entre Indianápolis y Fairbanks, Alaska (FAI)? Un vuelo directo es aquel sin escalas.
+Responde las siguientes preguntas:
 
-**Ejercicio 2:** Si quisiera volar desde Indianápolis a Fairbanks, Alaska, ¿cuál sería el itinerario con el menor número de vuelos?
+(a) ¿Hay un vuelo directo entre Indianápolis y Fairbanks, Alaska (FAI)? Un vuelo directo es aquel sin escalas.
 
-**Ejercicio 3:** ¿Es posible viajar desde cualquier aeropuerto de EE. UU. a cualquier otro, posiblemente con vuelos de conexión? En otras palabras, ¿existe una ruta en la red entre cada par de aeropuertos posibles?
+(b) Si quisiera volar desde Indianápolis a Fairbanks, Alaska, ¿cuál sería el itinerario con el menor número de vuelos?
 
+(c) ¿Es posible viajar desde cualquier aeropuerto de EE. UU. a cualquier otro, posiblemente con vuelos de conexión? En otras palabras, ¿existe una ruta en la red entre cada par de aeropuertos posibles?
+
+
+### Ejercicio 2: Conectividad y robustez en redes sociales animales
+
+En este ejercicio trabajaremos con redes reales del repositorio **Animal Social Network Repository (ASNR)**, disponibles en formato `GraphML`.
+
+- [Sitio ASNR](https://bansallab.github.io/asnr/data.html)
+
+- [GitHub con las redes en formato graphml](https://github.com/bansallab/asnr/tree/master/Networks)
+
+- [Archivo de metadatos](https://github.com/bansallab/asnr/blob/master/Network_summary_masterfile.csv)
+
+Cada red representa interacciones sociales entre individuos de una especie animal. El objetivo es analizar propiedades estructurales básicas de estas redes y relacionarlas con los conceptos vistos en clase, como grado promedio, diámetro, caminos disjuntos por aristas y conjuntos de corte mínimos.
+
+**Instrucciones generales**
+
+1. Elige **dos redes** correspondientes a especies distintas del repositorio.
+2. Carga ambas redes en `Python` usando `networkx`.
+3. Responde cada inciso con apoyo de código, cálculos e interpretación.
+4. Justifica tus respuestas usando las definiciones y resultados vistos en clase.
+
+**Parte 1.** Propiedades básicas de la red
+
+Para cada una de las dos redes elegidas, calcula lo siguiente:
+
+- número de nodos \(n\),
+- número de aristas \(m\),
+- grado promedio,
+- diámetro de la red (si la red no es conexa, trabaja con su componente conexa más grande e indícalo explícitamente).
+
+Responde lo siguiente:
+
+a. ¿Cuál de las dos redes tiene mayor grado promedio?  
+b. ¿Cuál tiene mayor diámetro?  
+c. ¿Qué podría sugerir esto sobre la organización de la red?
+
+
+**Parte 2.** Caminos disjuntos por aristas y corte mínimo
+
+Para cada red, selecciona un par de nodos \(u,v\). Puedes elegirlos al azar o elegir dos nodos que pertenezcan a la componente conexa más grande.
+
+Calcula:
+
+- el número de **caminos disjuntos por aristas** entre \(u\) y \(v\),
+- el tamaño de un **conjunto de corte mínimo por aristas** entre \(u\) y \(v\).
+
+Responde lo siguiente: 
+
+a. ¿Coiniden ambos valores?  
+b. Explica por qué este resultado está relacionado con las ideas vistas en clase sobre conectividad y corte mínimo.  
+c. ¿Qué interpretación puedes dar en términos de la robustez de la conexión entre esos dos individuos?
+
+**Parte 3.** Eliminación de un nodo importante
+
+Para una de las dos redes, identifica el nodo de mayor grado.
+
+Después:
+
+1. elimina ese nodo de la red;
+2. calcula nuevamente el número de componentes conexas;
+3. calcula el diámetro de la componente conexa más grande de la nueva red.
+
+Responde lo siguiente:
+
+a. ¿La red se fragmentó al eliminar ese nodo?  
+b. ¿Cambió el diámetro de manera importante?  
+c. ¿Qué sugiere esto sobre el papel estructural de los nodos de alto grado?
+
+**Parte 4.** Interpretación final
+
+Escribe un breve párrafo comparando ambas redes.
+
+Tu discusión debe incluir:
+
+- cuál parece más conectada,
+- cuál parece más vulnerable a la eliminación de enlaces o nodos,
+- cómo se relacionan estas observaciones con los conceptos de grado, diámetro y corte mínimo.
+
+
+### Ejercicio 3: Comparación de redes de personajes en dos películas
+
+En este ejercicio analizaremos redes de interacción entre personajes utilizando datos del proyecto **Moviegalaxies**:
+
+https://moviegalaxies.com/
+
+En estas redes:
+
+- cada **nodo** representa un personaje,
+- cada **arista** representa una interacción o co-aparición entre personajes.
+
+El objetivo es aplicar los conceptos vistos en clase para estudiar la **estructura y conectividad** de estas redes y comparar la organización social de dos historias diferentes.
+
+**Instrucciones generales**
+
+1. Elige **dos películas diferentes** del sitio Moviegalaxies.
+2. Descarga los archivos de red en formato **JSON**. (Debes investigar como leer estos archivos en `Networkx`)
+3. Carga ambas redes en `Python` usando `networkx`.
+4. Responde cada inciso con apoyo de código, cálculos e interpretación.
+
+**Parte 1.** Propiedades básicas de las redes
+
+Para **cada una de las dos redes**, calcula:
+
+- número de nodos \(n\),
+- número de aristas \(m\),
+- grado promedio,
+- diámetro de la red.
+
+Responde lo siguiente:
+
+a. ¿Cuál de las dos redes tiene **más personajes**?  
+
+b. ¿Cuál tiene **mayor grado promedio**?  
+
+c. ¿Cuál tiene **mayor diámetro**?  
+
+d. ¿Qué sugiere el diámetro sobre la distancia social entre personajes en cada historia?
+
+**Parte 2.** Personajes centrales
+
+Para cada red:
+
+1. calcula el grado de todos los nodos,
+2. identifica el personaje con **mayor grado**.
+
+Responde lo siguiente:
+
+a. ¿Quién es el personaje más conectado en cada película?  
+
+b. ¿Cuántos personajes diferentes interactúan con él o ella?  
+
+c. ¿Coincide este personaje con quien considerarías el protagonista de la historia?
+
+**Parte 3.** Caminos disjuntos y corte mínimo
+
+En cada red elige **dos personajes importantes**.
+
+Calcula:
+
+- el número de **caminos disjuntos por aristas** entre ellos,
+- el tamaño del **conjunto de corte mínimo por aristas** entre esos nodos.
+
+Responde lo siguiente:
+
+a. ¿Coinciden ambos valores?  
+
+b. ¿Qué significa esto en términos de la **conectividad entre esos personajes**?  
+
+c. ¿Cuántas interacciones tendrían que desaparecer para separarlos en la red?
+
+
+**Parte 4.** Eliminación de un personaje importante
+
+Para cada red:
+
+1. elimina el nodo de **mayor grado**,
+2. calcula nuevamente:
+   - número de componentes conexas,
+   - diámetro de la componente conexa más grande.
+
+Responde lo siguiente:
+
+a. ¿La red se fragmenta al eliminar ese personaje?  
+
+b. ¿En cuál de las dos redes el efecto es mayor?  
+
+c. ¿Qué indica esto sobre la **robustez estructural** de la red?
+
+
+**Parte 5.** Comparación final
+
+Escribe un breve análisis comparando ambas redes.
+
+Tu discusión debe incluir:
+
+- cuál red parece **más conectada**,
+- cuál parece **más vulnerable a la eliminación de nodos**,
+- cómo se relacionan estas observaciones con los conceptos de **grado, diámetro y conectividad**.
