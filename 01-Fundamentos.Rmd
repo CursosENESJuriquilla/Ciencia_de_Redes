@@ -12,6 +12,9 @@ setwd(workingDir)
 ```{r}
 library(reticulate)
 ```
+
+## Grafos: matemáticas de las redes.
+
 Primero, tenemos que importar algunas de las librerías básicas. 
 
 - `networkx` es la librería básica de redes en Python.
@@ -129,7 +132,7 @@ nx.draw(G, with_labels=True)
 ```
 
 
-## Matriz de Adyacencia
+### Matriz de Adyacencia
 
 Las gráficas en `networkx`, las podemos crear también a partir de su matriz de adyacencia.
 
@@ -156,7 +159,7 @@ print(G.edges())
 nx.draw(G, with_labels=True)
 ```
 
-## Redes con pesos
+### Redes con pesos
 
 En muchas aplicaciones, no basta saber si dos nodos están conectados: queremos medir intensidad.
 
@@ -201,7 +204,7 @@ print(pos)
 
 **Ejercicio:** Comparar con `nx.circular_layout(G)` para ver que “layout” = regla de colocación.
 
-## Redes dirigidas
+### Redes dirigidas
 
 En una red dirigida las aristas tienen orientación.
 
@@ -238,7 +241,7 @@ print("In-degree:", dict(DG.in_degree()))
 print("Out-degree:", dict(DG.out_degree()))
 ```
 
-## Graficas acíclicas
+### Graficas acíclicas
 
 Un grafo dirigido es acíclico si no contiene ciclos.
 
@@ -286,7 +289,7 @@ print(A_weird)
 ```
 
 
-## Redes k-regulares
+### Redes k-regulares
 
 Un grafo es $k$-regular si todos los vértices tienen grado $k$.
 
@@ -298,7 +301,7 @@ plt.title("Grafo 3-regular")
 plt.show()
 ```
 
-## Multigrafos (multiaristas)
+### Multigrafos (multiaristas)
 
 En algunos sistemas pueden existir varias relaciones entre dos nodos.
 
@@ -359,7 +362,7 @@ plt.show()
 print("Número de aristas A-B:", MG.number_of_edges("A","B"))
 ```
 
-## Loops (lazos)
+### Loops (lazos)
 
 Un loop es una arista de un nodo a sí mismo.
 
@@ -396,7 +399,7 @@ También podemos listarlos:
 print("Loops:", list(nx.selfloop_edges(G)))
 ```
 
-## Redes bipartitas
+### Redes bipartitas
 
 Ejemplo: películas y actores.
 
@@ -489,7 +492,7 @@ plt.title("Red bipartita con capas diferenciadas")
 plt.show()
 ```
 
-### Matriz de incidencia
+#### Matriz de incidencia
 
 ```{python}
 B_matrix = np.zeros((len(movies), len(actors)))
@@ -502,7 +505,7 @@ for _,row in df.iterrows():
 print(B_matrix)
 ```
 
-### Proyección one-mode
+#### Proyección one-mode
 
 ```{python}
 W = B_matrix.T @ B_matrix
@@ -545,7 +548,7 @@ plt.show()
 
 Vamos a crear las dos proyecciones.
 
-### Proyección one-mode a Actores
+#### Proyección one-mode a Actores
 
 ```{python}
 
@@ -567,7 +570,7 @@ plt.axis("off")
 plt.show()
 ```
 
-### Proyección one-mode a PELÍCULAS
+#### Proyección one-mode a PELÍCULAS
 
 ```{python}
 # Proyección a películas (one-mode)
@@ -613,7 +616,7 @@ print("\nB B^T (películas x películas):\n", W_movies)
 ```
 
 
-## Árboles
+### Árboles
 
 En Python, podemos crear árboles con la instrucción `nx.path_graph(n)`
 
@@ -707,7 +710,7 @@ nx.draw(F, with_labels = True)
 #nx.draw(F2, with_labels = True)
 ```
 
-## Gráficas planas
+### Gráficas planas
 
 Con la función `nx.check_planarity(Graph_object)` podemos verificar si una red es plana o no.
 
@@ -729,7 +732,7 @@ nx.draw(P, with_labels=True)
 
 **Ejercicio:** Verifica la planaridad de `complete_graph(4)` y `complete_graph(5)`.
 
-## Grado y grado medio
+### Grado y grado medio
 
 ```{python}
 G = nx.cycle_graph(6)
@@ -766,7 +769,7 @@ print('Se cumple la relación c=2m/n', c == v)
 
 **Ejercicio:** Crea una `complete_graph(8)`, calcula el grado medio y comparalo con la fórmula teórica.
 
-## Densidad
+### Densidad
 
 Para una red no dirigida, tenemos lo siguiente:
 
@@ -794,7 +797,7 @@ for n in [20,50,100]:
 ```
 
 
-## Redes multicapa
+### Redes multicapa
 
 Podemos definir las aristas con el atributo de capas como sigue:
 
@@ -854,7 +857,7 @@ nx.draw(G)
 
 
 
-## Caminos y trayectorias
+### Caminos y trayectorias
 
 ```{python}
 G = nx.Graph()
@@ -979,7 +982,7 @@ print(f"Existe una trayectoria de 1 a 4: {path_exists_1_to_4}")
 
 **Ejercicio:** Construye una red que no tenga un camino entre dos nodos dados. Y usa la función `has_path()` para verificarlo.
 
-## Trayectorias más cortas
+### Trayectorias más cortas
 
 ```{python}
 G1 = nx.Graph()
@@ -1074,7 +1077,7 @@ for C in (G.subgraph(c).copy() for c in nx.connected_components(G)):
     print(nx.average_shortest_path_length(C))
 ```
 
-### Caminos
+#### Caminos
 
 La función de networkx que nos regresa los caminos (que pueden pasar por el mismo vértice, arista o regresar sobre alguna arista), se le debe especificar la longitud de los caminos.
 
@@ -1106,7 +1109,7 @@ walks[0][1]
 ```
 
 
-### Predecesor, antecesor y descendientes
+#### Predecesor, antecesor y descendientes
 
 - `ancestors(G, source)`: Devuelve todos los nodos que pueden llegar a `source` siguiendo la dirección de las aristas.
 
@@ -1149,7 +1152,7 @@ nx.predecessor(G, 0, cutoff=2)
 ```
 
 
-## Componentes conexas
+### Componentes conexas
 
 
 ```{python}
@@ -1248,7 +1251,7 @@ nx.descendants(DG, 1)
 nx.ancestors(DG, 1)
 ```
 
-## Trayectorias independientes
+### Trayectorias independientes
 
 - `edge_disjoint_paths()`: Devuelve caminos disjuntos por aristas entre dos nodos: los caminos no comparten aristas, pero sí pueden compartir nodos.
 
@@ -1306,7 +1309,7 @@ nx.edge_connectivity(G)
 ```
 
 
-## Conjuntos de corte
+### Conjuntos de corte
 
 - `minimum_edge_cut`: Conjunto de corte por aristas mínimo.
 
@@ -1359,7 +1362,7 @@ flow_dict
 ```
 
 
-## Teorema max-flow / min-cut
+### Teorema max-flow / min-cut
 
 El teorema dice flujo máximo = capacidad de corte. Veamos un ejemplo:
 
@@ -1383,7 +1386,7 @@ flow_value == cut_value
 ```
 
 
-## Teorema de Menger
+### Teorema de Menger
 
 - Versión por aristas: máximo número de caminos edge-disjoint = tamaño mínimo de edge-cut.
 
@@ -1480,7 +1483,7 @@ s\rightarrow d \rightarrow c \rightarrow t\]
 5) Explique por qué este grafo tiene un cuello de botella.
 
 
-## Flujo máximo y corte mínimo en redes con pesos
+### Flujo máximo y corte mínimo en redes con pesos
 
 Consideremos la siguiente red:
 
@@ -1534,7 +1537,7 @@ El corte mínimo representa el cuello de botella de la red.
 Aunque haya muchas rutas, la capacidad total hacia $t$ es $2+3=5$, por lo que no puede pasar más flujo.
 
 
-## El Laplaciano
+### El Laplaciano
 
 
 Dada una matriz, recordemos que el Laplaciano está dado como $L=D-A$, donde $D$ es la matriz diagonal con los grados de los vértices y $A$ es la matriz de adyacencia. Si en `networkx` no proporcionamos la lista de vértices, el orden por default que usa para crear el Laplaciano, será el orden que nos regrese la función `G.nodes()`. Las matrices que devuelve `networkx` son matrices del tipo `sparse`, es decir, no almacenan los ceros para optimizar recursos. Si queremos ver una matriz con todas sus entradas, debemos convertirla a un arreglo de `numpy` o a una matriz densa con `todense()`.
@@ -1649,7 +1652,7 @@ nx.laplacian_spectrum(G)
 2) Realiza una gráfica con 4 componentes conexas y 10 vértices. Calcula el Laplaciano, y verifica que en efecto tenga 4 componentes conexas usando las propiedades del Laplaciano. Intercambia tu ejemplo con tus compañeros para que lo repliquen.
 
 
-### Caminatas Aleatorias
+#### Caminatas Aleatorias
 
 Veamos el ejemplo de del grafo $1\rightarrow 2 \rightarrow 3$:
 
@@ -1743,9 +1746,9 @@ p.round(4), pi.round(4)
 ```
 
 
-## Ejemplos con datos reales
+### Ejemplos con datos reales
 
-### Ejercicio 1: Vuelos en EU
+#### Ejercicio 1: Vuelos en EU
 
 Base de datos tomada de `https://github.com/CambridgeUniversityPress/FirstCourseNetworkScience/tree/master`
 
@@ -1784,7 +1787,7 @@ Responde las siguientes preguntas:
 (c) ¿Es posible viajar desde cualquier aeropuerto de EE. UU. a cualquier otro, posiblemente con vuelos de conexión? En otras palabras, ¿existe una ruta en la red entre cada par de aeropuertos posibles?
 
 
-### Ejercicio 2: Conectividad y robustez en redes sociales animales
+#### Ejercicio 2: Conectividad y robustez en redes sociales animales
 
 En este ejercicio trabajaremos con redes reales del repositorio **Animal Social Network Repository (ASNR)**, disponibles en formato `GraphML`.
 
@@ -1861,7 +1864,7 @@ Tu discusión debe incluir:
 - cómo se relacionan estas observaciones con los conceptos de grado, diámetro y corte mínimo.
 
 
-### Ejercicio 3: Comparación de redes de personajes en dos películas
+#### Ejercicio 3: Comparación de redes de personajes en dos películas
 
 En este ejercicio analizaremos redes de interacción entre personajes utilizando datos del proyecto **Moviegalaxies**:
 
@@ -1960,3 +1963,54 @@ Tu discusión debe incluir:
 - cuál red parece **más conectada**,
 - cuál parece **más vulnerable a la eliminación de nodos**,
 - cómo se relacionan estas observaciones con los conceptos de **grado, diámetro y conectividad**.
+
+
+
+
+## Medidas y métricas.
+
+### Centralidad
+
+La centralidad mide la importancia de un nodo en un grafo. Cuantifica roles como puentes o hubs mediante fórmulas que involucran grados, distancias o eigenvalores. `NetworkX` proporciona funciones en `networkx.algorithms.centrality` para grafos dirigidos y no dirigidos, normalizadas cuando aplica.
+
+Usaremos el grafo del club de karate de Zachary (34 nodos, 78 aristas).
+
+```{python}
+import networkx as nx
+import matplotlib.pyplot as plt
+
+K = nx.karate_club_graph()
+print("Nodos:", K.number_of_nodes())
+print("Aristas:", K.number_of_edges())
+nx.draw(K, with_labels=True, node_color='lightblue')
+plt.show()
+```
+
+#### Centralidad de Grado
+
+Mide conexiones directas de un nodo $v$, en `Networkx` se considera normalizada, se divide el grado entre el máximo posible grado en una red simple, es decir, entre $n-1$, donde $n=|V|$:
+
+\[C_D(v) = \frac{\deg(v)}{n-1}.\]
+
+```{python}
+G1 = nx.Graph([(0, 1), (0, 2), (0, 3), (1, 2), (1, 3)])
+nx.draw(G1, with_labels=True)
+plt.show()
+```
+
+```{python}
+nx.degree_centrality(G1)
+```
+
+
+En nuestro ejemplo de la red de Karate:
+
+```{python}
+c_k = nx.degree_centrality(K)
+sorted((v, f"{c:0.2f}") for v, c in c_k.items())
+```
+
+
+### Grupos de nodos
+
+### Homofilia

@@ -108,3 +108,9 @@ ejercicio-1
 ejercicio-2-conectividad-y-robustez-en-redes-sociales-animales
 ejercicio-3-comparación-de-redes-de-personajes-en-dos-películas
 ejercicio-1-vuelos-en-eu
+grafos-matemáticas-de-las-redes.
+medidas-y-métricas.
+centralidad
+grupos-de-nodos
+homofilia
+centralidad-de-grado
