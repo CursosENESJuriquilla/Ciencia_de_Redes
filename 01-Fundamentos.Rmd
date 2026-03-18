@@ -967,7 +967,7 @@ G1.add_edges_from([
 nx.has_path(G1, 1, 4)
 ```
 
-```{pyton}
+```{python}
 G2 = nx.Graph()
 G2.add_edges_from([(1, 2), (2, 3), (4, 5)])
 
@@ -2010,7 +2010,82 @@ c_k = nx.degree_centrality(K)
 sorted((v, f"{c:0.2f}") for v, c in c_k.items())
 ```
 
+#### Centralidad de Eigenvector
+
+Basada en eigenvalor principal de la matriz de adyacencia: $v^T A= \lambda v^T$, $C_E(v) = v_i / \max(v)$. En networkx se calcula el eigenvector izquierdo. Si se quiere el derecho, se debe usar `G.reverse()`.
+El resultado es un vector con unitario con norma Euclideana.
+
+```{python}
+G = nx.path_graph(4)
+ec = nx.eigenvector_centrality(G)
+sorted((v, f"{c:0.2f}") for v, c in ec.items())
+```
+
+
+#### Centralidad Katz
+
+```{python}
+import math
+G = nx.path_graph(4)
+phi = (1 + math.sqrt(5)) / 2.0  # eigenvalor más grande de la matriz de adyacencia
+centrality = nx.katz_centrality(G, 1 / phi - 0.01) # alpha=1/phi-0.01
+for n, c in sorted(centrality.items()):
+    print(f"{n} {c:.2f}")
+```
+
+Por default $\beta=1.0$ y $\alpha= 0.1$
+
+#### PageRank
+
+Fue diseñado para redes dirigidas, pero su implementación en `Networkx` no verifica esto, convierte más bien la red en uan dirigida.
+
+```{python}
+G = nx.DiGraph(nx.path_graph(4))
+pr = nx.pagerank(G, alpha=0.9)
+```
+
+#### Centralidad de cercania
+
+En `networkx`, está implementada como
+\[C(u) = \frac{n-1}{\sum_{v=1}^{n-1}d(u,v)}\]
+
+
+```{python}
+G = nx.Graph([(0, 1), (0, 2), (0, 3), (1, 2), (1, 3)])
+nx.closeness_centrality(G)
+```
+
+#### Centralidad de Entre Aristas (Betweenness)
+
+Suma fracciones de caminos más cortos que pasan por $v$: $C_B(v) = \sum_{s \neq t \neq v} \frac{\sigma_{st}(v)}{\sigma_{st}}$.
+
+
+```{python}
+G = nx.path_graph(3)
+nx.betweenness_centrality(G, normalized=False, endpoints=False)
+```
+
+
+```{python}
+nx.betweenness_centrality(G, normalized=False, endpoints=True)
+```
+
+
+Hay diferentes consideraciones que se pueden hacer en esta función.
+
+- `normalized=False`: NO escala los valores, da los conteos "crudos"
+
+- `endpoints=False`: No cuenta los nodos extremos del camino, es decir, solo cuenta nodos intermedios.
+
+
+**Ejercicio:** Para la red de Karate, calcula las centralidades y comparalas. Que nodos son los que tienen mayor centralidad en cada caso.
+
 
 ### Grupos de nodos
+
+
+
+
+
 
 ### Homofilia

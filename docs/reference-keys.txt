@@ -114,3 +114,8 @@ centralidad
 grupos-de-nodos
 homofilia
 centralidad-de-grado
+centralidad-de-eigenvector
+centralidad-katz
+pagerank
+centralidad-de-cercania
+centralidad-de-entre-aristas-betweenness
