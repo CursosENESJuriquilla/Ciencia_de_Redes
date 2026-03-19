@@ -2084,8 +2084,620 @@ Hay diferentes consideraciones que se pueden hacer en esta función.
 ### Grupos de nodos
 
 
+#### Cliques
+
+Una clique es un subconjunto de nodos donde todos están conectados entre sí.
+
+```
+A —— B
+ \   /
+   C
+```
+
+Funciones principales en NetworkX
+
+| Función                      | Qué hace                           |
+| ---------------------------- | ---------------------------------- |
+| `find_cliques(G)`            | Encuentra cliques maximales        |
+| `enumerate_all_cliques(G)`   | Encuentra todas las cliques        |
+| `node_clique_number(G)`      | Tamaño de la mayor clique por nodo |
+| `number_of_cliques(G)`       | Cuántas cliques contiene cada nodo |
+| `max_weight_clique(G)`       | Clique máxima con pesos            |
+| `k_clique_communities(G, k)` | Comunidades basadas en cliques     |
+
+
+Ejemplos:
+
+```{python}
+G = nx.Graph()
+G.add_edges_from([(1,2), (2,3), (1,3),(3,4)])
+
+pos = nx.spring_layout(G, seed=7)
+nx.draw(G, pos, with_labels=True, node_size=900)
+plt.show()
+```
+
+- `find_cliques(G)`: Esta función devuelve **todas las cliques maximales** del grafo.
+
+Recuerda:
+- Una clique maximal no puede agrandarse.
+- No tiene que ser la más grande globalmente.
+
+```{python}
+maximal_cliques = list(nx.find_cliques(G))
+maximal_cliques
+```
+
+- Tamaño de la clique máxima: Si queremos encontrar el tamaño de la clique más grande:
+
+```{python}
+clique_maxima = max(nx.find_cliques(G), key=len)
+len(clique_maxima), clique_maxima
+```
+
+
+- `number_of_cliques(G)`: Cuenta cuántas **cliques maximales** contiene cada nodo.
+
+```{python}
+nx.number_of_cliques(G)
+```
+
+Interpretación
+- El nodo `3` aparece en dos cliques maximales: `[1,2,3]` y `[3,4]`
+- Los demás aparecen en una sola
+
+
+- `node_clique_number(G)`: Devuelve, para cada nodo, el tamaño de la **mayor clique maximal** que lo contiene.
+
+```{python}
+nx.node_clique_number(G)
+```
+
+Interpretación:
+- Los nodos `1`, `2` y `3` están dentro de una clique de tamaño `3`
+- El nodo `4` solo pertenece a la clique `[3,4]`, de tamaño `2`
+
+- `enumerate_all_cliques(G)`: Esta función devuelve **todas** las cliques de un grafo no dirigido.
+
+Incluye:
+- cliques de tamaño 1 (nodos)
+- cliques de tamaño 2 (aristas)
+- cliques de tamaño 3, 4, etc.Todas las cliques (no solo maximales):
+
+```{python}
+all_cliques = list(nx.enumerate_all_cliques(G))
+all_cliques
+```
+
+Incluye:
+
+- nodos individuales
+
+- pares
+
+- triángulos
+
+**Ejercicio 1:** Encuentra los Cliques maximales para la siguiente gráfica.
+
+```{python}
+C4 = nx.cycle_graph(4)
+pos = nx.circular_layout(C4)
+nx.draw(C4, pos, with_labels=True, node_size=900)
+plt.show()
+```
+
+
+**Ejemplo:** con una red más conocida: Karate Club. El grafo de Karate Club viene incluido en NetworkX.
+
+
+```{python}
+K = nx.karate_club_graph()
+
+maximal = list(nx.find_cliques(K))
+largest = max(maximal, key=len)
+
+print("Número de cliques maximales:", len(maximal))
+print("Tamaño de la clique máxima:", len(largest))
+print("Una clique máxima:", largest)
+```
+
+
+- **Visualización de una clique encontrada**: Podemos resaltar una clique máxima dentro del grafo.
+
+```{python}
+pos = nx.spring_layout(K, seed=4)
+# Convertimos a conjunto largest
+largest_set = set(largest)
+
+# Para cada nodo n en largest_set, si n está ahí, entonces se colorea con tab:red, si no con gris,
+# Nos genera una lista con los colores ["lightgray", "tab:red", "lightgray", "tab:red", ...] en el mismo orden que aparecen los nodos.
+node_colors = ["tab:red" if n in largest_set else "lightgray" for n in K.nodes()]
+nx.draw(K, pos, with_labels=True, node_color=node_colors, node_size=500, font_size=8)
+plt.show()
+```
+
+- `max_weight_clique(G, weight=...)`: Esta función busca una clique cuya **suma de pesos de nodos** sea máxima.
+
+**Nota**: Aquí el peso normalmente se pone como **atributo de nodo**, por ejemplo:
+`G.nodes[n]["peso"] = ...`
+
+```{python}
+H = nx.Graph()
+H.add_edges_from([
+    ("A", "B"), ("A", "C"), ("B", "C"),  # triángulo
+    ("C", "D"), ("C", "E"), ("D", "E")   # otro triángulo
+])
+
+pesos = {"A": 2, "B": 3, "C": 5, "D": 4, "E": 1}
+nx.set_node_attributes(H, pesos, "peso")
+
+clique_pesada, peso_total = nx.max_weight_clique(H, weight="peso")
+clique_pesada, peso_total
+```
+
+La función devuelve:
+1. la clique con mayor suma de pesos
+2. el peso total de esa clique
+
+
+#### Comunidades con k-cliques
+
+Una comunidad de k-cliques se define como la unión de todas las cliques de tamaño $k$ que pueden alcanzarse entre sí mediante una secuencia de k-cliques “adyacentes”, donde la adyacencia significa que las cliques comparten $k-1$ nodos.
+
+Este enfoque permite la existencia de comunidades traslapadas, ya que un mismo nodo puede pertenecer a múltiples cliques y, por lo tanto, a múltiples comunidades.
+
+```{python}
+from networkx.algorithms.community import k_clique_communities
+
+list(k_clique_communities(K, k=3))
+```
+
+
+*Ejercicio 1*: Construye `nx.path_graph(5)`.
+
+1. Lista todas las cliques.
+2. Lista las cliques maximales.
+3. ¿Cuál es el tamaño de la clique máxima?
+
+*Ejercicio 2*: Construye un grafo con aristas:
+`(1,2), (2,3), (1,3), (3,4), (4,5), (3,5)`
+
+1. Encuentra las cliques maximales.
+2. ¿Cuántos triángulos hay?
+3. ¿Qué nodo pertenece a más cliques maximales?
+
+*Ejercicio 3*: En el grafo `nx.cycle_graph(6)`:
+
+1. ¿Qué cliques maximales aparecen?
+2. ¿Hay alguna clique de tamaño 3?
+3. Explica por qué.
+
+*Ejercicio 4*: Usa `nx.karate_club_graph()`:
+
+1. Encuentra una clique máxima.
+2. Calcula cuántas cliques maximales hay.
+3. Identifica los nodos con mayor `number_of_cliques`.
+
+*Ejercicio 5*: Explica con tus palabras la diferencia entre:
+- clique
+- clique maximal
+- clique máxima
+
+#### k-componentes
+
+Vamos a ver dos herramientas de conectividad avanzada:
+
+- `nx.k_edge_components(G, k)`
+- `nx.k_components(G)`
+
+La idea es medir qué tan robusta es una red cuando fallan **aristas** o **nodos**.
+
+
+Para eso, vamos a crear una función que nos ayudará a hacer primero los plots.
+
+```{python}
+plt.rcParams["figure.figsize"] = (6, 4)
+
+def dibuja(G, pos=None, title=None):
+    if pos is None:
+        pos = nx.spring_layout(G, seed=7)
+    nx.draw(G, pos, with_labels=True, node_size=900, font_size=11)
+    if title:
+        plt.title(title)
+    plt.show()
+    return pos
+```
+
+- *Conectividad por aristas*: Mide cuántas **aristas** hay que quitar como mínimo para desconectar una red.
+
+- *Conectividad por nodos*: Mide cuántos **nodos** hay que quitar como mínimo para desconectar una red.
+
+- `k_edge_components`: Un k-edge-component es un conjunto maximal de nodos tal que cualquier par está conectado por al menos `k` caminos independientes por aristas.
+
+- `k_components`: Un k-component es un subgrafo maximal cuya conectividad por nodos es al menos `k`.
+
+
+**Ejemplo 1:** un triángulo con una cola
+
+```{python}
+G = nx.Graph()
+G.add_edges_from([
+    (1, 2), (2, 3), (1, 3),
+    (3, 4)
+])
+
+pos = {1:(0,1), 2:(1,1), 3:(0.5,0), 4:(1.8,0)}
+dibuja(G, pos, "Ejemplo 1")
+```
+
+
+```{python}
+print("k-edge-components con k=1:")
+print(list(nx.k_edge_components(G, k=1)))
+
+print("\nk-edge-components con k=2:")
+print(list(nx.k_edge_components(G, k=2)))
+
+print("\nedge_connectivity global:", nx.edge_connectivity(G))
+print("node_connectivity global:", nx.node_connectivity(G))
+print("\nk-components:")
+print(nx.k_components(G))
+```
+
+
+Interpretación:
+- con `k=1`, toda la red está conectada;
+- con `k=2`, el nodo 4 se separa, porque depende de una sola arista puente.
+
+
+*Ejemplo 2*: dos triángulos compartiendo un vértice
+
+```{python}
+H = nx.Graph()
+H.add_edges_from([
+    (1,2), (2,3), (1,3),
+    (3,4), (4,5), (3,5)
+])
+
+posH = {1:(0,1), 2:(1,1), 3:(0.5,0), 4:(1.8,1), 5:(2.3,0)}
+dibuja(H, posH, "Dos triángulos compartiendo un vértice")
+```
+
+
+```{python}
+for k in [1, 2]:
+    print(f"k={k} -> {list(nx.k_edge_components(H, k=k))}")
+
+print("\nk-components:")
+print(nx.k_components(H))
+
+## Cut vertex
+print("\nPuntos de articulación:")
+print(list(nx.articulation_points(H)))
+
+```
+
+*Ejemplo 3:* un ciclo.
+
+```{python}
+C = nx.cycle_graph(5)
+posC = nx.circular_layout(C)
+dibuja(C, posC, "Ciclo de 5 nodos")
+```
+
+
+```{python}
+print("edge_connectivity:", nx.edge_connectivity(C))
+print("node_connectivity:", nx.node_connectivity(C))
+print("2-edge-components:", list(nx.k_edge_components(C, k=2)))
+print("k-components:", nx.k_components(C))
+```
+
+En un ciclo la conectividad sube a 2: no basta quitar una sola arista o un solo nodo para romperlo de la misma forma que un camino.
+
+
+*Ejemplo 4*: un camino
+
+```{python}
+P = nx.path_graph(5)
+posP = {i:(i,0) for i in P.nodes()}
+dibuja(P, posP, "Camino de 5 nodos")
+```
+
+```{python}
+print("edge_connectivity:", nx.edge_connectivity(P))
+print("node_connectivity:", nx.node_connectivity(P))
+print("k-edge-components k=1:", list(nx.k_edge_components(P, k=1)))
+print("k-edge-components k=2:", list(nx.k_edge_components(P, k=2)))
+print("k-components:", nx.k_components(P))
+```
+
+
+*Ejemplo 5*: barbell graph (dos gráficas completas conectadas con una trayectoria)
+
+```{python}
+B  = nx.barbell_graph(5, 1)
+posB = nx.spring_layout(B, seed=5)
+dibuja(B, posB, "Barbell graph")
+```
+
+
+```{python}
+print("edge_connectivity:", nx.edge_connectivity(B))
+print("node_connectivity:", nx.node_connectivity(B))
+print("2-edge-components:", list(nx.k_edge_components(B, k=2)))
+print("k-components:", nx.k_components(B))
+print("Puentes:", list(nx.bridges(B)))
+print("Puntos de articulación:", list(nx.articulation_points(B)))
+```
+
+Parámetros principales
+
+- `nx.k_edge_components(G, k)`
+- `G`: grafo de NetworkX
+- `k`: entero positivo, nivel de conectividad por aristas
+
+Devuelve un generador de conjuntos de nodos.
+
+- `nx.k_components(G)`
+- `G`: grafo de NetworkX
+
+Devuelve un diccionario `k -> lista de conjuntos de nodos`.
+
+**Red clásica: Karate Club**
+
+```{python}
+K = nx.karate_club_graph()
+print("Nodos:", K.number_of_nodes())
+print("Aristas:", K.number_of_edges())
+print("edge_connectivity:", nx.edge_connectivity(K))
+print("node_connectivity:", nx.node_connectivity(K))
+print("k-components:", nx.k_components(K))
+```
+
+
+```{python}
+posK = nx.spring_layout(K, seed=10)
+dibuja(K, posK, "Karate Club Graph")
+```
+
+**Ejercicio 1** Construye `nx.path_graph(6)` y calcula:
+1. `edge_connectivity`
+2. `node_connectivity`
+3. `k_edge_components` para `k=1` y `k=2`
+
+**Ejercicio 2**: Construye `nx.cycle_graph(6)` y compáralo con el camino.
+
+**Ejercicio 3**: Construye la gráfica con aristas:
+`(1,2), (2,3), (3,1), (3,4), (4,5), (5,6), (6,4)`
+
+1. Dibuja la red.
+2. Calcula `list(nx.k_edge_components(G, k=2))`.
+3. Calcula `nx.k_components(G)`.
+
+**Ejercicio 4**: Usa `nx.barbell_graph(4,2)` y encuentra:
+1. puentes
+2. puntos de articulación
+3. sus `k_edge_components` y `k_components`
+
+
+### Transitividad y Coeficiente de Clustering
+
+Existen varias funciones en networkx relacionadas a este tema: 
+
+- `nx.triangles`
+- `nx.all_triangles`
+- `nx.transitivity`
+- `nx.clustering`
+- `nx.average_clustering`
+- `nx.square_clustering`
+- `nx.generalized_degree`
+
+Estas funciones sirven para estudiar triángulos y agrupamiento local/global en redes.
+
+
+
+*Ejemplo base:* un triángulo con una cola
+
+```{python}
+G = nx.Graph()
+G.add_edges_from([(1,2), (2,3), (1,3), (3,4)])
+pos = {1:(0,1), 2:(1,1), 3:(0.5,0), 4:(1.8,0)}
+dibuja(G, pos, "Triángulo con una cola")
+```
+
+- `nx.triangles(G, nodes=None)`
+
+```{python}
+print(nx.triangles(G))
+print("Triángulos que pasan por 3:", nx.triangles(G, 3))
+print("Triángulos que pasan por 4:", nx.triangles(G, 4))
+```
+
+- `nx.all_triangles(G, nbunch=None)`
+
+```{python}
+list(nx.all_triangles(G))
+```
+
+- `nx.clustering(G, nodes=None, weight=None)`
+
+```{python}
+print(nx.clustering(G))
+for v in G.nodes():
+    print(f"nodo {v}: grado={G.degree(v)}, clustering={nx.clustering(G, v):.3f}")
+```
+
+El clustering local mide qué proporción de pares de vecinos de un nodo también están conectados entre sí.
+
+- `nx.average_clustering(G, ..., count_zeros=True)`
+
+```{python}
+print("Promedio incluyendo ceros:", nx.average_clustering(G))
+print("Promedio sin contar ceros:", nx.average_clustering(G, count_zeros=False))
+```
+
+- `nx.transitivity(G)`
+
+```{python}
+print("Transitivity:", nx.transitivity(G))
+print("Average clustering:", nx.average_clustering(G))
+```
+
+
+`average_clustering` y `transitivity` no son exactamente lo mismo:
+- el primero promedia nodo por nodo;
+- el segundo es una medida global basada en tríadas y triángulos.
+
+- Comparación con un ciclo sin triángulos:
+
+```{python}
+C = nx.cycle_graph(5)
+posC = nx.circular_layout(C)
+dibuja(C, posC, "Ciclo de 5 nodos")
+
+print("triangles:", nx.triangles(C))
+print("all_triangles:", list(nx.all_triangles(C)))
+print("clustering:", nx.clustering(C))
+print("average_clustering:", nx.average_clustering(C))
+print("transitivity:", nx.transitivity(C))
+```
+
+- Comparación con una clique completa
+
+```{python}
+K4 = nx.complete_graph(4)
+posK4 = nx.circular_layout(K4)
+dibuja(K4, posK4, "Clique completa K4")
+
+print("triangles:", nx.triangles(K4))
+print("all_triangles:", list(nx.all_triangles(K4)))
+print("clustering:", nx.clustering(K4))
+print("average_clustering:", nx.average_clustering(K4))
+print("transitivity:", nx.transitivity(K4))
+```
+
+
+- Dos triángulos compartiendo un nodo
+
+```{python}
+H = nx.Graph()
+H.add_edges_from([(1,2), (2,3), (1,3), (3,4), (4,5), (3,5)])
+posH = {1:(0,1), 2:(1,1), 3:(0.5,0), 4:(1.8,1), 5:(2.3,0)}
+dibuja(H, posH, "Dos triángulos compartiendo un nodo")
+
+print("triangles:", nx.triangles(H))
+print("all_triangles:", list(nx.all_triangles(H)))
+print("clustering:", nx.clustering(H))
+print("average_clustering:", nx.average_clustering(H))
+print("transitivity:", nx.transitivity(H))
+```
+
+
+- `nx.square_clustering(G, nodes=None)`: puede detectar estructura cuadrada incluso cuando no hay triángulos.
+
+```{python}
+B = nx.cycle_graph(4)
+posB = nx.circular_layout(B)
+dibuja(B, posB, "Ciclo de 4 nodos")
+
+print("triangles:", nx.triangles(B))
+print("clustering:", nx.clustering(B))
+print("square_clustering:", nx.square_clustering(B))
+```
+
+- `nx.generalized_degree(G, nodes=None)`: El grado generalizado refina el grado usual según cuántos triángulos comparte cada arista incidente.
+
+```{python}
+gd = nx.generalized_degree(H)
+print(gd)
+for v, d in gd.items():
+    print(f"nodo {v}: {d}")
+```
+
+- Versión con pesos
+
+```{python}
+
+W = nx.Graph()
+W.add_weighted_edges_from([
+    (1,2,3.0),
+    (2,3,2.0),
+    (1,3,1.0),
+    (3,4,5.0)
+])
+posW = {1:(0,1), 2:(1,1), 3:(0.5,0), 4:(1.8,0)}
+dibuja(W, posW, "Red con pesos")
+
+print("Clustering sin pesos:")
+print(nx.clustering(W))
+
+print("\nClustering con pesos:")
+print(nx.clustering(W, weight='weight'))
+
+print("\nPromedio sin pesos:", nx.average_clustering(W))
+print("Promedio con pesos:", nx.average_clustering(W, weight='weight'))
+```
+
+**Red clásica: Karate Club:**
+
+```{python}
+K = nx.karate_club_graph()
+print("Número de nodos:", K.number_of_nodes())
+print("Número de aristas:", K.number_of_edges())
+print("Average clustering:", nx.average_clustering(K))
+print("Transitivity:", nx.transitivity(K))
+
+tri = nx.triangles(K)
+print("Algunos valores de triangles:")
+for v in list(K.nodes())[:10]:
+    print(v, tri[v])
+```
+
+
+```{python}
+posK = nx.spring_layout(K, seed=10)
+dibuja(K, posK, "Karate Club Graph")
+```
+
+
+*Ejercicio 1*: Construye `nx.path_graph(6)`.
+
+1. Calcula `nx.triangles`.
+2. Calcula `nx.clustering`.
+3. Calcula `nx.average_clustering` y `nx.transitivity`.
+4. Explica por qué.
+
+*Ejercicio 2*: Construye `nx.cycle_graph(6)` y compáralo con `nx.cycle_graph(4)`.
+
+1. ¿Qué pasa con `clustering`?
+2. ¿Qué pasa con `square_clustering`?
+
+*Ejercicio 3*: Construye una gráfica con aristas:
+`(1,2), (2,3), (3,1), (3,4), (4,5), (5,3), (5,6)`.
+
+1. Dibuja la red.
+2. Encuentra todos los triángulos.
+3. Calcula el clustering de cada nodo.
+4. ¿Qué nodo participa en más triángulos?
+
+*Ejercicio 4*: Usa `nx.complete_graph(5)`.
+
+1. ¿Cuántos triángulos toca cada nodo?
+2. ¿Cuál es el average clustering?
+3. ¿Cuál es la transitivity?
+
+*Ejercicio 5*: Construye una red con pesos donde haya un triángulo fuerte y otro débil.
+
+1. Calcula clustering sin pesos.
+2. Calcula clustering con pesos.
+3. Interpreta la diferencia.
 
 
 
 
 ### Homofilia
+
+
+
+

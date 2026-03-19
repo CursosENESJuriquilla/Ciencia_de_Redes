@@ -119,3 +119,8 @@ centralidad-katz
 pagerank
 centralidad-de-cercania
 centralidad-de-entre-aristas-betweenness
+cliques
+comunidades-con-k-cliques
+k-componentes
+transitividad-y-coeficiente-de-clusterin
+transitividad-y-coeficiente-de-clustering
