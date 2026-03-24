@@ -2698,7 +2698,7 @@ dibuja(K, posK, "Karate Club Graph")
 
 ### Homofilia y Asortatividad en Redes
 
-Existen varias funciones relacionadas al tema de **assortativity** en NetworkX.
+Existen varias funciones relacionadas al tema de **asortatividad** en NetworkX.
 
 Funciones principales son:
 
@@ -2714,6 +2714,7 @@ Funciones principales son:
 - `nx.degree_mixing_dict`
 - `nx.node_attribute_xy`
 - `nx.node_degree_xy`
+- `nx.modularity`
 
 
 La **asortatividad** mide si los nodos tienden a conectarse con otros nodos **similares** o **distintos**.
@@ -2852,22 +2853,24 @@ print("Assortativity por atributo 'group':", nx.attribute_assortativity_coeffici
 print("Assortativity numérica para 'score':", nx.numeric_assortativity_coefficient(G, "score"))
 ```
 
-- Pares de atributos y pares de grados: Estas funciones muestran los pares observados a lo largo de las aristas.
+
+- Modularidad:
 
 ```{python}
-print("Pares (group, group) en las aristas:")
-print(list(nx.node_attribute_xy(G, "group")))
-```
-
-```{python}
-print("Pares (grado, grado) en las aristas:")
-print(list(nx.node_degree_xy(G)))
+G = nx.barbell_graph(3, 0)
+nx.community.modularity(G, [{0, 1, 2}, {3, 4, 5}])
 ```
 
 
+- **Ejemplo**: Los conjuntos de datos `schoolfriends_vertices` y `schoolfriends_edgelist` del paquete `onadata` (o disponibles para descarga en línea) representan una red de amistades reportadas entre estudiantes de una escuela secundaria en Marsella, Francia, en 2013.
 
-- Ejemplo:
+El conjunto de vértices proporciona, para cada estudiante, su identificador (ID), clase y género. Por otro lado, la lista de aristas incluye dos tipos de relaciones:
 
+- *Amistad reportada*: cuando el estudiante con ID de origen (`from`) declara al estudiante con ID de destino (`to`) como su amigo.
+
+- *Amistad en Facebook*: cuando existe una conexión confirmada en Facebook entre ambos estudiantes.
+
+Ejemplo tomado de [Handbook of Graphs and Networks in People Analytics, Capítulo 8](https://ona-book.org/similarity.html)
 
 ```{python}
 import pandas as pd
@@ -2878,7 +2881,7 @@ schoolfriends_vertices = pd.read_csv(
   "https://ona-book.org/data/schoolfriends_vertices.csv"
 )
 
-# create undirected facebook graph
+# Creamos una gráfica no dirigida de Facebook
 schoolfriends_fb = nx.from_pandas_edgelist(
   df = schoolfriends_edgelist[
     schoolfriends_edgelist.type == 'facebook'
@@ -2887,7 +2890,7 @@ schoolfriends_fb = nx.from_pandas_edgelist(
   target = "to"
 )
 
-# create directed reported graph
+# Creamos una gráfica dirigida de las amistades reportadas
 schoolfriends_rp = nx.from_pandas_edgelist(
   df = schoolfriends_edgelist[
     schoolfriends_edgelist.type == 'reported'
@@ -2897,19 +2900,36 @@ schoolfriends_rp = nx.from_pandas_edgelist(
   create_using=nx.DiGraph()
 )
 
-# add class vertex attribute to both graphs
-class_attr = dict(zip(schoolfriends_vertices['id'], 
-schoolfriends_vertices['class']))
-nx.set_node_attributes(schoolfriends_fb, name = "class", 
-values = class_attr)
-nx.set_node_attributes(schoolfriends_rp, name = "class", 
-values = class_attr)
+# Agregamos los atributos de las clases de vértices a ambas gráficas
+class_attr = dict(zip(schoolfriends_vertices['id'], schoolfriends_vertices['class']))
+
+nx.set_node_attributes(schoolfriends_fb, name = "class", values = class_attr)
+nx.set_node_attributes(schoolfriends_rp, name = "class", values = class_attr)
 
 nx.draw(schoolfriends_fb)
 ```
 
+Podemos calcular varios tipos de asortatividades:
 
+```{python}
+nx.attribute_assortativity_coefficient(schoolfriends_fb, "class")
+```
+
+```{python}
+nx.attribute_assortativity_coefficient(schoolfriends_rp, "class")
+```
+
+```{python}
+nx.degree_assortativity_coefficient(schoolfriends_rp)
+```
 
 ```{python}
 nx.degree_assortativity_coefficient(schoolfriends_fb)
 ```
+
+**Ejercicios:**
+
+1) Calcula el coeficiente de asortatividad para el género.
+
+2) Calcula el coeficiente de asortatividad para el departamento.
+
