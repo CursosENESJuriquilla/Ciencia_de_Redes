@@ -23,7 +23,7 @@
 <meta name="author" content="Haydeé Peruyero" />
 
 
-<meta name="date" content="2026-03-19" />
+<meta name="date" content="2026-03-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -182,7 +182,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2.1" data-path="fundamentos-de-teoría-de-redes.html"><a href="fundamentos-de-teoría-de-redes.html#centralidad"><i class="fa fa-check"></i><b>2.2.1</b> Centralidad</a></li>
 <li class="chapter" data-level="2.2.2" data-path="fundamentos-de-teoría-de-redes.html"><a href="fundamentos-de-teoría-de-redes.html#grupos-de-nodos"><i class="fa fa-check"></i><b>2.2.2</b> Grupos de nodos</a></li>
 <li class="chapter" data-level="2.2.3" data-path="fundamentos-de-teoría-de-redes.html"><a href="fundamentos-de-teoría-de-redes.html#transitividad-y-coeficiente-de-clustering"><i class="fa fa-check"></i><b>2.2.3</b> Transitividad y Coeficiente de Clustering</a></li>
-<li class="chapter" data-level="2.2.4" data-path="fundamentos-de-teoría-de-redes.html"><a href="fundamentos-de-teoría-de-redes.html#homofilia"><i class="fa fa-check"></i><b>2.2.4</b> Homofilia</a></li>
+<li class="chapter" data-level="2.2.4" data-path="fundamentos-de-teoría-de-redes.html"><a href="fundamentos-de-teoría-de-redes.html#homofilia-y-asortatividad-en-redes"><i class="fa fa-check"></i><b>2.2.4</b> Homofilia y Asortatividad en Redes</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="01-Fundamentos.html"><a href="#ap%C3%A9ndice-introducci%C3%B3n-a-python"><i class="fa fa-check"></i><b>3</b> Apéndice: Introducción a Python</a>
@@ -873,7 +873,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Con la función <code>nx.check_planarity(Graph_object)</code> podemos verificar si una red es plana o no.</p>
 <div class="sourceCode" id="cb147"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb147-1"><a href="fundamentos-de-teoría-de-redes.html#cb147-1" tabindex="-1"></a>G1 <span class="op">=</span> nx.cycle_graph(<span class="dv">5</span>)</span>
 <span id="cb147-2"><a href="fundamentos-de-teoría-de-redes.html#cb147-2" tabindex="-1"></a>nx.check_planarity(G1)</span></code></pre></div>
-<pre><code>## (True, &lt;networkx.algorithms.planarity.PlanarEmbedding object at 0x00000198CABAB610&gt;)</code></pre>
+<pre><code>## (True, &lt;networkx.algorithms.planarity.PlanarEmbedding object at 0x00000186294C0E10&gt;)</code></pre>
 <div class="sourceCode" id="cb149"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb149-1"><a href="fundamentos-de-teoría-de-redes.html#cb149-1" tabindex="-1"></a>G2 <span class="op">=</span> nx.complete_graph(<span class="dv">6</span>)</span>
 <span id="cb149-2"><a href="fundamentos-de-teoría-de-redes.html#cb149-2" tabindex="-1"></a>nx.draw(G2, with_labels<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb149-3"><a href="fundamentos-de-teoría-de-redes.html#cb149-3" tabindex="-1"></a>is_planar, P <span class="op">=</span> nx.check_planarity(G2, counterexample<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
@@ -959,17 +959,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb171-10"><a href="fundamentos-de-teoría-de-redes.html#cb171-10" tabindex="-1"></a></span>
 <span id="cb171-11"><a href="fundamentos-de-teoría-de-redes.html#cb171-11" tabindex="-1"></a><span class="co"># Dibujamos vértices y aristas de diferentes capas con diferentes colores</span></span>
 <span id="cb171-12"><a href="fundamentos-de-teoría-de-redes.html#cb171-12" tabindex="-1"></a>nx.draw_networkx_nodes(G, pos, node_color<span class="op">=</span><span class="st">&#39;skyblue&#39;</span>)</span></code></pre></div>
-<pre><code>## &lt;matplotlib.collections.PathCollection object at 0x00000198CABA9810&gt;</code></pre>
+<pre><code>## &lt;matplotlib.collections.PathCollection object at 0x00000186295960D0&gt;</code></pre>
 <div class="sourceCode" id="cb173"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb173-1"><a href="fundamentos-de-teoría-de-redes.html#cb173-1" tabindex="-1"></a>nx.draw_networkx_edges(G, pos, edgelist<span class="op">=</span>physical_edges, edge_color<span class="op">=</span><span class="st">&#39;red&#39;</span>, width<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div>
-<pre><code>## &lt;matplotlib.collections.LineCollection object at 0x00000198CABA9E50&gt;</code></pre>
+<pre><code>## &lt;matplotlib.collections.LineCollection object at 0x00000186295942D0&gt;</code></pre>
 <div class="sourceCode" id="cb175"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb175-1"><a href="fundamentos-de-teoría-de-redes.html#cb175-1" tabindex="-1"></a>nx.draw_networkx_edges(G, pos, edgelist<span class="op">=</span>logical_edges, edge_color<span class="op">=</span><span class="st">&#39;blue&#39;</span>, width<span class="op">=</span><span class="dv">1</span>, style<span class="op">=</span><span class="st">&#39;dashed&#39;</span>)</span></code></pre></div>
-<pre><code>## &lt;matplotlib.collections.LineCollection object at 0x00000198CABA9D10&gt;</code></pre>
+<pre><code>## &lt;matplotlib.collections.LineCollection object at 0x0000018629597C50&gt;</code></pre>
 <div class="sourceCode" id="cb177"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb177-1"><a href="fundamentos-de-teoría-de-redes.html#cb177-1" tabindex="-1"></a>nx.draw_networkx_labels(G, pos)</span></code></pre></div>
-<pre><code>## {1: Text(-0.5212238540464791, 0.9439258796562935, &#39;1&#39;), 2: Text(0.49662729979403236, -0.5036831987263987, &#39;2&#39;), 3: Text(0.4265838236960105, 0.5597573190701052, &#39;3&#39;), 4: Text(-0.40198726944356383, -1.0, &#39;4&#39;)}</code></pre>
+<pre><code>## {1: Text(1.0, -0.31618275483259345, &#39;1&#39;), 2: Text(-0.3186964980095529, -0.998207902255275, &#39;2&#39;), 3: Text(0.3149190824753981, 0.995557750921209, &#39;3&#39;), 4: Text(-0.9962225844658453, 0.3188329061666592, &#39;4&#39;)}</code></pre>
 <div class="sourceCode" id="cb179"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb179-1"><a href="fundamentos-de-teoría-de-redes.html#cb179-1" tabindex="-1"></a>plt.title(<span class="st">&quot;Redes Multicapa&quot;</span>)</span></code></pre></div>
 <pre><code>## Text(0.5, 1.0, &#39;Redes Multicapa&#39;)</code></pre>
 <div class="sourceCode" id="cb181"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb181-1"><a href="fundamentos-de-teoría-de-redes.html#cb181-1" tabindex="-1"></a>plt.axis(<span class="st">&#39;off&#39;</span>)</span></code></pre></div>
-<pre><code>## (np.float64(-0.6280982251997328), np.float64(0.603501670947286), np.float64(-1.1827025759299519), np.float64(1.1210210435518748))</code></pre>
+<pre><code>## (np.float64(-1.1681653924485766), np.float64(1.1723205495361468), np.float64(-1.2075532958388058), np.float64(1.2049031445047398))</code></pre>
 <div class="sourceCode" id="cb183"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb183-1"><a href="fundamentos-de-teoría-de-redes.html#cb183-1" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-65-61.png" width="672" /></p>
 <div class="sourceCode" id="cb184"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb184-1"><a href="fundamentos-de-teoría-de-redes.html#cb184-1" tabindex="-1"></a>G <span class="op">=</span> nx.Graph()</span>
@@ -1475,7 +1475,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## 3</code></pre>
 <div class="sourceCode" id="cb295"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb295-1"><a href="fundamentos-de-teoría-de-redes.html#cb295-1" tabindex="-1"></a>size_edge_cut <span class="op">=</span> nx.minimum_edge_cut(G,<span class="st">&quot;s&quot;</span>,<span class="st">&quot;t&quot;</span>)</span>
 <span id="cb295-2"><a href="fundamentos-de-teoría-de-redes.html#cb295-2" tabindex="-1"></a>size_edge_cut</span></code></pre></div>
-<pre><code>## {(&#39;b&#39;, &#39;t&#39;), (&#39;a&#39;, &#39;t&#39;), (&#39;c&#39;, &#39;t&#39;)}</code></pre>
+<pre><code>## {(&#39;c&#39;, &#39;t&#39;), (&#39;a&#39;, &#39;t&#39;), (&#39;b&#39;, &#39;t&#39;)}</code></pre>
 <div class="sourceCode" id="cb297"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb297-1"><a href="fundamentos-de-teoría-de-redes.html#cb297-1" tabindex="-1"></a><span class="bu">len</span>(paths) <span class="op">==</span> <span class="bu">len</span>(size_edge_cut)</span></code></pre></div>
 <pre><code>## True</code></pre>
 <ul>
@@ -1506,7 +1506,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb303"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb303-1"><a href="fundamentos-de-teoría-de-redes.html#cb303-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Número de edge-disjoint paths:&quot;</span>, <span class="bu">len</span>(ed_paths))</span></code></pre></div>
 <pre><code>## Número de edge-disjoint paths: 3</code></pre>
 <div class="sourceCode" id="cb305"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb305-1"><a href="fundamentos-de-teoría-de-redes.html#cb305-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Minimum edge cut:&quot;</span>, min_e_cut)</span></code></pre></div>
-<pre><code>## Minimum edge cut: {(&#39;b&#39;, &#39;t&#39;), (&#39;a&#39;, &#39;t&#39;), (&#39;c&#39;, &#39;t&#39;)}</code></pre>
+<pre><code>## Minimum edge cut: {(&#39;c&#39;, &#39;t&#39;), (&#39;a&#39;, &#39;t&#39;), (&#39;b&#39;, &#39;t&#39;)}</code></pre>
 <div class="sourceCode" id="cb307"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb307-1"><a href="fundamentos-de-teoría-de-redes.html#cb307-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Tamaño minimum edge cut:&quot;</span>, <span class="bu">len</span>(min_e_cut))</span></code></pre></div>
 <pre><code>## Tamaño minimum edge cut: 3</code></pre>
 <div class="sourceCode" id="cb309"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb309-1"><a href="fundamentos-de-teoría-de-redes.html#cb309-1" tabindex="-1"></a><span class="co"># 2) Max-flow / min-cut (con capacidades unitarias)</span></span>
@@ -1523,7 +1523,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb311"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb311-1"><a href="fundamentos-de-teoría-de-redes.html#cb311-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Min cut value:&quot;</span>, cut_value)</span></code></pre></div>
 <pre><code>## Min cut value: 3</code></pre>
 <div class="sourceCode" id="cb313"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb313-1"><a href="fundamentos-de-teoría-de-redes.html#cb313-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Partición del min-cut: S =&quot;</span>, S, <span class="st">&quot; | T =&quot;</span>, T)</span></code></pre></div>
-<pre><code>## Partición del min-cut: S = {&#39;b&#39;, &#39;a&#39;, &#39;c&#39;, &#39;s&#39;}  | T = {&#39;t&#39;}</code></pre>
+<pre><code>## Partición del min-cut: S = {&#39;s&#39;, &#39;c&#39;, &#39;a&#39;, &#39;b&#39;}  | T = {&#39;t&#39;}</code></pre>
 <div class="sourceCode" id="cb315"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb315-1"><a href="fundamentos-de-teoría-de-redes.html#cb315-1" tabindex="-1"></a><span class="co"># --- Menger (por nodos) ---</span></span>
 <span id="cb315-2"><a href="fundamentos-de-teoría-de-redes.html#cb315-2" tabindex="-1"></a>nd_paths <span class="op">=</span> <span class="bu">list</span>(nx.node_disjoint_paths(G, s, t))</span>
 <span id="cb315-3"><a href="fundamentos-de-teoría-de-redes.html#cb315-3" tabindex="-1"></a>min_n_cut <span class="op">=</span> nx.minimum_node_cut(G, s, t)</span>
@@ -1534,7 +1534,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb317"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb317-1"><a href="fundamentos-de-teoría-de-redes.html#cb317-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Número de node-disjoint paths:&quot;</span>, <span class="bu">len</span>(nd_paths))</span></code></pre></div>
 <pre><code>## Número de node-disjoint paths: 3</code></pre>
 <div class="sourceCode" id="cb319"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb319-1"><a href="fundamentos-de-teoría-de-redes.html#cb319-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Minimum node cut:&quot;</span>, min_n_cut)</span></code></pre></div>
-<pre><code>## Minimum node cut: {&#39;b&#39;, &#39;a&#39;, &#39;c&#39;}</code></pre>
+<pre><code>## Minimum node cut: {&#39;c&#39;, &#39;a&#39;, &#39;b&#39;}</code></pre>
 <div class="sourceCode" id="cb321"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb321-1"><a href="fundamentos-de-teoría-de-redes.html#cb321-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Tamaño minimum node cut:&quot;</span>, <span class="bu">len</span>(min_n_cut))</span></code></pre></div>
 <pre><code>## Tamaño minimum node cut: 3</code></pre>
 <p><strong>Ejercicio:</strong> Considere el siguiente grafo que representa una red de transporte entre dos ciudades <span class="math inline">\(s\)</span> y <span class="math inline">\(t\)</span>.</p>
@@ -1582,7 +1582,7 @@ Calculemos el flujo máximo.</p>
 <pre><code>## 5</code></pre>
 <p>Y la partición nos quedaría como:</p>
 <div class="sourceCode" id="cb331"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb331-1"><a href="fundamentos-de-teoría-de-redes.html#cb331-1" tabindex="-1"></a>partition</span></code></pre></div>
-<pre><code>## ({&#39;b&#39;, &#39;a&#39;, &#39;s&#39;}, {&#39;t&#39;})</code></pre>
+<pre><code>## ({&#39;s&#39;, &#39;a&#39;, &#39;b&#39;}, {&#39;t&#39;})</code></pre>
 <p>La partición es las componentes que quedan separadas al realizar el corte mínimo.</p>
 <p>El corte mínimo representa el cuello de botella de la red.</p>
 <p>Aunque haya muchas rutas, la capacidad total hacia <span class="math inline">\(t\)</span> es <span class="math inline">\(2+3=5\)</span>, por lo que no puede pasar más flujo.</p>
@@ -2639,7 +2639,7 @@ El resultado es un vector con unitario con norma Euclideana.</p>
 <ol style="list-style-type: decimal">
 <li>¿Cuántos triángulos toca cada nodo?</li>
 <li>¿Cuál es el average clustering?</li>
-<li>¿Cuál es la transitivity?</li>
+<li>¿Cuál es la transitividad?</li>
 </ol>
 <p><em>Ejercicio 5</em>: Construye una red con pesos donde haya un triángulo fuerte y otro débil.</p>
 <ol style="list-style-type: decimal">
@@ -2648,8 +2648,198 @@ El resultado es un vector con unitario con norma Euclideana.</p>
 <li>Interpreta la diferencia.</li>
 </ol>
 </div>
-<div id="homofilia" class="section level3 hasAnchor" number="2.2.4">
-<h3><span class="header-section-number">2.2.4</span> Homofilia<a href="fundamentos-de-teoría-de-redes.html#homofilia" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="homofilia-y-asortatividad-en-redes" class="section level3 hasAnchor" number="2.2.4">
+<h3><span class="header-section-number">2.2.4</span> Homofilia y Asortatividad en Redes<a href="fundamentos-de-teoría-de-redes.html#homofilia-y-asortatividad-en-redes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Existen varias funciones relacionadas al tema de <strong>assortativity</strong> en NetworkX.</p>
+<p>Funciones principales son:</p>
+<ul>
+<li><code>nx.degree_assortativity_coefficient</code></li>
+<li><code>nx.degree_pearson_correlation_coefficient</code></li>
+<li><code>nx.attribute_assortativity_coefficient</code></li>
+<li><code>nx.numeric_assortativity_coefficient</code></li>
+<li><code>nx.average_neighbor_degree</code></li>
+<li><code>nx.average_degree_connectivity</code></li>
+<li><code>nx.attribute_mixing_matrix</code></li>
+<li><code>nx.degree_mixing_matrix</code></li>
+<li><code>nx.attribute_mixing_dict</code></li>
+<li><code>nx.degree_mixing_dict</code></li>
+<li><code>nx.node_attribute_xy</code></li>
+<li><code>nx.node_degree_xy</code></li>
+</ul>
+<p>La <strong>asortatividad</strong> mide si los nodos tienden a conectarse con otros nodos <strong>similares</strong> o <strong>distintos</strong>.</p>
+<p>Ejemplos:
+- por <strong>grado</strong>: nodos muy conectados con otros muy conectados;
+- por <strong>atributo categórico</strong>: nodos del mismo grupo conectándose entre sí;
+- por <strong>atributo numérico</strong>: nodos con valores parecidos conectándose entre sí.</p>
+<p>Interpretación típica:
+- valor positivo: mezcla entre similares;
+- valor cercano a 0: sin patrón claro;
+- valor negativo: mezcla entre diferentes.</p>
+<p><strong>Ejemplo base</strong>: red con atributos</p>
+<p>Primero crearemos otra función para gráficar estas redes.</p>
+<div class="sourceCode" id="cb605"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb605-1"><a href="fundamentos-de-teoría-de-redes.html#cb605-1" tabindex="-1"></a>plt.rcParams[<span class="st">&quot;figure.figsize&quot;</span>] <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">4</span>)</span>
+<span id="cb605-2"><a href="fundamentos-de-teoría-de-redes.html#cb605-2" tabindex="-1"></a></span>
+<span id="cb605-3"><a href="fundamentos-de-teoría-de-redes.html#cb605-3" tabindex="-1"></a><span class="kw">def</span> dibuja_colors(G, pos<span class="op">=</span><span class="va">None</span>, title<span class="op">=</span><span class="va">None</span>, node_color<span class="op">=</span><span class="st">&quot;lightblue&quot;</span>):</span>
+<span id="cb605-4"><a href="fundamentos-de-teoría-de-redes.html#cb605-4" tabindex="-1"></a>    <span class="cf">if</span> pos <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb605-5"><a href="fundamentos-de-teoría-de-redes.html#cb605-5" tabindex="-1"></a>        pos <span class="op">=</span> nx.spring_layout(G, seed<span class="op">=</span><span class="dv">7</span>)</span>
+<span id="cb605-6"><a href="fundamentos-de-teoría-de-redes.html#cb605-6" tabindex="-1"></a>    nx.draw(G, pos, with_labels<span class="op">=</span><span class="va">True</span>, node_size<span class="op">=</span><span class="dv">900</span>, font_size<span class="op">=</span><span class="dv">11</span>, node_color<span class="op">=</span>node_color)</span>
+<span id="cb605-7"><a href="fundamentos-de-teoría-de-redes.html#cb605-7" tabindex="-1"></a>    <span class="cf">if</span> title:</span>
+<span id="cb605-8"><a href="fundamentos-de-teoría-de-redes.html#cb605-8" tabindex="-1"></a>        plt.title(title)</span>
+<span id="cb605-9"><a href="fundamentos-de-teoría-de-redes.html#cb605-9" tabindex="-1"></a>    plt.show()</span>
+<span id="cb605-10"><a href="fundamentos-de-teoría-de-redes.html#cb605-10" tabindex="-1"></a>    <span class="cf">return</span> pos</span></code></pre></div>
+<div class="sourceCode" id="cb606"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb606-1"><a href="fundamentos-de-teoría-de-redes.html#cb606-1" tabindex="-1"></a>G <span class="op">=</span> nx.Graph()</span>
+<span id="cb606-2"><a href="fundamentos-de-teoría-de-redes.html#cb606-2" tabindex="-1"></a>G.add_edges_from([</span>
+<span id="cb606-3"><a href="fundamentos-de-teoría-de-redes.html#cb606-3" tabindex="-1"></a>    (<span class="dv">1</span>,<span class="dv">2</span>), (<span class="dv">1</span>,<span class="dv">3</span>), (<span class="dv">2</span>,<span class="dv">3</span>),</span>
+<span id="cb606-4"><a href="fundamentos-de-teoría-de-redes.html#cb606-4" tabindex="-1"></a>    (<span class="dv">3</span>,<span class="dv">4</span>), (<span class="dv">4</span>,<span class="dv">5</span>), (<span class="dv">5</span>,<span class="dv">6</span>), (<span class="dv">4</span>,<span class="dv">6</span>)</span>
+<span id="cb606-5"><a href="fundamentos-de-teoría-de-redes.html#cb606-5" tabindex="-1"></a>])</span>
+<span id="cb606-6"><a href="fundamentos-de-teoría-de-redes.html#cb606-6" tabindex="-1"></a></span>
+<span id="cb606-7"><a href="fundamentos-de-teoría-de-redes.html#cb606-7" tabindex="-1"></a>attrs <span class="op">=</span> {</span>
+<span id="cb606-8"><a href="fundamentos-de-teoría-de-redes.html#cb606-8" tabindex="-1"></a>    <span class="dv">1</span>: {<span class="st">&quot;group&quot;</span>:<span class="st">&quot;A&quot;</span>, <span class="st">&quot;score&quot;</span>:<span class="dv">10</span>},</span>
+<span id="cb606-9"><a href="fundamentos-de-teoría-de-redes.html#cb606-9" tabindex="-1"></a>    <span class="dv">2</span>: {<span class="st">&quot;group&quot;</span>:<span class="st">&quot;A&quot;</span>, <span class="st">&quot;score&quot;</span>:<span class="dv">12</span>},</span>
+<span id="cb606-10"><a href="fundamentos-de-teoría-de-redes.html#cb606-10" tabindex="-1"></a>    <span class="dv">3</span>: {<span class="st">&quot;group&quot;</span>:<span class="st">&quot;A&quot;</span>, <span class="st">&quot;score&quot;</span>:<span class="dv">11</span>},</span>
+<span id="cb606-11"><a href="fundamentos-de-teoría-de-redes.html#cb606-11" tabindex="-1"></a>    <span class="dv">4</span>: {<span class="st">&quot;group&quot;</span>:<span class="st">&quot;B&quot;</span>, <span class="st">&quot;score&quot;</span>:<span class="dv">30</span>},</span>
+<span id="cb606-12"><a href="fundamentos-de-teoría-de-redes.html#cb606-12" tabindex="-1"></a>    <span class="dv">5</span>: {<span class="st">&quot;group&quot;</span>:<span class="st">&quot;B&quot;</span>, <span class="st">&quot;score&quot;</span>:<span class="dv">28</span>},</span>
+<span id="cb606-13"><a href="fundamentos-de-teoría-de-redes.html#cb606-13" tabindex="-1"></a>    <span class="dv">6</span>: {<span class="st">&quot;group&quot;</span>:<span class="st">&quot;B&quot;</span>, <span class="st">&quot;score&quot;</span>:<span class="dv">32</span>},</span>
+<span id="cb606-14"><a href="fundamentos-de-teoría-de-redes.html#cb606-14" tabindex="-1"></a>}</span>
+<span id="cb606-15"><a href="fundamentos-de-teoría-de-redes.html#cb606-15" tabindex="-1"></a>nx.set_node_attributes(G, attrs)</span>
+<span id="cb606-16"><a href="fundamentos-de-teoría-de-redes.html#cb606-16" tabindex="-1"></a></span>
+<span id="cb606-17"><a href="fundamentos-de-teoría-de-redes.html#cb606-17" tabindex="-1"></a>pos <span class="op">=</span> {</span>
+<span id="cb606-18"><a href="fundamentos-de-teoría-de-redes.html#cb606-18" tabindex="-1"></a>    <span class="dv">1</span>:(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dv">2</span>:(<span class="dv">1</span>,<span class="dv">1</span>), <span class="dv">3</span>:(<span class="fl">0.5</span>,<span class="dv">0</span>),</span>
+<span id="cb606-19"><a href="fundamentos-de-teoría-de-redes.html#cb606-19" tabindex="-1"></a>    <span class="dv">4</span>:(<span class="fl">2.2</span>,<span class="dv">0</span>), <span class="dv">5</span>:(<span class="fl">3.0</span>,<span class="dv">1</span>), <span class="dv">6</span>:(<span class="fl">3.0</span>,<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb606-20"><a href="fundamentos-de-teoría-de-redes.html#cb606-20" tabindex="-1"></a>}</span>
+<span id="cb606-21"><a href="fundamentos-de-teoría-de-redes.html#cb606-21" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">&quot;tab:orange&quot;</span> <span class="cf">if</span> G.nodes[n][<span class="st">&quot;group&quot;</span>]<span class="op">==</span><span class="st">&quot;A&quot;</span> <span class="cf">else</span> <span class="st">&quot;tab:green&quot;</span> <span class="cf">for</span> n <span class="kw">in</span> G.nodes()]</span>
+<span id="cb606-22"><a href="fundamentos-de-teoría-de-redes.html#cb606-22" tabindex="-1"></a>dibuja_colors(G, pos, <span class="st">&quot;Red con atributos&quot;</span>, node_color<span class="op">=</span>colors)</span></code></pre></div>
+<pre><code>## {1: (0, 1), 2: (1, 1), 3: (0.5, 0), 4: (2.2, 0), 5: (3.0, 1), 6: (3.0, -1)}</code></pre>
+<p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-197-113.png" width="672" /></p>
+<div class="sourceCode" id="cb608"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb608-1"><a href="fundamentos-de-teoría-de-redes.html#cb608-1" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> G.nodes(data<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb608-2"><a href="fundamentos-de-teoría-de-redes.html#cb608-2" tabindex="-1"></a>    <span class="bu">print</span>(n)</span></code></pre></div>
+<pre><code>## (1, {&#39;group&#39;: &#39;A&#39;, &#39;score&#39;: 10})
+## (2, {&#39;group&#39;: &#39;A&#39;, &#39;score&#39;: 12})
+## (3, {&#39;group&#39;: &#39;A&#39;, &#39;score&#39;: 11})
+## (4, {&#39;group&#39;: &#39;B&#39;, &#39;score&#39;: 30})
+## (5, {&#39;group&#39;: &#39;B&#39;, &#39;score&#39;: 28})
+## (6, {&#39;group&#39;: &#39;B&#39;, &#39;score&#39;: 32})</code></pre>
+<ul>
+<li><strong>Asortatividad por grado</strong>: Estas funciones miden si nodos con cierto grado tienden a conectarse con nodos de grado parecido.</li>
+</ul>
+<div class="sourceCode" id="cb610"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb610-1"><a href="fundamentos-de-teoría-de-redes.html#cb610-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;degree_assortativity_coefficient:&quot;</span>, nx.degree_assortativity_coefficient(G))</span></code></pre></div>
+<pre><code>## degree_assortativity_coefficient: -0.16666666666666508</code></pre>
+<div class="sourceCode" id="cb612"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb612-1"><a href="fundamentos-de-teoría-de-redes.html#cb612-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;degree_pearson_correlation_coefficient:&quot;</span>, nx.degree_pearson_correlation_coefficient(G))</span></code></pre></div>
+<pre><code>## degree_pearson_correlation_coefficient: -0.16666666666666669</code></pre>
+<p>Los nodos más conectados (grado 3) se conectan más veces con nodos menos conectados (grado 2) que con nodos de su mismo grado.</p>
+<p>Otro ejemplo comparativo: estrella.</p>
+<div class="sourceCode" id="cb614"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb614-1"><a href="fundamentos-de-teoría-de-redes.html#cb614-1" tabindex="-1"></a>S <span class="op">=</span> nx.star_graph(<span class="dv">5</span>)</span>
+<span id="cb614-2"><a href="fundamentos-de-teoría-de-redes.html#cb614-2" tabindex="-1"></a>posS <span class="op">=</span> nx.spring_layout(S, seed<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb614-3"><a href="fundamentos-de-teoría-de-redes.html#cb614-3" tabindex="-1"></a>dibuja(S, posS, <span class="st">&quot;Star graph&quot;</span>)</span></code></pre></div>
+<pre><code>## {0: array([ 0.00044569, -0.00253284]), 1: array([0.49392508, 0.88222637]), 2: array([-0.91602171, -0.42407905]), 3: array([ 0.98968221, -0.19825987]), 4: array([-0.68645929,  0.74264539]), 5: array([ 0.11842802, -1.        ])}</code></pre>
+<p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-199-115.png" width="672" /></p>
+<div class="sourceCode" id="cb616"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb616-1"><a href="fundamentos-de-teoría-de-redes.html#cb616-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;degree_assortativity_coefficient:&quot;</span>, nx.degree_assortativity_coefficient(S))</span></code></pre></div>
+<pre><code>## degree_assortativity_coefficient: -1.0</code></pre>
+<div class="sourceCode" id="cb618"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb618-1"><a href="fundamentos-de-teoría-de-redes.html#cb618-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;degree_pearson_correlation_coefficient:&quot;</span>, nx.degree_pearson_correlation_coefficient(S))</span></code></pre></div>
+<pre><code>## degree_pearson_correlation_coefficient: -0.9999999999999999</code></pre>
+<p>En una estrella, un nodo de grado alto se conecta con muchos nodos de grado bajo, así que suele aparecer asortatvidad negativa por grado.</p>
+<div class="sourceCode" id="cb620"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb620-1"><a href="fundamentos-de-teoría-de-redes.html#cb620-1" tabindex="-1"></a>compl <span class="op">=</span> nx.complete_graph(<span class="dv">5</span>)</span>
+<span id="cb620-2"><a href="fundamentos-de-teoría-de-redes.html#cb620-2" tabindex="-1"></a></span>
+<span id="cb620-3"><a href="fundamentos-de-teoría-de-redes.html#cb620-3" tabindex="-1"></a>posS <span class="op">=</span> nx.spring_layout(compl, seed<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb620-4"><a href="fundamentos-de-teoría-de-redes.html#cb620-4" tabindex="-1"></a>dibuja(compl, posS, <span class="st">&quot;Star graph&quot;</span>)</span></code></pre></div>
+<pre><code>## {0: array([0.99524862, 0.18895047]), 1: array([0.12470072, 1.        ]), 2: array([-0.68687733, -0.73506634]), 3: array([ 0.4841821 , -0.88141923]), 4: array([-0.91725411,  0.4275351 ])}</code></pre>
+<p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-200-117.png" width="672" /></p>
+<div class="sourceCode" id="cb622"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb622-1"><a href="fundamentos-de-teoría-de-redes.html#cb622-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;degree_assortativity_coefficient:&quot;</span>, nx.degree_assortativity_coefficient(compl))</span></code></pre></div>
+<pre><code>## degree_assortativity_coefficient: nan</code></pre>
+<div class="sourceCode" id="cb624"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb624-1"><a href="fundamentos-de-teoría-de-redes.html#cb624-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;degree_pearson_correlation_coefficient:&quot;</span>, nx.degree_pearson_correlation_coefficient(compl))</span></code></pre></div>
+<pre><code>## degree_pearson_correlation_coefficient: nan</code></pre>
+<p>La asortatividad mide correlación entre grados. Si todos los grados son iguales, no hay correlación que medir.</p>
+<p>Un ejemplo más.</p>
+<div class="sourceCode" id="cb626"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb626-1"><a href="fundamentos-de-teoría-de-redes.html#cb626-1" tabindex="-1"></a>G2 <span class="op">=</span> nx.Graph()</span>
+<span id="cb626-2"><a href="fundamentos-de-teoría-de-redes.html#cb626-2" tabindex="-1"></a></span>
+<span id="cb626-3"><a href="fundamentos-de-teoría-de-redes.html#cb626-3" tabindex="-1"></a><span class="co"># clique A</span></span>
+<span id="cb626-4"><a href="fundamentos-de-teoría-de-redes.html#cb626-4" tabindex="-1"></a>G2.add_edges_from([(<span class="dv">1</span>,<span class="dv">2</span>),(<span class="dv">1</span>,<span class="dv">3</span>),(<span class="dv">1</span>,<span class="dv">4</span>),(<span class="dv">2</span>,<span class="dv">3</span>),(<span class="dv">2</span>,<span class="dv">4</span>),(<span class="dv">3</span>,<span class="dv">4</span>)])</span>
+<span id="cb626-5"><a href="fundamentos-de-teoría-de-redes.html#cb626-5" tabindex="-1"></a></span>
+<span id="cb626-6"><a href="fundamentos-de-teoría-de-redes.html#cb626-6" tabindex="-1"></a><span class="co"># clique B</span></span>
+<span id="cb626-7"><a href="fundamentos-de-teoría-de-redes.html#cb626-7" tabindex="-1"></a>G2.add_edges_from([(<span class="dv">5</span>,<span class="dv">6</span>),(<span class="dv">5</span>,<span class="dv">7</span>),(<span class="dv">5</span>,<span class="dv">8</span>),(<span class="dv">6</span>,<span class="dv">7</span>),(<span class="dv">6</span>,<span class="dv">8</span>),(<span class="dv">7</span>,<span class="dv">8</span>)])</span>
+<span id="cb626-8"><a href="fundamentos-de-teoría-de-redes.html#cb626-8" tabindex="-1"></a></span>
+<span id="cb626-9"><a href="fundamentos-de-teoría-de-redes.html#cb626-9" tabindex="-1"></a><span class="co"># conexiones balanceadas</span></span>
+<span id="cb626-10"><a href="fundamentos-de-teoría-de-redes.html#cb626-10" tabindex="-1"></a>G2.add_edges_from([</span>
+<span id="cb626-11"><a href="fundamentos-de-teoría-de-redes.html#cb626-11" tabindex="-1"></a>    (<span class="dv">1</span>,<span class="dv">5</span>),</span>
+<span id="cb626-12"><a href="fundamentos-de-teoría-de-redes.html#cb626-12" tabindex="-1"></a>    (<span class="dv">2</span>,<span class="dv">6</span>),</span>
+<span id="cb626-13"><a href="fundamentos-de-teoría-de-redes.html#cb626-13" tabindex="-1"></a>    (<span class="dv">3</span>,<span class="dv">7</span>),</span>
+<span id="cb626-14"><a href="fundamentos-de-teoría-de-redes.html#cb626-14" tabindex="-1"></a>    (<span class="dv">4</span>,<span class="dv">8</span>)</span>
+<span id="cb626-15"><a href="fundamentos-de-teoría-de-redes.html#cb626-15" tabindex="-1"></a>])</span>
+<span id="cb626-16"><a href="fundamentos-de-teoría-de-redes.html#cb626-16" tabindex="-1"></a></span>
+<span id="cb626-17"><a href="fundamentos-de-teoría-de-redes.html#cb626-17" tabindex="-1"></a>pos <span class="op">=</span> nx.spring_layout(G2, seed<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb626-18"><a href="fundamentos-de-teoría-de-redes.html#cb626-18" tabindex="-1"></a></span>
+<span id="cb626-19"><a href="fundamentos-de-teoría-de-redes.html#cb626-19" tabindex="-1"></a>dibuja(G2, pos)</span></code></pre></div>
+<pre><code>## {1: array([ 0.6003223, -0.8788604]), 2: array([ 0.99788229, -0.15917957]), 3: array([0.40174659, 0.02259879]), 4: array([-0.06840213, -0.7561424 ]), 5: array([-0.40284   , -0.02452335]), 6: array([0.07006553, 0.75857934]), 7: array([-0.59877458,  0.87509219]), 8: array([-1.        ,  0.16243539])}</code></pre>
+<p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-201-119.png" width="672" /></p>
+<div class="sourceCode" id="cb628"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb628-1"><a href="fundamentos-de-teoría-de-redes.html#cb628-1" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-201-120.png" width="672" /></p>
+<div class="sourceCode" id="cb629"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb629-1"><a href="fundamentos-de-teoría-de-redes.html#cb629-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;degree_assortativity_coefficient:&quot;</span>, nx.degree_assortativity_coefficient(G2))</span></code></pre></div>
+<pre><code>## degree_assortativity_coefficient: nan</code></pre>
+<div class="sourceCode" id="cb631"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb631-1"><a href="fundamentos-de-teoría-de-redes.html#cb631-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;degree_pearson_correlation_coefficient:&quot;</span>, nx.degree_pearson_correlation_coefficient(G2))</span></code></pre></div>
+<pre><code>## degree_pearson_correlation_coefficient: nan</code></pre>
+<ul>
+<li>Asortatividad por atributo categórico:</li>
+</ul>
+<div class="sourceCode" id="cb633"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb633-1"><a href="fundamentos-de-teoría-de-redes.html#cb633-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Assortativity por atributo &#39;group&#39;:&quot;</span>, nx.attribute_assortativity_coefficient(G, <span class="st">&quot;group&quot;</span>))</span></code></pre></div>
+<pre><code>## Assortativity por atributo &#39;group&#39;: 0.7142857142857143</code></pre>
+<ul>
+<li>Asortatividad por atributo numérico:</li>
+</ul>
+<div class="sourceCode" id="cb635"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb635-1"><a href="fundamentos-de-teoría-de-redes.html#cb635-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Assortativity numérica para &#39;score&#39;:&quot;</span>, nx.numeric_assortativity_coefficient(G, <span class="st">&quot;score&quot;</span>))</span></code></pre></div>
+<pre><code>## Assortativity numérica para &#39;score&#39;: 0.6953642384105958</code></pre>
+<ul>
+<li>Pares de atributos y pares de grados: Estas funciones muestran los pares observados a lo largo de las aristas.</li>
+</ul>
+<div class="sourceCode" id="cb637"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb637-1"><a href="fundamentos-de-teoría-de-redes.html#cb637-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Pares (group, group) en las aristas:&quot;</span>)</span></code></pre></div>
+<pre><code>## Pares (group, group) en las aristas:</code></pre>
+<div class="sourceCode" id="cb639"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb639-1"><a href="fundamentos-de-teoría-de-redes.html#cb639-1" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">list</span>(nx.node_attribute_xy(G, <span class="st">&quot;group&quot;</span>)))</span></code></pre></div>
+<pre><code>## [(&#39;A&#39;, &#39;A&#39;), (&#39;A&#39;, &#39;A&#39;), (&#39;A&#39;, &#39;A&#39;), (&#39;A&#39;, &#39;A&#39;), (&#39;A&#39;, &#39;A&#39;), (&#39;A&#39;, &#39;A&#39;), (&#39;A&#39;, &#39;B&#39;), (&#39;B&#39;, &#39;A&#39;), (&#39;B&#39;, &#39;B&#39;), (&#39;B&#39;, &#39;B&#39;), (&#39;B&#39;, &#39;B&#39;), (&#39;B&#39;, &#39;B&#39;), (&#39;B&#39;, &#39;B&#39;), (&#39;B&#39;, &#39;B&#39;)]</code></pre>
+<div class="sourceCode" id="cb641"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb641-1"><a href="fundamentos-de-teoría-de-redes.html#cb641-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Pares (grado, grado) en las aristas:&quot;</span>)</span></code></pre></div>
+<pre><code>## Pares (grado, grado) en las aristas:</code></pre>
+<div class="sourceCode" id="cb643"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb643-1"><a href="fundamentos-de-teoría-de-redes.html#cb643-1" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">list</span>(nx.node_degree_xy(G)))</span></code></pre></div>
+<pre><code>## [(2, 2), (2, 3), (2, 2), (2, 3), (3, 2), (3, 2), (3, 3), (3, 3), (3, 2), (3, 2), (2, 3), (2, 2), (2, 2), (2, 3)]</code></pre>
+<ul>
+<li>Ejemplo:</li>
+</ul>
+<div class="sourceCode" id="cb645"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb645-1"><a href="fundamentos-de-teoría-de-redes.html#cb645-1" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb645-2"><a href="fundamentos-de-teoría-de-redes.html#cb645-2" tabindex="-1"></a>schoolfriends_edgelist <span class="op">=</span> pd.read_csv(</span>
+<span id="cb645-3"><a href="fundamentos-de-teoría-de-redes.html#cb645-3" tabindex="-1"></a>  <span class="st">&quot;https://ona-book.org/data/schoolfriends_edgelist.csv&quot;</span></span>
+<span id="cb645-4"><a href="fundamentos-de-teoría-de-redes.html#cb645-4" tabindex="-1"></a>)</span>
+<span id="cb645-5"><a href="fundamentos-de-teoría-de-redes.html#cb645-5" tabindex="-1"></a>schoolfriends_vertices <span class="op">=</span> pd.read_csv(</span>
+<span id="cb645-6"><a href="fundamentos-de-teoría-de-redes.html#cb645-6" tabindex="-1"></a>  <span class="st">&quot;https://ona-book.org/data/schoolfriends_vertices.csv&quot;</span></span>
+<span id="cb645-7"><a href="fundamentos-de-teoría-de-redes.html#cb645-7" tabindex="-1"></a>)</span>
+<span id="cb645-8"><a href="fundamentos-de-teoría-de-redes.html#cb645-8" tabindex="-1"></a></span>
+<span id="cb645-9"><a href="fundamentos-de-teoría-de-redes.html#cb645-9" tabindex="-1"></a><span class="co"># create undirected facebook graph</span></span>
+<span id="cb645-10"><a href="fundamentos-de-teoría-de-redes.html#cb645-10" tabindex="-1"></a>schoolfriends_fb <span class="op">=</span> nx.from_pandas_edgelist(</span>
+<span id="cb645-11"><a href="fundamentos-de-teoría-de-redes.html#cb645-11" tabindex="-1"></a>  df <span class="op">=</span> schoolfriends_edgelist[</span>
+<span id="cb645-12"><a href="fundamentos-de-teoría-de-redes.html#cb645-12" tabindex="-1"></a>    schoolfriends_edgelist.<span class="bu">type</span> <span class="op">==</span> <span class="st">&#39;facebook&#39;</span></span>
+<span id="cb645-13"><a href="fundamentos-de-teoría-de-redes.html#cb645-13" tabindex="-1"></a>  ],</span>
+<span id="cb645-14"><a href="fundamentos-de-teoría-de-redes.html#cb645-14" tabindex="-1"></a>  source <span class="op">=</span> <span class="st">&quot;from&quot;</span>,</span>
+<span id="cb645-15"><a href="fundamentos-de-teoría-de-redes.html#cb645-15" tabindex="-1"></a>  target <span class="op">=</span> <span class="st">&quot;to&quot;</span></span>
+<span id="cb645-16"><a href="fundamentos-de-teoría-de-redes.html#cb645-16" tabindex="-1"></a>)</span>
+<span id="cb645-17"><a href="fundamentos-de-teoría-de-redes.html#cb645-17" tabindex="-1"></a></span>
+<span id="cb645-18"><a href="fundamentos-de-teoría-de-redes.html#cb645-18" tabindex="-1"></a><span class="co"># create directed reported graph</span></span>
+<span id="cb645-19"><a href="fundamentos-de-teoría-de-redes.html#cb645-19" tabindex="-1"></a>schoolfriends_rp <span class="op">=</span> nx.from_pandas_edgelist(</span>
+<span id="cb645-20"><a href="fundamentos-de-teoría-de-redes.html#cb645-20" tabindex="-1"></a>  df <span class="op">=</span> schoolfriends_edgelist[</span>
+<span id="cb645-21"><a href="fundamentos-de-teoría-de-redes.html#cb645-21" tabindex="-1"></a>    schoolfriends_edgelist.<span class="bu">type</span> <span class="op">==</span> <span class="st">&#39;reported&#39;</span></span>
+<span id="cb645-22"><a href="fundamentos-de-teoría-de-redes.html#cb645-22" tabindex="-1"></a>  ],</span>
+<span id="cb645-23"><a href="fundamentos-de-teoría-de-redes.html#cb645-23" tabindex="-1"></a>  source <span class="op">=</span> <span class="st">&quot;from&quot;</span>,</span>
+<span id="cb645-24"><a href="fundamentos-de-teoría-de-redes.html#cb645-24" tabindex="-1"></a>  target <span class="op">=</span> <span class="st">&quot;to&quot;</span>,</span>
+<span id="cb645-25"><a href="fundamentos-de-teoría-de-redes.html#cb645-25" tabindex="-1"></a>  create_using<span class="op">=</span>nx.DiGraph()</span>
+<span id="cb645-26"><a href="fundamentos-de-teoría-de-redes.html#cb645-26" tabindex="-1"></a>)</span>
+<span id="cb645-27"><a href="fundamentos-de-teoría-de-redes.html#cb645-27" tabindex="-1"></a></span>
+<span id="cb645-28"><a href="fundamentos-de-teoría-de-redes.html#cb645-28" tabindex="-1"></a><span class="co"># add class vertex attribute to both graphs</span></span>
+<span id="cb645-29"><a href="fundamentos-de-teoría-de-redes.html#cb645-29" tabindex="-1"></a>class_attr <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(schoolfriends_vertices[<span class="st">&#39;id&#39;</span>], </span>
+<span id="cb645-30"><a href="fundamentos-de-teoría-de-redes.html#cb645-30" tabindex="-1"></a>schoolfriends_vertices[<span class="st">&#39;class&#39;</span>]))</span>
+<span id="cb645-31"><a href="fundamentos-de-teoría-de-redes.html#cb645-31" tabindex="-1"></a>nx.set_node_attributes(schoolfriends_fb, name <span class="op">=</span> <span class="st">&quot;class&quot;</span>, </span>
+<span id="cb645-32"><a href="fundamentos-de-teoría-de-redes.html#cb645-32" tabindex="-1"></a>values <span class="op">=</span> class_attr)</span>
+<span id="cb645-33"><a href="fundamentos-de-teoría-de-redes.html#cb645-33" tabindex="-1"></a>nx.set_node_attributes(schoolfriends_rp, name <span class="op">=</span> <span class="st">&quot;class&quot;</span>, </span>
+<span id="cb645-34"><a href="fundamentos-de-teoría-de-redes.html#cb645-34" tabindex="-1"></a>values <span class="op">=</span> class_attr)</span>
+<span id="cb645-35"><a href="fundamentos-de-teoría-de-redes.html#cb645-35" tabindex="-1"></a></span>
+<span id="cb645-36"><a href="fundamentos-de-teoría-de-redes.html#cb645-36" tabindex="-1"></a>nx.draw(schoolfriends_fb)</span></code></pre></div>
+<p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-207-123.png" width="672" /></p>
+<div class="sourceCode" id="cb646"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb646-1"><a href="fundamentos-de-teoría-de-redes.html#cb646-1" tabindex="-1"></a>nx.degree_assortativity_coefficient(schoolfriends_fb)</span></code></pre></div>
+<pre><code>## 0.02462443563586026</code></pre>
 
 </div>
 </div>

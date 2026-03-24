@@ -2685,7 +2685,7 @@ dibuja(K, posK, "Karate Club Graph")
 
 1. ¿Cuántos triángulos toca cada nodo?
 2. ¿Cuál es el average clustering?
-3. ¿Cuál es la transitivity?
+3. ¿Cuál es la transitividad?
 
 *Ejercicio 5*: Construye una red con pesos donde haya un triángulo fuerte y otro débil.
 
@@ -2696,8 +2696,220 @@ dibuja(K, posK, "Karate Club Graph")
 
 
 
-### Homofilia
+### Homofilia y Asortatividad en Redes
+
+Existen varias funciones relacionadas al tema de **assortativity** en NetworkX.
+
+Funciones principales son:
+
+- `nx.degree_assortativity_coefficient`
+- `nx.degree_pearson_correlation_coefficient`
+- `nx.attribute_assortativity_coefficient`
+- `nx.numeric_assortativity_coefficient`
+- `nx.average_neighbor_degree`
+- `nx.average_degree_connectivity`
+- `nx.attribute_mixing_matrix`
+- `nx.degree_mixing_matrix`
+- `nx.attribute_mixing_dict`
+- `nx.degree_mixing_dict`
+- `nx.node_attribute_xy`
+- `nx.node_degree_xy`
+
+
+La **asortatividad** mide si los nodos tienden a conectarse con otros nodos **similares** o **distintos**.
+
+Ejemplos:
+- por **grado**: nodos muy conectados con otros muy conectados;
+- por **atributo categórico**: nodos del mismo grupo conectándose entre sí;
+- por **atributo numérico**: nodos con valores parecidos conectándose entre sí.
+
+Interpretación típica:
+- valor positivo: mezcla entre similares;
+- valor cercano a 0: sin patrón claro;
+- valor negativo: mezcla entre diferentes.
+
+**Ejemplo base**: red con atributos
+
+Primero crearemos otra función para gráficar estas redes.
+
+```{python}
+plt.rcParams["figure.figsize"] = (6, 4)
+
+def dibuja_colors(G, pos=None, title=None, node_color="lightblue"):
+    if pos is None:
+        pos = nx.spring_layout(G, seed=7)
+    nx.draw(G, pos, with_labels=True, node_size=900, font_size=11, node_color=node_color)
+    if title:
+        plt.title(title)
+    plt.show()
+    return pos
+```
+
+```{python}
+G = nx.Graph()
+G.add_edges_from([
+    (1,2), (1,3), (2,3),
+    (3,4), (4,5), (5,6), (4,6)
+])
+
+attrs = {
+    1: {"group":"A", "score":10},
+    2: {"group":"A", "score":12},
+    3: {"group":"A", "score":11},
+    4: {"group":"B", "score":30},
+    5: {"group":"B", "score":28},
+    6: {"group":"B", "score":32},
+}
+nx.set_node_attributes(G, attrs)
+
+pos = {
+    1:(0,1), 2:(1,1), 3:(0.5,0),
+    4:(2.2,0), 5:(3.0,1), 6:(3.0,-1)
+}
+colors = ["tab:orange" if G.nodes[n]["group"]=="A" else "tab:green" for n in G.nodes()]
+dibuja_colors(G, pos, "Red con atributos", node_color=colors)
+
+for n in G.nodes(data=True):
+    print(n)
+```
+
+
+- **Asortatividad por grado**: Estas funciones miden si nodos con cierto grado tienden a conectarse con nodos de grado parecido.
+
+
+```{python}
+print("degree_assortativity_coefficient:", nx.degree_assortativity_coefficient(G))
+print("degree_pearson_correlation_coefficient:", nx.degree_pearson_correlation_coefficient(G))
+```
+
+Los nodos más conectados (grado 3) se conectan más veces con nodos menos conectados (grado 2) que con nodos de su mismo grado.
+
+Otro ejemplo comparativo: estrella.
+
+```{python}
+S = nx.star_graph(5)
+posS = nx.spring_layout(S, seed=4)
+dibuja(S, posS, "Star graph")
+
+print("degree_assortativity_coefficient:", nx.degree_assortativity_coefficient(S))
+print("degree_pearson_correlation_coefficient:", nx.degree_pearson_correlation_coefficient(S))
+```
+
+En una estrella, un nodo de grado alto se conecta con muchos nodos de grado bajo, así que suele aparecer asortatvidad negativa por grado.
+
+
+```{python}
+compl = nx.complete_graph(5)
+
+posS = nx.spring_layout(compl, seed=4)
+dibuja(compl, posS, "Star graph")
+
+print("degree_assortativity_coefficient:", nx.degree_assortativity_coefficient(compl))
+print("degree_pearson_correlation_coefficient:", nx.degree_pearson_correlation_coefficient(compl))
+```
+
+La asortatividad mide correlación entre grados. Si todos los grados son iguales, no hay correlación que medir.
+
+Un ejemplo más.
+
+```{python}
+G2 = nx.Graph()
+
+# clique A
+G2.add_edges_from([(1,2),(1,3),(1,4),(2,3),(2,4),(3,4)])
+
+# clique B
+G2.add_edges_from([(5,6),(5,7),(5,8),(6,7),(6,8),(7,8)])
+
+# conexiones balanceadas
+G2.add_edges_from([
+    (1,5),
+    (2,6),
+    (3,7),
+    (4,8)
+])
+
+pos = nx.spring_layout(G2, seed=4)
+
+dibuja(G2, pos)
+plt.show()
+```
+
+```{python}
+print("degree_assortativity_coefficient:", nx.degree_assortativity_coefficient(G2))
+print("degree_pearson_correlation_coefficient:", nx.degree_pearson_correlation_coefficient(G2))
+```
+
+- Asortatividad por atributo categórico:
+
+```{python}
+print("Assortativity por atributo 'group':", nx.attribute_assortativity_coefficient(G, "group"))
+```
+
+- Asortatividad por atributo numérico:
+
+```{python}
+print("Assortativity numérica para 'score':", nx.numeric_assortativity_coefficient(G, "score"))
+```
+
+- Pares de atributos y pares de grados: Estas funciones muestran los pares observados a lo largo de las aristas.
+
+```{python}
+print("Pares (group, group) en las aristas:")
+print(list(nx.node_attribute_xy(G, "group")))
+```
+
+```{python}
+print("Pares (grado, grado) en las aristas:")
+print(list(nx.node_degree_xy(G)))
+```
 
 
 
+- Ejemplo:
 
+
+```{python}
+import pandas as pd
+schoolfriends_edgelist = pd.read_csv(
+  "https://ona-book.org/data/schoolfriends_edgelist.csv"
+)
+schoolfriends_vertices = pd.read_csv(
+  "https://ona-book.org/data/schoolfriends_vertices.csv"
+)
+
+# create undirected facebook graph
+schoolfriends_fb = nx.from_pandas_edgelist(
+  df = schoolfriends_edgelist[
+    schoolfriends_edgelist.type == 'facebook'
+  ],
+  source = "from",
+  target = "to"
+)
+
+# create directed reported graph
+schoolfriends_rp = nx.from_pandas_edgelist(
+  df = schoolfriends_edgelist[
+    schoolfriends_edgelist.type == 'reported'
+  ],
+  source = "from",
+  target = "to",
+  create_using=nx.DiGraph()
+)
+
+# add class vertex attribute to both graphs
+class_attr = dict(zip(schoolfriends_vertices['id'], 
+schoolfriends_vertices['class']))
+nx.set_node_attributes(schoolfriends_fb, name = "class", 
+values = class_attr)
+nx.set_node_attributes(schoolfriends_rp, name = "class", 
+values = class_attr)
+
+nx.draw(schoolfriends_fb)
+```
+
+
+
+```{python}
+nx.degree_assortativity_coefficient(schoolfriends_fb)
+```
