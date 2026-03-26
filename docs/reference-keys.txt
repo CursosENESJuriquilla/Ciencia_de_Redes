@@ -126,3 +126,4 @@ transitividad-y-coeficiente-de-clusterin
 transitividad-y-coeficiente-de-clustering
 homofilia-y-asortatividad-en-redes
 asortatividad-por-grado
+ejercicios-1

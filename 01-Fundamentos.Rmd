@@ -2933,3 +2933,137 @@ nx.degree_assortativity_coefficient(schoolfriends_fb)
 
 2) Calcula el coeficiente de asortatividad para el departamento.
 
+
+### Ejercicios
+
+**Ejercicio 1:** análisis estructural de una red de personajes de película
+
+Usa la red de personajes de una película obtenida de MovieGalaxies (por ejemplo, Toy Story). Carga la red en networkx y responde lo siguiente.
+
+**Parte 1.** Exploración básica
+Indica:
+
+- número de nodos,
+
+- número de aristas,
+
+- si la red es conexa o no.
+
+Si no es conexa, reporta:
+
+- cuántas componentes conexas tiene,
+
+- el tamaño de cada componente,
+
+- cuál es la componente gigante.
+
+**Parte 2.** Centralidad
+
+Calcula las siguientes medidas de centralidad para todos los nodos:
+
+- centralidad de grado,
+
+- centralidad de cercanía,
+
+- centralidad de intermediación (betweenness),
+
+- centralidad de vector propio (eigenvector centrality), si es posible.
+
+Después:
+
+1) Reporta los 5 personajes más importantes según cada medida.
+
+2) Compara los resultados:
+
+- ¿coinciden los personajes más importantes en todas las medidas?
+
+- ¿qué tipo de “importancia” parece capturar cada centralidad?
+
+
+**Parte 3.** Cliques y cohesión local
+
+Encuentra:
+
+- el tamaño del clique máximo,
+- un ejemplo de clique máximo,
+- cuántos cliques maximales hay en total.
+
+Interpreta el resultado:
+
+- ¿qué representa un clique en esta red?
+
+- ¿un clique grande sugiere una escena muy compartida entre personajes o una fuerte relación narrativa?
+
+**Parte 4.** Conectividad global
+
+- Calcula la conectividad por nodos de la red.
+
+- Calcula la conectividad por aristas.
+
+Encuentra un ejemplo de:
+
+- un conjunto mínimo de nodos cuya eliminación desconecte la red,
+
+- un conjunto mínimo de aristas cuya eliminación desconecte la red.
+
+Interpreta:
+
+- ¿la red parece robusta o frágil?
+
+- ¿hay personajes “puente” cuya ausencia rompería la historia en comunidades separadas?
+
+**Parte 5.** k-componentes
+
+Calcula los k-componentes de la red.
+
+Reporta:
+
+- qué valores de k aparecen,
+
+- cuántos k-componentes hay para cada k,
+
+- cuál es el valor máximo de k.
+
+Explica:
+
+- ¿qué significa que un subconjunto pertenezca a un k-componente?
+
+- ¿qué nos dice esto sobre la cohesión de ciertos grupos de personajes?
+
+**Parte 6.** Transitividad y clustering
+
+- Calcula la transitividad global de la red.
+
+- Calcula el coeficiente de clustering promedio.
+
+- Calcula el coeficiente de clustering local de cada nodo y reporta los 5 más altos.
+
+Discute:
+
+- ¿la red favorece triángulos?
+
+- ¿los amigos de un personaje tienden también a relacionarse entre sí?
+
+**Parte 7.** Asortatividad
+
+- Calcula la asortatividad por grado.
+
+Interpreta el signo del resultado:
+
+- si es positivo, ¿qué significa?
+
+- si es negativo, ¿qué significa en el contexto de personajes principales y secundarios?
+
+- Explica si el valor obtenido tiene sentido para una red de película.
+
+**Parte 8.** Reflexión final
+
+Redacta una breve conclusión contestando:
+
+- ¿qué personajes parecen estructuralmente más importantes?
+
+- ¿la red está organizada alrededor de uno o pocos protagonistas?
+
+- ¿hay evidencia de grupos muy cohesionados?
+
+- ¿la red se parece más a una historia coral o a una historia centrada en pocos personajes?
