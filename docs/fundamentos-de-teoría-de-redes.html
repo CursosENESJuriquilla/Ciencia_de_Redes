@@ -23,7 +23,7 @@
 <meta name="author" content="Haydeé Peruyero" />
 
 
-<meta name="date" content="2026-03-26" />
+<meta name="date" content="2026-04-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -184,6 +184,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2.3" data-path="fundamentos-de-teoría-de-redes.html"><a href="fundamentos-de-teoría-de-redes.html#transitividad-y-coeficiente-de-clustering"><i class="fa fa-check"></i><b>2.2.3</b> Transitividad y Coeficiente de Clustering</a></li>
 <li class="chapter" data-level="2.2.4" data-path="fundamentos-de-teoría-de-redes.html"><a href="fundamentos-de-teoría-de-redes.html#homofilia-y-asortatividad-en-redes"><i class="fa fa-check"></i><b>2.2.4</b> Homofilia y Asortatividad en Redes</a></li>
 <li class="chapter" data-level="2.2.5" data-path="fundamentos-de-teoría-de-redes.html"><a href="fundamentos-de-teoría-de-redes.html#ejercicios"><i class="fa fa-check"></i><b>2.2.5</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="01-Fundamentos.html"><a href="#estructura-de-redes-emp%C3%ADricas---la-estructura-de-las-redes-del-mundo-real"><i class="fa fa-check"></i><b>2.3</b> Estructura de Redes Empíricas - La estructura de las redes del mundo real</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="01-Fundamentos.html"><a href="#ejercicio-1-an%C3%A1lisis-de-una-red-social-facebook"><i class="fa fa-check"></i><b>2.3.1</b> Ejercicio 1: Análisis de una red social (Facebook)</a></li>
+<li class="chapter" data-level="2.3.2" data-path="01-Fundamentos.html"><a href="#ejercicio-2-red-de-colaboraci%C3%B3n-cient%C3%ADfica-arxiv"><i class="fa fa-check"></i><b>2.3.2</b> Ejercicio 2: Red de colaboración científica (arXiv)</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="01-Fundamentos.html"><a href="#ap%C3%A9ndice-introducci%C3%B3n-a-python"><i class="fa fa-check"></i><b>3</b> Apéndice: Introducción a Python</a>
@@ -874,7 +879,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Con la función <code>nx.check_planarity(Graph_object)</code> podemos verificar si una red es plana o no.</p>
 <div class="sourceCode" id="cb147"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb147-1"><a href="fundamentos-de-teoría-de-redes.html#cb147-1" tabindex="-1"></a>G1 <span class="op">=</span> nx.cycle_graph(<span class="dv">5</span>)</span>
 <span id="cb147-2"><a href="fundamentos-de-teoría-de-redes.html#cb147-2" tabindex="-1"></a>nx.check_planarity(G1)</span></code></pre></div>
-<pre><code>## (True, &lt;networkx.algorithms.planarity.PlanarEmbedding object at 0x000002255682CE10&gt;)</code></pre>
+<pre><code>## (True, &lt;networkx.algorithms.planarity.PlanarEmbedding object at 0x0000016FAF2B8E10&gt;)</code></pre>
 <div class="sourceCode" id="cb149"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb149-1"><a href="fundamentos-de-teoría-de-redes.html#cb149-1" tabindex="-1"></a>G2 <span class="op">=</span> nx.complete_graph(<span class="dv">6</span>)</span>
 <span id="cb149-2"><a href="fundamentos-de-teoría-de-redes.html#cb149-2" tabindex="-1"></a>nx.draw(G2, with_labels<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb149-3"><a href="fundamentos-de-teoría-de-redes.html#cb149-3" tabindex="-1"></a>is_planar, P <span class="op">=</span> nx.check_planarity(G2, counterexample<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
@@ -960,17 +965,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb171-10"><a href="fundamentos-de-teoría-de-redes.html#cb171-10" tabindex="-1"></a></span>
 <span id="cb171-11"><a href="fundamentos-de-teoría-de-redes.html#cb171-11" tabindex="-1"></a><span class="co"># Dibujamos vértices y aristas de diferentes capas con diferentes colores</span></span>
 <span id="cb171-12"><a href="fundamentos-de-teoría-de-redes.html#cb171-12" tabindex="-1"></a>nx.draw_networkx_nodes(G, pos, node_color<span class="op">=</span><span class="st">&#39;skyblue&#39;</span>)</span></code></pre></div>
-<pre><code>## &lt;matplotlib.collections.PathCollection object at 0x000002255686AC10&gt;</code></pre>
+<pre><code>## &lt;matplotlib.collections.PathCollection object at 0x0000016FAF2065D0&gt;</code></pre>
 <div class="sourceCode" id="cb173"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb173-1"><a href="fundamentos-de-teoría-de-redes.html#cb173-1" tabindex="-1"></a>nx.draw_networkx_edges(G, pos, edgelist<span class="op">=</span>physical_edges, edge_color<span class="op">=</span><span class="st">&#39;red&#39;</span>, width<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div>
-<pre><code>## &lt;matplotlib.collections.LineCollection object at 0x0000022556868910&gt;</code></pre>
+<pre><code>## &lt;matplotlib.collections.LineCollection object at 0x0000016FAF204690&gt;</code></pre>
 <div class="sourceCode" id="cb175"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb175-1"><a href="fundamentos-de-teoría-de-redes.html#cb175-1" tabindex="-1"></a>nx.draw_networkx_edges(G, pos, edgelist<span class="op">=</span>logical_edges, edge_color<span class="op">=</span><span class="st">&#39;blue&#39;</span>, width<span class="op">=</span><span class="dv">1</span>, style<span class="op">=</span><span class="st">&#39;dashed&#39;</span>)</span></code></pre></div>
-<pre><code>## &lt;matplotlib.collections.LineCollection object at 0x0000022556868A50&gt;</code></pre>
+<pre><code>## &lt;matplotlib.collections.LineCollection object at 0x0000016FAF205BD0&gt;</code></pre>
 <div class="sourceCode" id="cb177"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb177-1"><a href="fundamentos-de-teoría-de-redes.html#cb177-1" tabindex="-1"></a>nx.draw_networkx_labels(G, pos)</span></code></pre></div>
-<pre><code>## {1: Text(0.24907989155492863, 0.9867500148640318, &#39;1&#39;), 2: Text(0.9962822136586479, -0.24959650517065626, &#39;2&#39;), 3: Text(-1.0, 0.2503424865349648, &#39;3&#39;), 4: Text(-0.24536210521357615, -0.9874959962283412, &#39;4&#39;)}</code></pre>
+<pre><code>## {1: Text(0.9978751634410112, 0.15866540533175386, &#39;1&#39;), 2: Text(-0.15838668277029103, 1.0, &#39;2&#39;), 3: Text(0.15986226149616256, -0.9993808680878055, &#39;3&#39;), 4: Text(-0.9993507421668825, -0.15928453724394853, &#39;4&#39;)}</code></pre>
 <div class="sourceCode" id="cb179"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb179-1"><a href="fundamentos-de-teoría-de-redes.html#cb179-1" tabindex="-1"></a>plt.title(<span class="st">&quot;Redes Multicapa&quot;</span>)</span></code></pre></div>
 <pre><code>## Text(0.5, 1.0, &#39;Redes Multicapa&#39;)</code></pre>
 <div class="sourceCode" id="cb181"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb181-1"><a href="fundamentos-de-teoría-de-redes.html#cb181-1" tabindex="-1"></a>plt.axis(<span class="st">&#39;off&#39;</span>)</span></code></pre></div>
-<pre><code>## (np.float64(-1.209609632434158), np.float64(1.2058918460928059), np.float64(-1.15428568342812), np.float64(1.15346510392738))</code></pre>
+<pre><code>## (np.float64(-1.1629613747551153), np.float64(1.1613382381566568), np.float64(-1.209315859237025), np.float64(1.2099349911492197))</code></pre>
 <div class="sourceCode" id="cb183"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb183-1"><a href="fundamentos-de-teoría-de-redes.html#cb183-1" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-65-61.png" width="672" /></p>
 <div class="sourceCode" id="cb184"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb184-1"><a href="fundamentos-de-teoría-de-redes.html#cb184-1" tabindex="-1"></a>G <span class="op">=</span> nx.Graph()</span>
@@ -1524,7 +1529,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb311"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb311-1"><a href="fundamentos-de-teoría-de-redes.html#cb311-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Min cut value:&quot;</span>, cut_value)</span></code></pre></div>
 <pre><code>## Min cut value: 3</code></pre>
 <div class="sourceCode" id="cb313"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb313-1"><a href="fundamentos-de-teoría-de-redes.html#cb313-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Partición del min-cut: S =&quot;</span>, S, <span class="st">&quot; | T =&quot;</span>, T)</span></code></pre></div>
-<pre><code>## Partición del min-cut: S = {&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;s&#39;}  | T = {&#39;t&#39;}</code></pre>
+<pre><code>## Partición del min-cut: S = {&#39;s&#39;, &#39;c&#39;, &#39;a&#39;, &#39;b&#39;}  | T = {&#39;t&#39;}</code></pre>
 <div class="sourceCode" id="cb315"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb315-1"><a href="fundamentos-de-teoría-de-redes.html#cb315-1" tabindex="-1"></a><span class="co"># --- Menger (por nodos) ---</span></span>
 <span id="cb315-2"><a href="fundamentos-de-teoría-de-redes.html#cb315-2" tabindex="-1"></a>nd_paths <span class="op">=</span> <span class="bu">list</span>(nx.node_disjoint_paths(G, s, t))</span>
 <span id="cb315-3"><a href="fundamentos-de-teoría-de-redes.html#cb315-3" tabindex="-1"></a>min_n_cut <span class="op">=</span> nx.minimum_node_cut(G, s, t)</span>
@@ -1535,7 +1540,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb317"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb317-1"><a href="fundamentos-de-teoría-de-redes.html#cb317-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Número de node-disjoint paths:&quot;</span>, <span class="bu">len</span>(nd_paths))</span></code></pre></div>
 <pre><code>## Número de node-disjoint paths: 3</code></pre>
 <div class="sourceCode" id="cb319"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb319-1"><a href="fundamentos-de-teoría-de-redes.html#cb319-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Minimum node cut:&quot;</span>, min_n_cut)</span></code></pre></div>
-<pre><code>## Minimum node cut: {&#39;a&#39;, &#39;b&#39;, &#39;c&#39;}</code></pre>
+<pre><code>## Minimum node cut: {&#39;a&#39;, &#39;c&#39;, &#39;b&#39;}</code></pre>
 <div class="sourceCode" id="cb321"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb321-1"><a href="fundamentos-de-teoría-de-redes.html#cb321-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Tamaño minimum node cut:&quot;</span>, <span class="bu">len</span>(min_n_cut))</span></code></pre></div>
 <pre><code>## Tamaño minimum node cut: 3</code></pre>
 <p><strong>Ejercicio:</strong> Considere el siguiente grafo que representa una red de transporte entre dos ciudades <span class="math inline">\(s\)</span> y <span class="math inline">\(t\)</span>.</p>
@@ -1583,7 +1588,7 @@ Calculemos el flujo máximo.</p>
 <pre><code>## 5</code></pre>
 <p>Y la partición nos quedaría como:</p>
 <div class="sourceCode" id="cb331"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb331-1"><a href="fundamentos-de-teoría-de-redes.html#cb331-1" tabindex="-1"></a>partition</span></code></pre></div>
-<pre><code>## ({&#39;a&#39;, &#39;b&#39;, &#39;s&#39;}, {&#39;t&#39;})</code></pre>
+<pre><code>## ({&#39;s&#39;, &#39;a&#39;, &#39;b&#39;}, {&#39;t&#39;})</code></pre>
 <p>La partición es las componentes que quedan separadas al realizar el corte mínimo.</p>
 <p>El corte mínimo representa el cuello de botella de la red.</p>
 <p>Aunque haya muchas rutas, la capacidad total hacia <span class="math inline">\(t\)</span> es <span class="math inline">\(2+3=5\)</span>, por lo que no puede pasar más flujo.</p>
@@ -2841,7 +2846,7 @@ El resultado es un vector con unitario con norma Euclideana.</p>
 <p><img src="Ciencia_de_Redes_files/figure-html/unnamed-chunk-206-123.png" width="672" /></p>
 <p>Podemos calcular varios tipos de asortatividades:</p>
 <div class="sourceCode" id="cb640"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb640-1"><a href="fundamentos-de-teoría-de-redes.html#cb640-1" tabindex="-1"></a>nx.attribute_assortativity_coefficient(schoolfriends_fb, <span class="st">&quot;class&quot;</span>)</span></code></pre></div>
-<pre><code>## 0.38336668753682634</code></pre>
+<pre><code>## 0.3833666875368265</code></pre>
 <div class="sourceCode" id="cb642"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb642-1"><a href="fundamentos-de-teoría-de-redes.html#cb642-1" tabindex="-1"></a>nx.attribute_assortativity_coefficient(schoolfriends_rp, <span class="st">&quot;class&quot;</span>)</span></code></pre></div>
 <pre><code>## 0.7188918572576617</code></pre>
 <div class="sourceCode" id="cb644"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb644-1"><a href="fundamentos-de-teoría-de-redes.html#cb644-1" tabindex="-1"></a>nx.degree_assortativity_coefficient(schoolfriends_rp)</span></code></pre></div>
@@ -2956,6 +2961,160 @@ Indica:</p>
 <li><p>¿la red está organizada alrededor de uno o pocos protagonistas?</p></li>
 <li><p>¿hay evidencia de grupos muy cohesionados?</p></li>
 <li><p>¿la red se parece más a una historia coral o a una historia centrada en pocos personajes?</p></li>
+</ul>
+</div>
+</div>
+<div id="estructura-de-redes-empíricas---la-estructura-de-las-redes-del-mundo-real" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Estructura de Redes Empíricas - La estructura de las redes del mundo real<a href="#estructura-de-redes-emp%C3%ADricas---la-estructura-de-las-redes-del-mundo-real" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="ejercicio-1-análisis-de-una-red-social-facebook" class="section level3 hasAnchor" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Ejercicio 1: Análisis de una red social (Facebook)<a href="#ejercicio-1-an%C3%A1lisis-de-una-red-social-facebook" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Descripción</strong>: En esta práctica se analizará una red social real. Cada nodo representa un usuario y cada arista representa una relación de amistad entre dos usuarios.</p>
+<p>El objetivo es caracterizar la estructura de la red utilizando herramientas de análisis de redes complejas.</p>
+<p><strong>Dataset</strong></p>
+<ul>
+<li>Nombre: ego-Facebook</li>
+<li>Tipo: no dirigida</li>
+<li>Tamaño: 4,039 nodos, 88,234 aristas</li>
+<li>Interpretación: nodos = personas, aristas = amistad</li>
+</ul>
+<p><strong>Descarga:</strong> <a href="https://snap.stanford.edu/data/ego-Facebook.html" class="uri">https://snap.stanford.edu/data/ego-Facebook.html</a></p>
+<p><strong>1. Análisis de componentes</strong></p>
+<ul>
+<li>Determina el número de componentes conexas de la red.</li>
+<li>Identifica la componente conexa más grande (componente gigante).</li>
+<li>Calcula el tamaño de la componente gigante y el porcentaje de nodos que contiene respecto al total de la red.</li>
+</ul>
+<p>Preguntas:</p>
+<ul>
+<li>¿Existe una componente gigante?</li>
+<li>¿Qué proporción de la red contiene?</li>
+<li>¿La red está mayormente conectada o fragmentada?</li>
+</ul>
+<p><strong>2. Caminos más cortos y efecto de mundo pequeño</strong></p>
+<ul>
+<li>Trabaja únicamente con la componente gigante.</li>
+<li>Calcula la distancia promedio entre pares de nodos (longitud media del camino más corto).</li>
+<li>Calcula el diámetro de la red.</li>
+</ul>
+<p>Preguntas:</p>
+<ul>
+<li>¿La distancia media es pequeña en comparación con el tamaño de la red?</li>
+<li>¿Se observa evidencia del efecto de mundo pequeño?</li>
+<li>¿Qué diferencia conceptual hay entre distancia media y diámetro?</li>
+</ul>
+<p><strong>3. Distribución de grado</strong></p>
+<ul>
+<li>Calcula el grado de todos los nodos.</li>
+<li>Construye la distribución de grado <span class="math inline">\(p_k\)</span>.</li>
+<li>Realiza una gráfica de la distribución de grado.</li>
+<li>Repite la gráfica en escala log-log.</li>
+</ul>
+<p>Preguntas:</p>
+<ul>
+<li>¿La mayoría de los nodos tiene grado bajo?</li>
+<li>¿Existen nodos altamente conectados (hubs)?</li>
+<li>¿La distribución presenta una cola pesada?</li>
+<li>¿La gráfica en escala log-log sugiere comportamiento de ley de potencia?</li>
+</ul>
+<p><strong>4. Coeficiente de agrupamiento (clustering)</strong></p>
+<ul>
+<li>Calcula el coeficiente de clustering global de la red.</li>
+<li>Calcula el coeficiente de clustering local para cada nodo.</li>
+<li>Analiza la distribución de clustering local.</li>
+</ul>
+<p>Preguntas:</p>
+<ul>
+<li>¿El valor del clustering global es alto o bajo?</li>
+<li>¿Qué indica esto sobre la estructura local de la red?</li>
+<li>¿Es probable que los amigos de un nodo también sean amigos entre sí?</li>
+</ul>
+<p><strong>5. Interpretación global</strong></p>
+<p>Redacta una descripción de la red respondiendo:</p>
+<ul>
+<li>¿La red tiene una componente gigante?</li>
+<li>¿Presenta efecto de mundo pequeño?</li>
+<li>¿Existen hubs?</li>
+<li>¿El clustering es alto?</li>
+<li>¿Qué tipo de estructura global parece tener la red?</li>
+</ul>
+</div>
+<div id="ejercicio-2-red-de-colaboración-científica-arxiv" class="section level3 hasAnchor" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> Ejercicio 2: Red de colaboración científica (arXiv)<a href="#ejercicio-2-red-de-colaboraci%C3%B3n-cient%C3%ADfica-arxiv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Descripción</strong>: En esta práctica se analizará una red de colaboración científica. Cada nodo representa un autor y existe una arista entre dos nodos si los autores han colaborado en al menos un artículo.</p>
+<p>El objetivo es estudiar cómo se organizan las colaboraciones científicas desde el punto de vista de la teoría de redes.</p>
+<p><strong>Dataset</strong></p>
+<ul>
+<li>Nombre: ca-GrQc</li>
+<li>Tipo: no dirigida</li>
+<li>Tamaño: 5,242 nodos, ~14k aristas</li>
+<li>Interpretación: nodos = autores, aristas = coautoría</li>
+</ul>
+<p><strong>Descarga</strong>: <a href="https://snap.stanford.edu/data/ca-GrQc.html" class="uri">https://snap.stanford.edu/data/ca-GrQc.html</a></p>
+<p><strong>1. Análisis de componentes</strong></p>
+<ul>
+<li>Determina el número de componentes conexas de la red.</li>
+<li>Identifica la componente conexa más grande.</li>
+<li>Calcula su tamaño y compáralo con el tamaño total de la red.</li>
+</ul>
+<p>Preguntas:</p>
+<ul>
+<li>¿La red está dominada por una componente gigante?</li>
+<li>¿Existen muchos grupos pequeños aislados?</li>
+<li>¿Qué interpretación tiene esto en términos de colaboración científica?</li>
+</ul>
+<p><strong>2. Caminos más cortos</strong></p>
+<ul>
+<li>Trabaja con la componente gigante.</li>
+<li>Calcula la distancia media entre nodos.</li>
+<li>Calcula el diámetro de la red.</li>
+</ul>
+<p>Preguntas:</p>
+<ul>
+<li>¿Qué tan lejos están dos autores en promedio?</li>
+<li>¿La red facilita la difusión de información o conocimiento?</li>
+<li>¿Cómo se compara el diámetro con la distancia media?</li>
+</ul>
+<p><strong>3. Centralidades</strong></p>
+<ul>
+<li>Calcula distintas medidas de centralidad (por ejemplo: grado, intermediación, vector propio).</li>
+<li>Identifica los nodos más importantes según cada medida.</li>
+</ul>
+<p>Preguntas:</p>
+<ul>
+<li>¿Coinciden los nodos más importantes según diferentes medidas?</li>
+<li>¿Existen nodos que actúan como puentes entre comunidades?</li>
+<li>¿Un nodo con muchos colaboradores es necesariamente el más influyente?</li>
+</ul>
+<p><strong>4. Distribución de grado</strong></p>
+<ul>
+<li>Calcula la distribución de grado de la red.</li>
+<li>Grafica la distribución en escala lineal y en escala log-log.</li>
+</ul>
+<p>Preguntas:</p>
+<ul>
+<li>¿Existen autores con muchos colaboradores?</li>
+<li>¿La distribución presenta una cola pesada?</li>
+<li>¿Se observa evidencia de comportamiento tipo ley de potencia?</li>
+</ul>
+<p><strong>5. Coeficiente de clustering</strong></p>
+<ul>
+<li>Calcula el coeficiente de clustering global.</li>
+<li>Analiza si los colaboradores de un autor tienden a colaborar entre sí.</li>
+</ul>
+<p>Preguntas:</p>
+<ul>
+<li>¿La red presenta estructura de comunidades?</li>
+<li>¿El clustering es alto o bajo?</li>
+<li>¿Qué indica esto sobre la dinámica de colaboración?</li>
+</ul>
+<p><strong>6. Comparación conceptual con la red social</strong></p>
+<p>Compara los resultados obtenidos en esta red con los de la red de Facebook.</p>
+<p>Preguntas:</p>
+<ul>
+<li>¿Cuál red tiene mayor clustering?</li>
+<li>¿En cuál red los hubs son más evidentes?</li>
+<li>¿Cuál red parece más homogénea?</li>
+<li>¿Qué diferencias estructurales importantes observas entre una red social y una red de colaboración científica?</li>
 </ul>
 
 </div>

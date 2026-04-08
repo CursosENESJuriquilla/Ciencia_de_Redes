@@ -127,3 +127,6 @@ transitividad-y-coeficiente-de-clustering
 homofilia-y-asortatividad-en-redes
 asortatividad-por-grado
 ejercicios-1
+estructura-de-redes-empíricas---la-estructura-de-las-redes-del-mundo-real
+ejercicio-1-análisis-de-una-red-social-facebook
+ejercicio-2-red-de-colaboración-científica-arxiv

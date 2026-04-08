@@ -3067,3 +3067,166 @@ Redacta una breve conclusión contestando:
 - ¿hay evidencia de grupos muy cohesionados?
 
 - ¿la red se parece más a una historia coral o a una historia centrada en pocos personajes?
+
+
+
+## Estructura de Redes Empíricas - La estructura de las redes del mundo real
+
+### Ejercicio 1: Análisis de una red social (Facebook)
+
+**Descripción**: En esta práctica se analizará una red social real. Cada nodo representa un usuario y cada arista representa una relación de amistad entre dos usuarios.
+
+El objetivo es caracterizar la estructura de la red utilizando herramientas de análisis de redes complejas.
+
+**Dataset**
+
+- Nombre: ego-Facebook
+- Tipo: no dirigida
+- Tamaño: 4,039 nodos, 88,234 aristas
+- Interpretación: nodos = personas, aristas = amistad
+
+**Descarga:** https://snap.stanford.edu/data/ego-Facebook.html
+
+**1. Análisis de componentes**
+
+- Determina el número de componentes conexas de la red.
+- Identifica la componente conexa más grande (componente gigante).
+- Calcula el tamaño de la componente gigante y el porcentaje de nodos que contiene respecto al total de la red.
+
+Preguntas:
+
+- ¿Existe una componente gigante?
+- ¿Qué proporción de la red contiene?
+- ¿La red está mayormente conectada o fragmentada?
+
+**2. Caminos más cortos y efecto de mundo pequeño**
+
+- Trabaja únicamente con la componente gigante.
+- Calcula la distancia promedio entre pares de nodos (longitud media del camino más corto).
+- Calcula el diámetro de la red.
+
+Preguntas:
+
+- ¿La distancia media es pequeña en comparación con el tamaño de la red?
+- ¿Se observa evidencia del efecto de mundo pequeño?
+- ¿Qué diferencia conceptual hay entre distancia media y diámetro?
+
+**3. Distribución de grado**
+
+- Calcula el grado de todos los nodos.
+- Construye la distribución de grado $p_k$.
+- Realiza una gráfica de la distribución de grado.
+- Repite la gráfica en escala log-log.
+
+Preguntas:
+
+- ¿La mayoría de los nodos tiene grado bajo?
+- ¿Existen nodos altamente conectados (hubs)?
+- ¿La distribución presenta una cola pesada?
+- ¿La gráfica en escala log-log sugiere comportamiento de ley de potencia?
+
+**4. Coeficiente de agrupamiento (clustering)**
+
+- Calcula el coeficiente de clustering global de la red.
+- Calcula el coeficiente de clustering local para cada nodo.
+- Analiza la distribución de clustering local.
+
+Preguntas:
+
+- ¿El valor del clustering global es alto o bajo?
+- ¿Qué indica esto sobre la estructura local de la red?
+- ¿Es probable que los amigos de un nodo también sean amigos entre sí?
+
+**5. Interpretación global**
+
+Redacta una descripción de la red respondiendo:
+
+- ¿La red tiene una componente gigante?
+- ¿Presenta efecto de mundo pequeño?
+- ¿Existen hubs?
+- ¿El clustering es alto?
+- ¿Qué tipo de estructura global parece tener la red?
+
+### Ejercicio 2: Red de colaboración científica (arXiv)
+
+**Descripción**: En esta práctica se analizará una red de colaboración científica. Cada nodo representa un autor y existe una arista entre dos nodos si los autores han colaborado en al menos un artículo.
+
+El objetivo es estudiar cómo se organizan las colaboraciones científicas desde el punto de vista de la teoría de redes.
+
+**Dataset**
+
+- Nombre: ca-GrQc
+- Tipo: no dirigida
+- Tamaño: 5,242 nodos, ~14k aristas
+- Interpretación: nodos = autores, aristas = coautoría
+
+**Descarga**: https://snap.stanford.edu/data/ca-GrQc.html
+
+**1. Análisis de componentes**
+
+- Determina el número de componentes conexas de la red.
+- Identifica la componente conexa más grande.
+- Calcula su tamaño y compáralo con el tamaño total de la red.
+
+Preguntas:
+
+- ¿La red está dominada por una componente gigante?
+- ¿Existen muchos grupos pequeños aislados?
+- ¿Qué interpretación tiene esto en términos de colaboración científica?
+
+**2. Caminos más cortos**
+
+- Trabaja con la componente gigante.
+- Calcula la distancia media entre nodos.
+- Calcula el diámetro de la red.
+
+Preguntas:
+
+- ¿Qué tan lejos están dos autores en promedio?
+- ¿La red facilita la difusión de información o conocimiento?
+- ¿Cómo se compara el diámetro con la distancia media?
+
+**3. Centralidades**
+
+- Calcula distintas medidas de centralidad (por ejemplo: grado, intermediación, vector propio).
+- Identifica los nodos más importantes según cada medida.
+
+Preguntas:
+
+- ¿Coinciden los nodos más importantes según diferentes medidas?
+- ¿Existen nodos que actúan como puentes entre comunidades?
+- ¿Un nodo con muchos colaboradores es necesariamente el más influyente?
+
+**4. Distribución de grado**
+
+- Calcula la distribución de grado de la red.
+- Grafica la distribución en escala lineal y en escala log-log.
+
+Preguntas:
+
+- ¿Existen autores con muchos colaboradores?
+- ¿La distribución presenta una cola pesada?
+- ¿Se observa evidencia de comportamiento tipo ley de potencia?
+
+**5. Coeficiente de clustering**
+
+- Calcula el coeficiente de clustering global.
+- Analiza si los colaboradores de un autor tienden a colaborar entre sí.
+
+Preguntas:
+
+- ¿La red presenta estructura de comunidades?
+- ¿El clustering es alto o bajo?
+- ¿Qué indica esto sobre la dinámica de colaboración?
+
+**6. Comparación conceptual con la red social**
+
+Compara los resultados obtenidos en esta red con los de la red de Facebook.
+
+Preguntas:
+
+- ¿Cuál red tiene mayor clustering?
+- ¿En cuál red los hubs son más evidentes?
+- ¿Cuál red parece más homogénea?
+- ¿Qué diferencias estructurales importantes observas entre una red social y una red de colaboración científica?
+
