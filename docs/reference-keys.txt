@@ -130,3 +130,9 @@ ejercicios-1
 estructura-de-redes-empíricas---la-estructura-de-las-redes-del-mundo-real
 ejercicio-1-análisis-de-una-red-social-facebook
 ejercicio-2-red-de-colaboración-científica-arxiv
+redes-aleatorias
+el-modelo-de-erdös-renyi-para-construir-redes-aleatorias
+distribución-de-grado
+número-de-aristas
+ejercicios-grafos-aleatorios-de-erdősrényi
+coeficiente-de-clustering

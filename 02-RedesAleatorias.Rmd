@@ -1,0 +1,409 @@
+# Redes Aleatorias
+
+```{r setup1, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
+```
+
+```{r, include=FALSE}
+workingDir <-  "."
+setwd(workingDir)
+```
+
+```{r}
+library(reticulate)
+```
+
+Ya hemos analizado cómo medimos la estructura de las redes y los métodos matemáticos, estadísticos y computacionales para dar sentido a los datos que obtenemos de nuestras mediciones. Hemos visto, por ejemplo, cómo medir la estructura de Internet y, una vez que la hemos medido, cómo determinar su distribución de grados, su diámetro o la centralidad de sus nodos. 
+
+Una pregunta evidente que surge es: ``Si sé que una red tiene alguna propiedad particular, como una distribución de grados específica, ¿qué efecto tendrá eso en el comportamiento más amplio del sistema?'' Resulta que propiedades como las distribuciones de grado pueden, de hecho, tener enormes efectos en los sistemas en red, lo cual es una de las principales razones por las que estamos interesados en ellas. 
+
+Y una de las mejores maneras de entender y adquirir intuición sobre estos efectos es construir modelos matemáticos.
+
+Vamos a ver algunos de los modelos más utilizados de estructura de redes, modelos que imitan los patrones de conexiones en redes. Estos modelos nos permiten crear redes artificiales con parámetros conocidos, lo cual es útil por dos razones: primero, nos proporcionan comprensión sobre preguntas fundamentales de estructura, por qué las redes tienen la forma que tienen y cómo cambian al modificar los parámetros, y segundo, proporcionan una base sobre la cual construir una comprensión de los procesos que tienen lugar en las redes, como la propagación de enfermedades en redes sociales o la búsqueda de información en la Web.
+
+
+## El Modelo de Erdös Renyi para construir redes aleatorias
+
+
+
+```{python, include=FALSE}
+import pandas as pd
+import numpy as np
+import networkx as nx
+import matplotlib.pyplot as plt
+```
+
+Vamos a construir una función donde generemos un modelo $G(N,p)$: cada par de los $N$ vértices está conectado con probabilidad $p$.
+
+
+```{python}
+import random
+import networkx as nx
+import matplotlib.pyplot as plt
+
+def grafo_erdos_renyi(N, p):
+    G = nx.Graph()
+    G.add_nodes_from(range(N))
+    
+    # agregar aristas con probabilidad p
+    for i in range(N):
+        for j in range(i+1, N):
+            if random.random() < p:
+                # U~Unif(0,1), P(U<p)=p
+                G.add_edge(i, j)
+                
+    return G
+```
+
+Con está función, podemos definir los parámetros y realizar una red aleatoria.
+
+```{pyhton}
+# parámetros
+N = 12
+p = 1/6
+
+# generar grafo
+G = grafo_erdos_renyi(N, p)
+
+# layout (posición de nodos)
+pos = nx.spring_layout(G, seed=42)
+
+# dibujar
+plt.figure(figsize=(6,6))
+nx.draw(G, pos, with_labels=True, node_color="lightblue", edge_color="gray")
+
+# guardar imagen
+plt.savefig("grafo_erdos_renyi.png", dpi=300)
+
+# mostrar
+plt.show()
+```
+
+Networkx ya tiene implementada la función de un grafo de Erdös Renyi.
+
+```{python}
+N = 20   # número de nodos
+p = 0.2  # probabilidad de conexión
+
+G = nx.erdos_renyi_graph(n=N, p=p)
+
+# visualizar
+nx.draw(G, with_labels=True)
+plt.show()
+```
+
+### Distribución de grado
+
+```{python}
+from scipy.stats import binom, poisson
+
+# Parámetro: grado medio deseado
+k_mean = 50
+
+# Valores de N
+Ns = [10**2, 10**3, 10**4]
+
+# Rango de k para graficar
+k_vals = np.arange(20, 81)
+
+plt.figure(figsize=(8, 5))
+
+# --- Curva Poisson teórica ---
+poisson_pmf = poisson.pmf(k_vals, mu=k_mean)
+plt.plot(k_vals, poisson_pmf, '--', lw=2, label='POISSON')
+
+# --- Curva binomial teórica ---
+# Para comparar, usamos N grande (por ejemplo 10^4)
+N_ref = 10**4
+p_ref = k_mean / (N_ref - 1)
+binom_pmf = binom.pmf(k_vals, N_ref - 1, p_ref)
+plt.plot(k_vals, binom_pmf, '-', lw=2, label='BINOMIAL')
+
+# --- "Datos" para distintos N ---
+markers = ['^', 'o', 'v']
+
+for N, marker in zip(Ns, markers):
+    p = k_mean / (N - 1)
+
+    # Muestreamos grados directamente de Binomial(N-1, p)
+    # Esto representa los grados de los nodos en G(N,p)
+    grados = np.random.binomial(N - 1, p, size=50000)
+
+    # Histograma normalizado
+    probs = np.array([(grados == k).mean() for k in k_vals])
+
+    plt.plot(
+        k_vals, probs,
+        linestyle='None',
+        marker=marker,
+        markersize=5,
+        label=fr'N=$10^{int(np.log10(N))}$'
+    )
+
+plt.xlabel('k', fontsize=12)
+plt.ylabel(r'$p_k$', fontsize=12)
+plt.xlim(20, 80)
+plt.ylim(0, 0.10)
+plt.legend(frameon=False)
+plt.tight_layout()
+plt.savefig("distribucion_grado_red_aleatoria.png", dpi=300)
+plt.show()
+```
+
+
+### Número de Aristas
+
+Veamos que para mismos parámetros, las realizaciones de una red aleatoria nos dan distintos números de aristas.
+
+
+```{python}
+def grafo_erdos_renyi(N, p, seed=None):
+    """
+    Genera una realización del grafo aleatorio G(N,p).
+    """
+    if seed is not None:
+        random.seed(seed)
+
+    G = nx.Graph()
+    G.add_nodes_from(range(N))
+
+    for i in range(N):
+        for j in range(i + 1, N):
+            if random.random() < p:
+                G.add_edge(i, j)
+
+    return G
+
+
+def dibujar_realizaciones(N, p, n_realizaciones=3, layout="spring", seed_base=10):
+    """
+    Dibuja varias realizaciones de G(N,p) con los mismos parámetros.
+    """
+    fig, axes = plt.subplots(1, n_realizaciones, figsize=(5 * n_realizaciones, 5))
+
+    if n_realizaciones == 1:
+        axes = [axes]
+
+    for k, ax in enumerate(axes):
+        G = grafo_erdos_renyi(N, p, seed=seed_base + k)
+
+        # Elegir layout
+        if layout == "circular":
+            pos = nx.circular_layout(G)
+        else:
+            pos = nx.spring_layout(G, seed=seed_base + k)
+
+        L = G.number_of_edges()
+
+        nx.draw_networkx_nodes(
+            G, pos, ax=ax,
+            node_size=300,
+            node_color="#7a4fa3"
+        )
+        nx.draw_networkx_edges(
+            G, pos, ax=ax,
+            edge_color="limegreen",
+            width=1.5
+        )
+
+        ax.set_title(f"Realización {k+1}\nN={N}, p={p}, L={L}", fontsize=12)
+        ax.set_axis_off()
+
+    plt.tight_layout()
+    plt.show()
+
+
+# Ejemplo con 3 realizaciones
+dibujar_realizaciones(N=12, p=1/6, n_realizaciones=3, layout="circular")
+
+```
+
+Un ejemplo más grande:
+
+```{python}
+dibujar_realizaciones(N=100, p=0.1, n_realizaciones=3, layout="spring")
+```
+
+Podríamos aumentarle que nos de el número esperado de aristas.
+
+```{python}
+import math
+
+def dibujar_realizaciones_con_esperanza(N, p, n_realizaciones=3, layout="spring", seed_base=10):
+    fig, axes = plt.subplots(1, n_realizaciones, figsize=(5 * n_realizaciones, 5))
+
+    if n_realizaciones == 1:
+        axes = [axes]
+
+    L_esperado = p * N * (N - 1) / 2
+
+    for k, ax in enumerate(axes):
+        G = grafo_erdos_renyi(N, p, seed=seed_base + k)
+
+        if layout == "circular":
+            pos = nx.circular_layout(G)
+        else:
+            pos = nx.spring_layout(G, seed=seed_base + k)
+
+        L = G.number_of_edges()
+
+        nx.draw_networkx_nodes(G, pos, ax=ax, node_size=250, node_color="#7a4fa3")
+        nx.draw_networkx_edges(G, pos, ax=ax, edge_color="limegreen", width=1.2)
+
+        ax.set_title(
+            f"Realización {k+1}\nL = {L}\nE[L] = {L_esperado:.2f}",
+            fontsize=12
+        )
+        ax.set_axis_off()
+
+    plt.tight_layout()
+    plt.show()
+
+
+dibujar_realizaciones_con_esperanza(N=12, p=1/6, n_realizaciones=3, layout="circular")
+```
+
+Para hablar específicamente del número de aristas, también conviene hacer muchas simulaciones y graficar la distribución de L:
+
+```{python}
+def simular_numero_aristas(N, p, n_sim=1000):
+    valores_L = []
+
+    for s in range(n_sim):
+        G = grafo_erdos_renyi(N, p, seed=s)
+        valores_L.append(G.number_of_edges())
+
+    return valores_L
+
+
+N = 12
+p = 1/6
+valores_L = simular_numero_aristas(N, p, n_sim=1000)
+
+L_esperado = p * N * (N - 1) / 2
+
+plt.figure(figsize=(8, 5))
+plt.hist(valores_L, bins=range(min(valores_L), max(valores_L)+2), edgecolor="black")
+plt.axvline(L_esperado, linestyle="--", linewidth=2, label=f"E[L]={L_esperado:.2f}")
+plt.xlabel("Número de aristas L")
+plt.ylabel("Frecuencia")
+plt.title(f"Distribución del número de aristas en G({N},{p})")
+plt.legend()
+plt.show()
+```
+
+Lo que podemos concluir de esto es que:
+
+- el número de aristas no es fijo,
+- varía de realización a realización,
+- pero oscila alrededor de su valor esperado.
+
+Aunque fijemos $N$ y $p$, el grafo que obtenemos no es único. Cada par de nodos decide independientemente si se conecta o no. Por eso, distintas realizaciones del mismo modelo tienen distinta forma y distinto número de aristas.
+
+### Ejercicios: Grafos aleatorios de Erdős–Rényi
+
+**Ejercicio 1.** Número de aristas en una realización
+
+Considere un grafo aleatorio $G(N,p)$ con $N=20$ y $p=0.2$.
+
+1. Genere una realización del grafo.
+2. Calcule el número de aristas observadas $L$.
+3. Calcule el número esperado de aristas:
+   $$
+   \langle L \rangle = p \frac{N(N-1)}{2}.
+   $$
+4. Compare el valor observado con el valor esperado.
+5. Dibuje la red obtenida.
+
+**Pregunta conceptual.**  
+¿Por qué el número de aristas observado no tiene por qué coincidir exactamente con $\langle L \rangle$?
+
+**Ejercicio 2.** Variabilidad del número de aristas
+
+Fije $N=30$ y $p=0.1$.
+
+1. Genere 100 realizaciones independientes del grafo aleatorio $G(N,p)$.
+2. Para cada realización, calcule el número de aristas $L$.
+3. Construya un histograma de los valores obtenidos.
+4. Calcule el promedio muestral de $L$.
+5. Compare este promedio con el valor teórico:
+   $$
+   \langle L \rangle = p \frac{N(N-1)}{2}.
+   $$
+
+**Pregunta conceptual.**  
+Explique por qué, aun cuando los parámetros $N$ y $p$ son los mismos, distintas realizaciones pueden tener diferente número de aristas.
+
+**Ejercicio 3.** Grado promedio
+
+Considere un grafo aleatorio $G(N,p)$ con $N=100$ y $p=0.05$.
+
+1. Genere una realización del grafo.
+2. Calcule el grado de cada nodo.
+3. Obtenga el grado promedio observado.
+4. Compare con el valor teórico:
+   $$
+   \langle k \rangle = p(N-1).
+   $$
+5. Verifique numéricamente que
+   $$
+   \langle k \rangle_{\text{obs}} = \frac{2L}{N},
+   $$
+   donde $L$ es el número de aristas observadas.
+
+**Pregunta conceptual.**  
+¿Por qué el promedio de grados está relacionado con el número de aristas mediante la expresión $\frac{2L}{N}$?
+
+**Ejercicio 4.** Distribución de grados
+
+Considere un grafo aleatorio $G(N,p)$ con $N=100$ y $p=0.05$.
+
+1. Genere una realización del grafo.
+2. Calcule la secuencia de grados.
+3. Haga un histograma de la distribución de grados.
+4. Calcule el grado promedio observado.
+5. Compare visualmente la distribución obtenida con una distribución binomial.
+
+**Pregunta conceptual.**  
+¿Por qué en el modelo de Erdős–Rényi la distribución de grados se modela mediante una distribución binomial?
+
+**Ejercicio 5.** Efecto de la probabilidad de conexión
+
+Fije $N=50$ y considere los valores
+$$
+p=0.01,\;0.05,\;0.1,\;0.2.
+$$
+
+1. Genere una realización del grafo aleatorio $G(N,p)$ para cada valor de $p$.
+2. Para cada grafo, calcule:
+   - el número de aristas $L$,
+   - el grado promedio observado,
+   - el número de componentes conexas.
+3. Dibuje las cuatro redes obtenidas.
+4. Organice los resultados en una tabla.
+
+**Pregunta conceptual.**  
+Describa cómo cambia la estructura de la red al aumentar el valor de $p$.
+
+**Ejercicio 6.** Exploración del número de aristas y del grado promedio
+
+Fije $N=100$ y considere una colección de valores de $p$ en el intervalo $[0.01,0.20]$.
+
+1. Para cada valor de $p$, genere una realización del grafo aleatorio $G(N,p)$.
+2. Calcule para cada caso:
+   - el número de aristas $L$,
+   - el grado promedio observado.
+3. Grafique el número de aristas observado en función de $p$.
+4. Grafique el grado promedio observado en función de $p$.
+5. Compare los resultados con las expresiones teóricas:
+   $$
+   \langle L \rangle = p \frac{N(N-1)}{2},
+   \qquad
+   \langle k \rangle = p(N-1).
+   $$
+
+**Pregunta conceptual.**  
+¿De qué manera dependen el número esperado de aristas y el grado promedio esperado del parámetro $p$?
+
+### Coeficiente de Clustering
+
