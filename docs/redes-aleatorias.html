@@ -23,7 +23,7 @@
 <meta name="author" content="Haydeé Peruyero" />
 
 
-<meta name="date" content="2026-04-15" />
+<meta name="date" content="2026-04-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -198,7 +198,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1.1" data-path="02-RedesAleatorias.html"><a href="#distribuci%C3%B3n-de-grado"><i class="fa fa-check"></i><b>3.1.1</b> Distribución de grado</a></li>
 <li class="chapter" data-level="3.1.2" data-path="02-RedesAleatorias.html"><a href="#n%C3%BAmero-de-aristas"><i class="fa fa-check"></i><b>3.1.2</b> Número de Aristas</a></li>
 <li class="chapter" data-level="3.1.3" data-path="02-RedesAleatorias.html"><a href="#ejercicios-grafos-aleatorios-de-erd%C5%91sr%C3%A9nyi"><i class="fa fa-check"></i><b>3.1.3</b> Ejercicios: Grafos aleatorios de Erdős–Rényi</a></li>
-<li class="chapter" data-level="3.1.4" data-path="redes-aleatorias.html"><a href="redes-aleatorias.html#coeficiente-de-clustering"><i class="fa fa-check"></i><b>3.1.4</b> Coeficiente de Clustering</a></li>
+<li class="chapter" data-level="3.1.4" data-path="02-RedesAleatorias.html"><a href="#ejercicios-componente-gigante-clustering-y-reg%C3%ADmenes-en-grafos-de-erd%C5%91sr%C3%A9nyi"><i class="fa fa-check"></i><b>3.1.4</b> Ejercicios: componente gigante, clustering y regímenes en grafos de Erdős–Rényi</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="02-RedesAleatorias.html"><a href="#ap%C3%A9ndice-introducci%C3%B3n-a-python"><i class="fa fa-check"></i><b>4</b> Apéndice: Introducción a Python</a>
@@ -625,8 +625,111 @@ Describa cómo cambia la estructura de la red al aumentar el valor de <span clas
 <p><strong>Pregunta conceptual.</strong><br />
 ¿De qué manera dependen el número esperado de aristas y el grado promedio esperado del parámetro <span class="math inline">\(p\)</span>?</p>
 </div>
-<div id="coeficiente-de-clustering" class="section level3 hasAnchor" number="3.1.4">
-<h3><span class="header-section-number">3.1.4</span> Coeficiente de Clustering<a href="redes-aleatorias.html#coeficiente-de-clustering" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="ejercicios-componente-gigante-clustering-y-regímenes-en-grafos-de-erdősrényi" class="section level3 hasAnchor" number="3.1.4">
+<h3><span class="header-section-number">3.1.4</span> Ejercicios: componente gigante, clustering y regímenes en grafos de Erdős–Rényi<a href="#ejercicios-componente-gigante-clustering-y-reg%C3%ADmenes-en-grafos-de-erd%C5%91sr%C3%A9nyi" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Ejercicio 1. Componentes conexas al variar la probabilidad de conexión</strong></p>
+<p>Fije <span class="math inline">\(N=100\)</span> y considere los valores
+<span class="math display">\[
+p = 0.001,\;0.005,\;0.01,\;0.02,\;0.03,\;0.05.
+\]</span></p>
+<p>Para cada valor de <span class="math inline">\(p\)</span>:</p>
+<ol style="list-style-type: decimal">
+<li>Genere una realización del grafo aleatorio <span class="math inline">\(G(N,p)\)</span>.</li>
+<li>Calcule el número de componentes conexas.</li>
+<li>Calcule el tamaño de la componente conexa más grande.</li>
+<li>Dibuje la red obtenida.</li>
+<li>Organice los resultados en una tabla.</li>
+</ol>
+<p><strong>Pregunta conceptual.</strong><br />
+¿Cómo cambia la estructura de la red al aumentar <span class="math inline">\(p\)</span>? ¿En qué rango parece emerger una componente gigante?</p>
+<p><strong>Ejercicio 2. Tamaño relativo de la componente gigante</strong></p>
+<p>Fije <span class="math inline">\(N=200\)</span> y considere valores de <span class="math inline">\(p\)</span> en el intervalo <span class="math inline">\([0.001,0.03]\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li>Para cada valor de <span class="math inline">\(p\)</span>, genere una realización del grafo aleatorio <span class="math inline">\(G(N,p)\)</span>.</li>
+<li>Calcule el tamaño de la componente conexa más grande, denotado por <span class="math inline">\(S_{\max}\)</span>.</li>
+<li>Calcule la fracción
+<span class="math display">\[
+\frac{S_{\max}}{N}.
+\]</span></li>
+<li>Grafique <span class="math inline">\(\frac{S_{\max}}{N}\)</span> en función de <span class="math inline">\(p\)</span>.</li>
+</ol>
+<p><strong>Pregunta conceptual.</strong><br />
+¿En qué rango de valores de <span class="math inline">\(p\)</span> comienza a crecer rápidamente la componente más grande?</p>
+<p><strong>Ejercicio 3. Aparición de la componente gigante y grado promedio</strong></p>
+<p>Fije <span class="math inline">\(N=200\)</span> y considere los valores
+<span class="math display">\[
+p = \frac{0.5}{N-1},\;\frac{1}{N-1},\;\frac{1.5}{N-1},\;\frac{2}{N-1},\;\frac{3}{N-1}.
+\]</span></p>
+<p>Para cada valor de <span class="math inline">\(p\)</span>:</p>
+<ol style="list-style-type: decimal">
+<li>Calcule el grado promedio esperado
+<span class="math display">\[
+\langle k \rangle = p(N-1).
+\]</span></li>
+<li>Genere una realización del grafo.</li>
+<li>Calcule el tamaño de la componente conexa más grande.</li>
+<li>Compare los resultados obtenidos.</li>
+</ol>
+<p><strong>Pregunta conceptual.</strong><br />
+¿Qué relación observa entre la aparición de una componente gigante y el valor del grado promedio esperado?</p>
+<p><strong>Ejercicio 4. Coeficiente de clustering en una realización</strong></p>
+<p>Considere un grafo aleatorio <span class="math inline">\(G(N,p)\)</span> con <span class="math inline">\(N=100\)</span> y <span class="math inline">\(p=0.05\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li>Genere una realización del grafo.</li>
+<li>Calcule el coeficiente de clustering local de cada nodo.</li>
+<li>Calcule el coeficiente de clustering promedio de la red.</li>
+<li>Compare el valor observado con el valor teórico esperado
+<span class="math display">\[
+C \approx p.
+\]</span></li>
+</ol>
+<p><strong>Pregunta conceptual.</strong><br />
+¿Por qué en el modelo de Erdős–Rényi el coeficiente de clustering esperado es aproximadamente igual a <span class="math inline">\(p\)</span>?</p>
+<p><strong>Ejercicio 5. Clustering promedio al variar <span class="math inline">\(p\)</span></strong></p>
+<p>Fije <span class="math inline">\(N=100\)</span> y considere valores de <span class="math inline">\(p\)</span> en el intervalo <span class="math inline">\([0.01,0.20]\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li>Para cada valor de <span class="math inline">\(p\)</span>, genere una realización del grafo aleatorio <span class="math inline">\(G(N,p)\)</span>.</li>
+<li>Calcule el coeficiente de clustering promedio observado.</li>
+<li>Grafique el clustering promedio observado en función de <span class="math inline">\(p\)</span>.</li>
+<li>Compare con la recta teórica
+<span class="math display">\[
+C = p.
+\]</span></li>
+</ol>
+<p><strong>Pregunta conceptual.</strong><br />
+¿Cómo depende el clustering promedio del parámetro <span class="math inline">\(p\)</span>?</p>
+<p><strong>Ejercicio 6. Componente gigante y clustering</strong></p>
+<p>Fije <span class="math inline">\(N=200\)</span> y considere valores de <span class="math inline">\(p\)</span> en un intervalo que incluya el umbral de aparición de la componente gigante.</p>
+<p>Para cada valor de <span class="math inline">\(p\)</span>:</p>
+<ol style="list-style-type: decimal">
+<li>Genere una realización de <span class="math inline">\(G(N,p)\)</span>.</li>
+<li>Calcule:
+<ul>
+<li>el tamaño relativo de la componente más grande,
+<span class="math display">\[
+\frac{S_{\max}}{N},
+\]</span></li>
+<li>el coeficiente de clustering promedio <span class="math inline">\(C\)</span>.</li>
+</ul></li>
+<li>Grafique ambas cantidades en función de <span class="math inline">\(p\)</span>.</li>
+</ol>
+<p><strong>Pregunta conceptual.</strong><br />
+¿Qué diferencia hay entre una propiedad global, como el tamaño de la componente gigante, y una propiedad local, como el clustering?</p>
+<p><strong>Ejercicio 7. Conectividad total de la red</strong></p>
+<p>Fije <span class="math inline">\(N=100\)</span> y considere valores de <span class="math inline">\(p\)</span> cercanos a
+<span class="math display">\[
+\frac{\log N}{N}.
+\]</span></p>
+<ol style="list-style-type: decimal">
+<li>Calcule el valor aproximado de <span class="math inline">\(\frac{\log N}{N}\)</span>.</li>
+<li>Elija varios valores de <span class="math inline">\(p\)</span> por debajo y por encima de ese umbral.</li>
+<li>Para cada valor de <span class="math inline">\(p\)</span>, genere varias realizaciones del grafo.</li>
+<li>Determine en cada caso si el grafo es conexo o no.</li>
+<li>Estime la proporción de grafos conexos para cada valor de <span class="math inline">\(p\)</span>.</li>
+<li>Grafique esa proporción en función de <span class="math inline">\(p\)</span>.</li>
+</ol>
+<p><strong>Pregunta conceptual.</strong><br />
+¿Cuál es la diferencia entre que exista una componente gigante y que toda la red sea conexa?</p>
 
 </div>
 </div>

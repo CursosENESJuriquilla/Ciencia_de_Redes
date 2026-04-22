@@ -136,3 +136,4 @@ distribución-de-grado
 número-de-aristas
 ejercicios-grafos-aleatorios-de-erdősrényi
 coeficiente-de-clustering
+ejercicios-componente-gigante-clustering-y-regímenes-en-grafos-de-erdősrényi

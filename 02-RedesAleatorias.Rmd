@@ -405,5 +405,126 @@ Fije $N=100$ y considere una colección de valores de $p$ en el intervalo $[0.01
 **Pregunta conceptual.**  
 ¿De qué manera dependen el número esperado de aristas y el grado promedio esperado del parámetro $p$?
 
-### Coeficiente de Clustering
+
+### Ejercicios: componente gigante, clustering y regímenes en grafos de Erdős--Rényi
+
+**Ejercicio 1. Componentes conexas al variar la probabilidad de conexión**
+
+Fije $N=100$ y considere los valores
+$$
+p = 0.001,\;0.005,\;0.01,\;0.02,\;0.03,\;0.05.
+$$
+
+Para cada valor de $p$:
+
+1. Genere una realización del grafo aleatorio $G(N,p)$.
+2. Calcule el número de componentes conexas.
+3. Calcule el tamaño de la componente conexa más grande.
+4. Dibuje la red obtenida.
+5. Organice los resultados en una tabla.
+
+**Pregunta conceptual.**  
+¿Cómo cambia la estructura de la red al aumentar $p$? ¿En qué rango parece emerger una componente gigante?
+
+
+**Ejercicio 2. Tamaño relativo de la componente gigante**
+
+Fije $N=200$ y considere valores de $p$ en el intervalo $[0.001,0.03]$.
+
+1. Para cada valor de $p$, genere una realización del grafo aleatorio $G(N,p)$.
+2. Calcule el tamaño de la componente conexa más grande, denotado por $S_{\max}$.
+3. Calcule la fracción
+   $$
+   \frac{S_{\max}}{N}.
+   $$
+4. Grafique $\frac{S_{\max}}{N}$ en función de $p$.
+
+**Pregunta conceptual.**  
+¿En qué rango de valores de $p$ comienza a crecer rápidamente la componente más grande?
+
+**Ejercicio 3. Aparición de la componente gigante y grado promedio**
+
+Fije $N=200$ y considere los valores
+$$
+p = \frac{0.5}{N-1},\;\frac{1}{N-1},\;\frac{1.5}{N-1},\;\frac{2}{N-1},\;\frac{3}{N-1}.
+$$
+
+Para cada valor de $p$:
+
+1. Calcule el grado promedio esperado
+   $$
+   \langle k \rangle = p(N-1).
+   $$
+2. Genere una realización del grafo.
+3. Calcule el tamaño de la componente conexa más grande.
+4. Compare los resultados obtenidos.
+
+**Pregunta conceptual.**  
+¿Qué relación observa entre la aparición de una componente gigante y el valor del grado promedio esperado?
+
+**Ejercicio 4. Coeficiente de clustering en una realización**
+
+Considere un grafo aleatorio $G(N,p)$ con $N=100$ y $p=0.05$.
+
+1. Genere una realización del grafo.
+2. Calcule el coeficiente de clustering local de cada nodo.
+3. Calcule el coeficiente de clustering promedio de la red.
+4. Compare el valor observado con el valor teórico esperado
+   $$
+   C \approx p.
+   $$
+
+**Pregunta conceptual.**  
+¿Por qué en el modelo de Erdős--Rényi el coeficiente de clustering esperado es aproximadamente igual a $p$?
+
+**Ejercicio 5. Clustering promedio al variar $p$**
+
+Fije $N=100$ y considere valores de $p$ en el intervalo $[0.01,0.20]$.
+
+1. Para cada valor de $p$, genere una realización del grafo aleatorio $G(N,p)$.
+2. Calcule el coeficiente de clustering promedio observado.
+3. Grafique el clustering promedio observado en función de $p$.
+4. Compare con la recta teórica
+   $$
+   C = p.
+   $$
+
+**Pregunta conceptual.**  
+¿Cómo depende el clustering promedio del parámetro $p$?
+
+**Ejercicio 6. Componente gigante y clustering**
+
+Fije $N=200$ y considere valores de $p$ en un intervalo que incluya el umbral de aparición de la componente gigante.
+
+Para cada valor de $p$:
+
+1. Genere una realización de $G(N,p)$.
+2. Calcule:
+   - el tamaño relativo de la componente más grande,
+     $$
+     \frac{S_{\max}}{N},
+     $$
+   - el coeficiente de clustering promedio $C$.
+3. Grafique ambas cantidades en función de $p$.
+
+**Pregunta conceptual.**  
+¿Qué diferencia hay entre una propiedad global, como el tamaño de la componente gigante, y una propiedad local, como el clustering?
+
+
+**Ejercicio 7. Conectividad total de la red**
+
+Fije $N=100$ y considere valores de $p$ cercanos a
+$$
+\frac{\log N}{N}.
+$$
+
+1. Calcule el valor aproximado de $\frac{\log N}{N}$.
+2. Elija varios valores de $p$ por debajo y por encima de ese umbral.
+3. Para cada valor de $p$, genere varias realizaciones del grafo.
+4. Determine en cada caso si el grafo es conexo o no.
+5. Estime la proporción de grafos conexos para cada valor de $p$.
+6. Grafique esa proporción en función de $p$.
+
+**Pregunta conceptual.**  
+¿Cuál es la diferencia entre que exista una componente gigante y que toda la red sea conexa?
 
