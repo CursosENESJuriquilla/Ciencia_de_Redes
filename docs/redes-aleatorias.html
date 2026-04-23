@@ -23,7 +23,7 @@
 <meta name="author" content="Haydeé Peruyero" />
 
 
-<meta name="date" content="2026-04-22" />
+<meta name="date" content="2026-04-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -199,6 +199,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1.2" data-path="02-RedesAleatorias.html"><a href="#n%C3%BAmero-de-aristas"><i class="fa fa-check"></i><b>3.1.2</b> Número de Aristas</a></li>
 <li class="chapter" data-level="3.1.3" data-path="02-RedesAleatorias.html"><a href="#ejercicios-grafos-aleatorios-de-erd%C5%91sr%C3%A9nyi"><i class="fa fa-check"></i><b>3.1.3</b> Ejercicios: Grafos aleatorios de Erdős–Rényi</a></li>
 <li class="chapter" data-level="3.1.4" data-path="02-RedesAleatorias.html"><a href="#ejercicios-componente-gigante-clustering-y-reg%C3%ADmenes-en-grafos-de-erd%C5%91sr%C3%A9nyi"><i class="fa fa-check"></i><b>3.1.4</b> Ejercicios: componente gigante, clustering y regímenes en grafos de Erdős–Rényi</a></li>
+<li class="chapter" data-level="3.1.5" data-path="02-RedesAleatorias.html"><a href="#ejercicios-efecto-de-mundo-peque%C3%B1o"><i class="fa fa-check"></i><b>3.1.5</b> Ejercicios: efecto de mundo pequeño</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="02-RedesAleatorias.html"><a href="#ap%C3%A9ndice-introducci%C3%B3n-a-python"><i class="fa fa-check"></i><b>4</b> Apéndice: Introducción a Python</a>
@@ -730,6 +731,67 @@ C = p.
 </ol>
 <p><strong>Pregunta conceptual.</strong><br />
 ¿Cuál es la diferencia entre que exista una componente gigante y que toda la red sea conexa?</p>
+</div>
+<div id="ejercicios-efecto-de-mundo-pequeño" class="section level3 hasAnchor" number="3.1.5">
+<h3><span class="header-section-number">3.1.5</span> Ejercicios: efecto de mundo pequeño<a href="#ejercicios-efecto-de-mundo-peque%C3%B1o" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>Networkx</code> tiene la función <code>watts_strogatz_graph(N, k, p)</code>, donde <span class="math inline">\(N\)</span> son la cantidad de vértices, <span class="math inline">\(k\)</span> con cuantos vecinos más cercanos se conecta cada vértice y <span class="math inline">\(p\)</span> la probabilidad. Deberán usar esa gráfica en algunos de los siguientes ejercicios.</p>
+<p><strong>Ejercicio 1. Red regular y distancias</strong></p>
+<p>Considere una red regular en anillo con <span class="math inline">\(N=100\)</span> nodos, donde cada nodo está conectado con sus <span class="math inline">\(k=4\)</span> vecinos más cercanos.</p>
+<ol style="list-style-type: decimal">
+<li>Genere la red.</li>
+<li>Dibuje la red obtenida.</li>
+<li>Calcule el coeficiente de clustering promedio.</li>
+<li>Calcule la longitud media de camino entre nodos.</li>
+<li>Interprete los resultados.</li>
+</ol>
+<p><strong>Pregunta conceptual.</strong><br />
+¿Cómo describiría la estructura local y global de esta red?</p>
+<p><strong>Ejercicio 2. Efecto de reconectar algunas aristas</strong></p>
+<p>Considere redes de Watts–Strogatz con <span class="math inline">\(N=100\)</span>, <span class="math inline">\(k=4\)</span> y distintos valores de la probabilidad de reconexión
+<span class="math display">\[
+\beta = 0,\;0.01,\;0.05,\;0.1,\;0.5,\;1.
+\]</span></p>
+<p>Para cada valor de <span class="math inline">\(\beta\)</span>:</p>
+<ol style="list-style-type: decimal">
+<li>Genere una realización de la red.</li>
+<li>Calcule el coeficiente de clustering promedio.</li>
+<li>Calcule la longitud media de camino.</li>
+<li>Organice los resultados en una tabla.</li>
+</ol>
+<p><strong>Pregunta conceptual.</strong><br />
+¿Cómo cambian el clustering y la longitud media de camino al aumentar <span class="math inline">\(\beta\)</span>?</p>
+<p><strong>Ejercicio 3. Régimen de mundo pequeño</strong></p>
+<p>Considere el modelo de Watts–Strogatz con <span class="math inline">\(N=100\)</span> y <span class="math inline">\(k=4\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li>Para varios valores de <span class="math inline">\(\beta\)</span>, calcule:
+<span class="math display">\[
+C(\beta), \qquad L(\beta).
+\]</span></li>
+<li>Normalice estos valores respecto al caso regular <span class="math inline">\(\beta=0\)</span>:
+<span class="math display">\[
+\frac{C(\beta)}{C(0)},
+\qquad
+\frac{L(\beta)}{L(0)}.
+\]</span></li>
+<li>Grafique ambas cantidades en función de <span class="math inline">\(\beta\)</span>.</li>
+<li>Identifique el rango de valores de <span class="math inline">\(\beta\)</span> en el que la red presenta efecto de mundo pequeño.</li>
+</ol>
+<p><strong>Pregunta conceptual.</strong><br />
+¿Por qué se dice que una red está en el régimen de mundo pequeño cuando la longitud media de camino disminuye mucho, pero el clustering permanece relativamente alto?</p>
+<p><strong>Ejercicio 4. Comparación entre Watts–Strogatz y Erdős–Rényi</strong></p>
+<p>Considere una red de Watts–Strogatz con <span class="math inline">\(N=100\)</span>, <span class="math inline">\(k=4\)</span> y un valor pequeño de <span class="math inline">\(\beta\)</span>, y compárela con una red de Erdős–Rényi con número de nodos similar y grado promedio comparable.</p>
+<ol style="list-style-type: decimal">
+<li>Genere ambas redes.</li>
+<li>Calcule en cada caso:
+<ul>
+<li>el coeficiente de clustering promedio,</li>
+<li>la longitud media de camino.</li>
+</ul></li>
+<li>Dibuje ambas redes.</li>
+<li>Compare los resultados.</li>
+</ol>
+<p><strong>Pregunta conceptual.</strong><br />
+¿Por qué una red de Watts–Strogatz puede presentar efecto de mundo pequeño de forma más clara que una red de Erdős–Rényi?</p>
 
 </div>
 </div>

@@ -528,3 +528,73 @@ $$
 **Pregunta conceptual.**  
 ¿Cuál es la diferencia entre que exista una componente gigante y que toda la red sea conexa?
 
+
+### Ejercicios: efecto de mundo pequeño
+
+`Networkx` tiene la función `watts_strogatz_graph(N, k, p)`, donde $N$ son la cantidad de vértices, $k$ con cuantos vecinos más cercanos se conecta cada vértice y $p$ la probabilidad. Deberán usar esa gráfica en algunos de los siguientes ejercicios.
+
+**Ejercicio 1. Red regular y distancias**
+
+Considere una red regular en anillo con $N=100$ nodos, donde cada nodo está conectado con sus $k=4$ vecinos más cercanos.
+
+1. Genere la red.
+2. Dibuje la red obtenida.
+3. Calcule el coeficiente de clustering promedio.
+4. Calcule la longitud media de camino entre nodos.
+5. Interprete los resultados.
+
+**Pregunta conceptual.**  
+¿Cómo describiría la estructura local y global de esta red?
+
+**Ejercicio 2. Efecto de reconectar algunas aristas**
+
+Considere redes de Watts--Strogatz con $N=100$, $k=4$ y distintos valores de la probabilidad de reconexión
+$$
+\beta = 0,\;0.01,\;0.05,\;0.1,\;0.5,\;1.
+$$
+
+Para cada valor de $\beta$:
+
+1. Genere una realización de la red.
+2. Calcule el coeficiente de clustering promedio.
+3. Calcule la longitud media de camino.
+4. Organice los resultados en una tabla.
+
+**Pregunta conceptual.**  
+¿Cómo cambian el clustering y la longitud media de camino al aumentar $\beta$?
+
+**Ejercicio 3. Régimen de mundo pequeño**
+
+Considere el modelo de Watts--Strogatz con $N=100$ y $k=4$.
+
+1. Para varios valores de $\beta$, calcule:
+   $$
+   C(\beta), \qquad L(\beta).
+   $$
+2. Normalice estos valores respecto al caso regular $\beta=0$:
+   $$
+   \frac{C(\beta)}{C(0)},
+   \qquad
+   \frac{L(\beta)}{L(0)}.
+   $$
+3. Grafique ambas cantidades en función de $\beta$.
+4. Identifique el rango de valores de $\beta$ en el que la red presenta efecto de mundo pequeño.
+
+**Pregunta conceptual.**  
+¿Por qué se dice que una red está en el régimen de mundo pequeño cuando la longitud media de camino disminuye mucho, pero el clustering permanece relativamente alto?
+
+**Ejercicio 4. Comparación entre Watts--Strogatz y Erdős--Rényi**
+
+Considere una red de Watts--Strogatz con $N=100$, $k=4$ y un valor pequeño de $\beta$, y compárela con una red de Erdős--Rényi con número de nodos similar y grado promedio comparable.
+
+1. Genere ambas redes.
+2. Calcule en cada caso:
+   - el coeficiente de clustering promedio,
+   - la longitud media de camino.
+3. Dibuje ambas redes.
+4. Compare los resultados.
+
+**Pregunta conceptual.**  
+¿Por qué una red de Watts--Strogatz puede presentar efecto de mundo pequeño de forma más clara que una red de Erdős--Rényi?
+
+
