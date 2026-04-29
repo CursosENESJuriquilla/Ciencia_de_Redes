@@ -23,7 +23,7 @@
 <meta name="author" content="Haydeé Peruyero" />
 
 
-<meta name="date" content="2026-04-23" />
+<meta name="date" content="2026-04-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -199,8 +199,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1.2" data-path="02-RedesAleatorias.html"><a href="#n%C3%BAmero-de-aristas"><i class="fa fa-check"></i><b>3.1.2</b> Número de Aristas</a></li>
 <li class="chapter" data-level="3.1.3" data-path="02-RedesAleatorias.html"><a href="#ejercicios-grafos-aleatorios-de-erd%C5%91sr%C3%A9nyi"><i class="fa fa-check"></i><b>3.1.3</b> Ejercicios: Grafos aleatorios de Erdős–Rényi</a></li>
 <li class="chapter" data-level="3.1.4" data-path="02-RedesAleatorias.html"><a href="#ejercicios-componente-gigante-clustering-y-reg%C3%ADmenes-en-grafos-de-erd%C5%91sr%C3%A9nyi"><i class="fa fa-check"></i><b>3.1.4</b> Ejercicios: componente gigante, clustering y regímenes en grafos de Erdős–Rényi</a></li>
-<li class="chapter" data-level="3.1.5" data-path="02-RedesAleatorias.html"><a href="#ejercicios-efecto-de-mundo-peque%C3%B1o"><i class="fa fa-check"></i><b>3.1.5</b> Ejercicios: efecto de mundo pequeño</a></li>
 </ul></li>
+<li class="chapter" data-level="3.2" data-path="02-RedesAleatorias.html"><a href="#ejercicios-efecto-de-mundo-peque%C3%B1o"><i class="fa fa-check"></i><b>3.2</b> Ejercicios: efecto de mundo pequeño</a></li>
+<li class="chapter" data-level="3.3" data-path="redes-aleatorias.html"><a href="redes-aleatorias.html#ejercicios-redes-libres-de-escala-y-distribuciones-de-grado"><i class="fa fa-check"></i><b>3.3</b> Ejercicios: Redes libres de escala y distribuciones de grado</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="02-RedesAleatorias.html"><a href="#ap%C3%A9ndice-introducci%C3%B3n-a-python"><i class="fa fa-check"></i><b>4</b> Apéndice: Introducción a Python</a>
 <ul>
@@ -732,8 +733,9 @@ C = p.
 <p><strong>Pregunta conceptual.</strong><br />
 ¿Cuál es la diferencia entre que exista una componente gigante y que toda la red sea conexa?</p>
 </div>
-<div id="ejercicios-efecto-de-mundo-pequeño" class="section level3 hasAnchor" number="3.1.5">
-<h3><span class="header-section-number">3.1.5</span> Ejercicios: efecto de mundo pequeño<a href="#ejercicios-efecto-de-mundo-peque%C3%B1o" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="ejercicios-efecto-de-mundo-pequeño" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Ejercicios: efecto de mundo pequeño<a href="#ejercicios-efecto-de-mundo-peque%C3%B1o" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><code>Networkx</code> tiene la función <code>watts_strogatz_graph(N, k, p)</code>, donde <span class="math inline">\(N\)</span> son la cantidad de vértices, <span class="math inline">\(k\)</span> con cuantos vecinos más cercanos se conecta cada vértice y <span class="math inline">\(p\)</span> la probabilidad. Deberán usar esa gráfica en algunos de los siguientes ejercicios.</p>
 <p><strong>Ejercicio 1. Red regular y distancias</strong></p>
 <p>Considere una red regular en anillo con <span class="math inline">\(N=100\)</span> nodos, donde cada nodo está conectado con sus <span class="math inline">\(k=4\)</span> vecinos más cercanos.</p>
@@ -792,8 +794,167 @@ C(\beta), \qquad L(\beta).
 </ol>
 <p><strong>Pregunta conceptual.</strong><br />
 ¿Por qué una red de Watts–Strogatz puede presentar efecto de mundo pequeño de forma más clara que una red de Erdős–Rényi?</p>
-
 </div>
+<div id="ejercicios-redes-libres-de-escala-y-distribuciones-de-grado" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Ejercicios: Redes libres de escala y distribuciones de grado<a href="redes-aleatorias.html#ejercicios-redes-libres-de-escala-y-distribuciones-de-grado" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para los siguientes ejercicios, se propone el uso de la siguiente función:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="redes-aleatorias.html#cb14-1" tabindex="-1"></a><span class="kw">def</span> distribucion_grado(grados):</span>
+<span id="cb14-2"><a href="redes-aleatorias.html#cb14-2" tabindex="-1"></a>    k, conteos <span class="op">=</span> np.unique(grados, return_counts<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb14-3"><a href="redes-aleatorias.html#cb14-3" tabindex="-1"></a>    pk <span class="op">=</span> conteos <span class="op">/</span> <span class="bu">len</span>(grados)</span>
+<span id="cb14-4"><a href="redes-aleatorias.html#cb14-4" tabindex="-1"></a>    <span class="cf">return</span> k, pk</span></code></pre></div>
+<p><strong>Ejercicio 1. Comparación de distribuciones</strong></p>
+<p>Genera dos conjuntos de datos de tamaño grande (por ejemplo, <span class="math inline">\(N = 10^4\)</span>):</p>
+<ul>
+<li>Uno que siga una distribución de Poisson.</li>
+<li>Otro que siga una distribución de ley de potencia con exponente <span class="math inline">\(\gamma\)</span>.</li>
+</ul>
+<p>Calcula la distribución de grado <span class="math inline">\(p_k\)</span> en ambos casos.</p>
+<p><strong>Tareas:</strong></p>
+<ul>
+<li>Grafica ambas distribuciones en escala lineal.</li>
+<li>Grafícalas en escala log-log.</li>
+<li>Compara visualmente ambas gráficas.</li>
+</ul>
+<p><strong>Preguntas:</strong></p>
+<ul>
+<li>¿Qué diferencias observas entre ambas distribuciones?</li>
+<li>¿En cuál aparecen nodos con grados muy grandes (hubs)?</li>
+</ul>
+<p><strong>Ejercicio 2. Efecto de la escala log-log</strong></p>
+<p>Usando una muestra con distribución de ley de potencia:</p>
+<p><strong>Tareas:</strong></p>
+<ul>
+<li>Grafica la distribución de grado en escala lineal.</li>
+<li>Grafícala en escala log-log.</li>
+</ul>
+<p><strong>Preguntas:</strong></p>
+<ul>
+<li>¿Qué información se pierde en la escala lineal?</li>
+<li>¿Por qué la gráfica log-log permite observar mejor la cola de la distribución?</li>
+</ul>
+<p><strong>Ejercicio 3. Linear binning vs log-binning</strong></p>
+<p>Genera un conjunto de grados con distribución de ley de potencia.</p>
+<p><strong>Tareas:</strong></p>
+<ul>
+<li>Construye un histograma usando bins lineales.</li>
+<li>Construye un histograma usando bins logarítmicos.</li>
+<li>Grafica ambos en escala log-log.</li>
+</ul>
+<p><strong>Preguntas:</strong></p>
+<ul>
+<li>¿Aparece una meseta en la cola con bins lineales?</li>
+<li>¿Qué cambia al usar bins logarítmicos?</li>
+<li>¿Cuál método representa mejor la distribución?</li>
+</ul>
+<p><strong>Ejercicio 4. Distribución acumulada</strong></p>
+<p>Dada una muestra de grados con ley de potencia:</p>
+<p><strong>Tareas:</strong></p>
+<ul>
+<li>Calcula la distribución acumulada complementaria:
+<span class="math display">\[
+P(k) = P(K \geq k)
+\]</span></li>
+<li>Grafícala en escala log-log.</li>
+</ul>
+<p><strong>Preguntas:</strong></p>
+<ul>
+<li>¿Qué ventaja tiene la distribución acumulada respecto al histograma?</li>
+<li>¿Qué sucede con el ruido en la cola?</li>
+</ul>
+<p><strong>Ejercicio 5. El papel del exponente <span class="math inline">\(\gamma\)</span></strong></p>
+<p>Genera distribuciones de ley de potencia con distintos valores de <span class="math inline">\(\gamma\)</span>, por ejemplo:</p>
+<p><span class="math display">\[
+\gamma = 2.1, \; 2.5, \; 3.0, \; 4.0
+\]</span></p>
+<p><strong>Tareas:</strong></p>
+<ul>
+<li>Grafica todas las distribuciones en escala log-log.</li>
+</ul>
+<p><strong>Preguntas:</strong></p>
+<ul>
+<li>¿Cómo cambia la forma de la distribución al variar <span class="math inline">\(\gamma\)</span>?</li>
+<li>¿Para qué valores aparecen hubs más grandes?</li>
+<li>¿Cuándo la distribución empieza a parecerse a una red aleatoria?</li>
+</ul>
+<p><strong>Ejercicio 6. Tamaño de la red y hubs</strong></p>
+<p>Para distintos tamaños de red:</p>
+<p><span class="math display">\[
+N = 10^2, 10^3, 10^4, 10^5
+\]</span></p>
+<p>genera muestras con distribución de ley de potencia.</p>
+<p><strong>Tareas:</strong></p>
+<ul>
+<li>Para cada <span class="math inline">\(N\)</span>, calcula el grado máximo <span class="math inline">\(k_{\max}\)</span>.</li>
+<li>Grafica <span class="math inline">\(k_{\max}\)</span> como función de <span class="math inline">\(N\)</span>.</li>
+</ul>
+<p><strong>Preguntas:</strong></p>
+<ul>
+<li>¿Cómo crece el hub más grande con el tamaño de la red?</li>
+<li>¿Es el crecimiento rápido o lento?</li>
+</ul>
+<p><strong>Ejercicio 7. Redes aleatorias vs redes libres de escala</strong></p>
+<p>Genera dos redes con el mismo número de nodos:</p>
+<ul>
+<li>Una red de Erdős–Rényi.</li>
+<li>Una red de Barabási–Albert, esto simula la red libre de escala.</li>
+</ul>
+<p><strong>Tareas:</strong></p>
+<ul>
+<li>Calcula la distribución de grado en ambas redes.</li>
+<li>Grafícalas en escala log-log.</li>
+<li>Calcula:
+<ul>
+<li>grado promedio</li>
+<li>grado máximo</li>
+</ul></li>
+</ul>
+<p><strong>Preguntas:</strong></p>
+<ul>
+<li>¿En cuál red aparecen hubs?</li>
+<li>¿En cuál red los grados son más homogéneos?</li>
+</ul>
+<p><strong>Ejercicio 8. Distancias en redes</strong></p>
+<p>Usando las redes del ejercicio anterior:</p>
+<p><strong>Tareas:</strong></p>
+<ul>
+<li>Calcula la distancia promedio entre nodos (en la componente gigante si es necesario).</li>
+</ul>
+<p><strong>Preguntas:</strong></p>
+<ul>
+<li>¿Cuál red tiene menor distancia promedio?</li>
+<li>¿Cómo se relaciona esto con la presencia de hubs?</li>
+</ul>
+<p><strong>Ejercicio 9. Robustez de la red</strong></p>
+<p>Considera una red libre de escala.</p>
+<p><strong>Tareas:</strong></p>
+<ul>
+<li>Elimina nodos de forma aleatoria y mide el tamaño de la componente gigante.</li>
+<li>Elimina nodos en orden decreciente de grado (primero los hubs).</li>
+<li>Compara ambos casos.</li>
+</ul>
+<p><strong>Preguntas:</strong></p>
+<ul>
+<li>¿Qué tipo de eliminación afecta más a la red?</li>
+<li>¿Qué nos dice esto sobre la importancia de los hubs?</li>
+</ul>
+<p><strong>Ejercicio 10. Análisis de una red real o simulada</strong></p>
+<p>Selecciona una red (real o generada).</p>
+<p><strong>Tareas:</strong></p>
+<ul>
+<li>Calcula su distribución de grado.</li>
+<li>Grafícala en escala log-log.</li>
+<li>Decide si:
+<ul>
+<li>es exponencialmente acotada, o</li>
+<li>tiene cola pesada.</li>
+</ul></li>
+</ul>
+<p><strong>Preguntas:</strong></p>
+<ul>
+<li>¿Hay evidencia de hubs?</li>
+<li>¿El promedio describe bien a la red?</li>
+</ul>
+
 </div>
 </div>
             </section>

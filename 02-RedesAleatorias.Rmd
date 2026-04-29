@@ -529,7 +529,7 @@ $$
 ¿Cuál es la diferencia entre que exista una componente gigante y que toda la red sea conexa?
 
 
-### Ejercicios: efecto de mundo pequeño
+## Ejercicios: efecto de mundo pequeño
 
 `Networkx` tiene la función `watts_strogatz_graph(N, k, p)`, donde $N$ son la cantidad de vértices, $k$ con cuantos vecinos más cercanos se conecta cada vértice y $p$ la probabilidad. Deberán usar esa gráfica en algunos de los siguientes ejercicios.
 
@@ -598,3 +598,189 @@ Considere una red de Watts--Strogatz con $N=100$, $k=4$ y un valor pequeño de $
 ¿Por qué una red de Watts--Strogatz puede presentar efecto de mundo pequeño de forma más clara que una red de Erdős--Rényi?
 
 
+
+## Ejercicios: Redes libres de escala y distribuciones de grado
+
+Para los siguientes ejercicios, se propone el uso de la siguiente función:
+
+```{python, eval=FALSE}
+def distribucion_grado(grados):
+    k, conteos = np.unique(grados, return_counts=True)
+    pk = conteos / len(grados)
+    return k, pk
+```
+
+**Ejercicio 1. Comparación de distribuciones**
+
+Genera dos conjuntos de datos de tamaño grande (por ejemplo, $N = 10^4$):
+
+- Uno que siga una distribución de Poisson.
+- Otro que siga una distribución de ley de potencia con exponente $\gamma$.
+
+Calcula la distribución de grado $p_k$ en ambos casos.
+
+**Tareas:**
+
+- Grafica ambas distribuciones en escala lineal.
+- Grafícalas en escala log-log.
+- Compara visualmente ambas gráficas.
+
+**Preguntas:**
+
+- ¿Qué diferencias observas entre ambas distribuciones?
+- ¿En cuál aparecen nodos con grados muy grandes (hubs)?
+
+**Ejercicio 2. Efecto de la escala log-log**
+
+Usando una muestra con distribución de ley de potencia:
+
+**Tareas:**
+
+- Grafica la distribución de grado en escala lineal.
+- Grafícala en escala log-log.
+
+**Preguntas:**
+
+- ¿Qué información se pierde en la escala lineal?
+- ¿Por qué la gráfica log-log permite observar mejor la cola de la distribución?
+
+**Ejercicio 3. Linear binning vs log-binning**
+
+Genera un conjunto de grados con distribución de ley de potencia.
+
+**Tareas:**
+
+- Construye un histograma usando bins lineales.
+- Construye un histograma usando bins logarítmicos.
+- Grafica ambos en escala log-log.
+
+**Preguntas:**
+
+- ¿Aparece una meseta en la cola con bins lineales?
+- ¿Qué cambia al usar bins logarítmicos?
+- ¿Cuál método representa mejor la distribución?
+
+**Ejercicio 4. Distribución acumulada**
+
+Dada una muestra de grados con ley de potencia:
+
+**Tareas:**
+
+- Calcula la distribución acumulada complementaria:
+  \[
+  P(k) = P(K \geq k)
+  \]
+- Grafícala en escala log-log.
+
+**Preguntas:**
+
+- ¿Qué ventaja tiene la distribución acumulada respecto al histograma?
+- ¿Qué sucede con el ruido en la cola?
+
+
+**Ejercicio 5. El papel del exponente $\gamma$**
+
+Genera distribuciones de ley de potencia con distintos valores de $\gamma$, por ejemplo:
+
+\[
+\gamma = 2.1, \; 2.5, \; 3.0, \; 4.0
+\]
+
+**Tareas:**
+
+- Grafica todas las distribuciones en escala log-log.
+
+**Preguntas:**
+
+- ¿Cómo cambia la forma de la distribución al variar $\gamma$?
+- ¿Para qué valores aparecen hubs más grandes?
+- ¿Cuándo la distribución empieza a parecerse a una red aleatoria?
+
+
+**Ejercicio 6. Tamaño de la red y hubs**
+
+Para distintos tamaños de red:
+
+\[
+N = 10^2, 10^3, 10^4, 10^5
+\]
+
+genera muestras con distribución de ley de potencia.
+
+**Tareas:**
+
+- Para cada $N$, calcula el grado máximo $k_{\max}$.
+- Grafica $k_{\max}$ como función de $N$.
+
+**Preguntas:**
+
+- ¿Cómo crece el hub más grande con el tamaño de la red?
+- ¿Es el crecimiento rápido o lento?
+
+
+**Ejercicio 7. Redes aleatorias vs redes libres de escala**
+
+Genera dos redes con el mismo número de nodos:
+
+- Una red de Erdős–Rényi.
+- Una red de Barabási–Albert, esto simula la red libre de escala.
+
+**Tareas:**
+
+- Calcula la distribución de grado en ambas redes.
+- Grafícalas en escala log-log.
+- Calcula:
+  - grado promedio
+  - grado máximo
+
+**Preguntas:**
+
+- ¿En cuál red aparecen hubs?
+- ¿En cuál red los grados son más homogéneos?
+
+
+**Ejercicio 8. Distancias en redes**
+
+Usando las redes del ejercicio anterior:
+
+**Tareas:**
+
+- Calcula la distancia promedio entre nodos (en la componente gigante si es necesario).
+
+**Preguntas:**
+
+- ¿Cuál red tiene menor distancia promedio?
+- ¿Cómo se relaciona esto con la presencia de hubs?
+
+**Ejercicio 9. Robustez de la red**
+
+Considera una red libre de escala.
+
+**Tareas:**
+
+- Elimina nodos de forma aleatoria y mide el tamaño de la componente gigante.
+- Elimina nodos en orden decreciente de grado (primero los hubs).
+- Compara ambos casos.
+
+**Preguntas:**
+
+- ¿Qué tipo de eliminación afecta más a la red?
+- ¿Qué nos dice esto sobre la importancia de los hubs?
+
+
+**Ejercicio 10. Análisis de una red real o simulada**
+
+Selecciona una red (real o generada).
+
+**Tareas:**
+
+- Calcula su distribución de grado.
+- Grafícala en escala log-log.
+- Decide si:
+  - es exponencialmente acotada, o
+  - tiene cola pesada.
+
+**Preguntas:**
+
+- ¿Hay evidencia de hubs?
+- ¿El promedio describe bien a la red?
